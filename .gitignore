@@ -108,3 +108,5 @@ hs_err_pid*
 Scrapbook/
 
 Servers/
+
+node_modules/

@@ -21,17 +21,19 @@
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
+    
+    <script type="text/javascript">
+		var theJsonString = '<c:out value="${json}" />';
+		var theJsonObj = JSON.parse(theJsonString);
+	</script>
   </head>
   
  <!-- 3. Display the application -->
   <body>
-  
-  	<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
-
-	<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
-  
+   
     <my-app>Loading...</my-app>
     
-    
+    <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p>
+       
   </body>
 </html> 

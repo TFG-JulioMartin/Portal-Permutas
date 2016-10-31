@@ -9,21 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var hello_user_component_1 = require('./hello-user.component');
-var AppModule = (function () {
-    function AppModule() {
+var HelloUserComponent = (function () {
+    function HelloUserComponent() {
+        this.name = "";
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, hello_user_component_1.HelloUserComponent],
-            bootstrap: [app_component_1.AppComponent]
+    HelloUserComponent.prototype.ngOnInit = function () { };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], HelloUserComponent.prototype, "name", void 0);
+    HelloUserComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'hello-user',
+            template: " \n      <h2> Hello {{name}} </h2>\n      <div>\n        <label>Username: </label>\n        <input [value]=\"name\" (input)=\"name = $event.target.value\"/>\n      </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], HelloUserComponent);
+    return HelloUserComponent;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.HelloUserComponent = HelloUserComponent;
+//# sourceMappingURL=hello-user.component.js.map

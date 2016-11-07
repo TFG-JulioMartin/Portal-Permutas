@@ -12,13 +12,17 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var hello_user_component_1 = require('./hello-user.component');
+var map_component_1 = require('./map.component');
+var core_2 = require('angular2-google-maps/core');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent, hello_user_component_1.HelloUserComponent],
+            imports: [platform_browser_1.BrowserModule, core_2.AgmCoreModule.forRoot({
+                    apiKey: 'AIzaSyA0Bx2IH546c7E3E5mqtSwQq8z-inqpWts'
+                })],
+            declarations: [app_component_1.AppComponent, hello_user_component_1.HelloUserComponent, map_component_1.MapComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

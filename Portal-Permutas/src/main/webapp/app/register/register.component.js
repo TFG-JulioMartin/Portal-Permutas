@@ -9,17 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var RegisterComponent = (function () {
+    function RegisterComponent() {
+        this.model = {};
+        this.loading = false;
     }
-    AppComponent = __decorate([
+    RegisterComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "<h1>Welcome</h1>\n  <hello-user></hello-user>\n  <nav>\n      <a routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\n      <a routerLink=\"/register\" routerLinkActive=\"active\">Register</a>\n  </nav>\n  \n  <br>\n  <div class=\"container\">\n  <g-map></g-map>\n  </div>\n  <router-outlet></router-outlet>\n  "
+            moduleId: module.id,
+            templateUrl: 'register.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], RegisterComponent);
+    return RegisterComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.RegisterComponent = RegisterComponent;
+//# sourceMappingURL=register.component.js.map

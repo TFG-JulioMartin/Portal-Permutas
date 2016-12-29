@@ -1,5 +1,6 @@
 <html>
   <head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
@@ -26,6 +27,8 @@
   
  <!-- 3. Display the application -->
   <body>
+  
+  <jstl:out value="${all}"></jstl:out>
    
     <my-app>Loading...</my-app>
     

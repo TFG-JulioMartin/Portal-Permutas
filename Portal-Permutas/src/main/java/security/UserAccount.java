@@ -23,11 +23,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import domain.DomainEntity;
 
+@Document(collection = "userAccount")
 @Entity
 @Access(AccessType.PROPERTY)
 public class UserAccount extends DomainEntity implements UserDetails {

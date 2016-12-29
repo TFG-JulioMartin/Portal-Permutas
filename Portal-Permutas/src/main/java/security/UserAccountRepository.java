@@ -10,11 +10,11 @@
 
 package security;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserAccountRepository extends JpaRepository<UserAccount, Integer> {
+public interface UserAccountRepository extends MongoRepository<UserAccount, Integer> {
 
 	UserAccount findByUsername(String username);
 	

@@ -5,8 +5,6 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -82,8 +80,26 @@ public class PlazaPropiaService {
 
 		return result;
 	}
-	
-	public Page<PlazaPropia> findPlazas(Pageable pageable) {
-        return plazaPropiaRepository.findAll(pageable);
-    }
+
+	public PlazaPropia findByUserId(String id) {
+		PlazaPropia res;
+
+		res = plazaPropiaRepository.findByUsuarioId(id);
+
+		return res;
+	}
+
+	public void modificaPlaza(PlazaPropia plazaPropia) {
+
+		PlazaPropia plazaActual;
+		//Buscar el principal
+
+		plazaActual = findByUserId("");
+
+		plazaActual.setCentro(plazaPropia.getCentro());
+		plazaActual.setCiudad(plazaPropia.getCiudad());
+		plazaActual.setDireccion(plazaPropia.getDireccion());
+		plazaActual.setTitulo(plazaPropia.getTitulo());
+	}
+
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.PlazaDeseada;
-import domain.PlazaPropia;
 import repositories.PlazaDeseadaRepository;
 
 @Service
@@ -77,9 +76,12 @@ public class PlazaDeseadaService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<PlazaDeseada> findAllByUserId(String userId) {
+	public Collection<PlazaDeseada> findAllByUserId(String id) {
+		Collection<PlazaDeseada> res;
 
-		return new ArrayList<PlazaDeseada>();
+		res = plazaDeseadaRepository.findByUsuarioId(id);
+
+		return res;
 	}
 
 	public Collection<PlazaDeseada> findByZona(String zona) {
@@ -87,9 +89,9 @@ public class PlazaDeseadaService {
 		// Busca plazas cercanas a la zona dada.
 		return new ArrayList<PlazaDeseada>();
 	}
-	
+
 	public Page<PlazaDeseada> findPlazas(Pageable pageable) {
-        return plazaDeseadaRepository.findAll(pageable);
-    }
+		return plazaDeseadaRepository.findAll(pageable);
+	}
 
 }

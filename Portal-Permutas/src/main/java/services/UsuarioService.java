@@ -82,7 +82,7 @@ public class UsuarioService {
 
 	public void save(Usuario usuario) {
 		Assert.notNull(usuario);
-		
+
 		// UserAccount account =
 		// userAccountService.findById(usuario.getUserAccountId());
 		// Assert.notNull(account.getUsername());
@@ -216,8 +216,16 @@ public class UsuarioService {
 		return res;
 	}
 
-	public void validateUser(String userId) {
+	// Temporal
+	public Usuario modificaUsuario(Usuario usuario) {
+		Usuario res;
 
+		res = new Usuario();
+
+		return res;
+	}
+
+	public void validateUser(String userId) {
 	}
 
 	public void addPlazaDeseada(PlazaDeseada plazaDeseada) {

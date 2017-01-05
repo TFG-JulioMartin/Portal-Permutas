@@ -3,7 +3,7 @@ package domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "PlazaDeseada")
+@Document(collection = "plazaDeseada")
 public class PlazaDeseada {
 
 	// Constructors -----------------------------------------------------------
@@ -18,6 +18,7 @@ public class PlazaDeseada {
 	private String id;
 	private String cuidad;
 	private String zona;
+	private String usuarioId;
 
 	public String getId() {
 		return id;
@@ -43,8 +44,12 @@ public class PlazaDeseada {
 		this.zona = zona;
 	}
 
-	@Override
-	public String toString() {
-		return "PlazaDeseada [cuidad=" + cuidad + ", zona=" + zona + "]";
+	public String getUsuarioId() {
+		return usuarioId;
 	}
+
+	public void setUsuarioId(String usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
 }

@@ -9,4 +9,6 @@ import domain.PlazaPropia;
 public interface PlazaPropiaRepository extends MongoRepository<PlazaPropia, String> {
 
 	public PlazaPropia findByCiudad(String ciudad);
+
+	public PlazaPropia findByUsuarioId(String id);
 }

@@ -20,6 +20,7 @@ public class PlazaPropia {
 	private String ciudad;
 	private String centro;
 	private String direccion;
+	private String usuarioId;
 
 	public String getId() {
 		return id;
@@ -60,11 +61,13 @@ public class PlazaPropia {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
-	@Override
-	public String toString() {
-		return "PlazaPropia [id=" + id + ", titulo=" + titulo + ", ciudad=" + ciudad + ", centro=" + centro
-				+ ", direccion=" + direccion + "]";
+	
+	
+	public String getUsuarioId() {
+		return usuarioId;
 	}
 
+	public void setUsuarioId(String usuarioId) {
+		this.usuarioId = usuarioId;
+	}
 }

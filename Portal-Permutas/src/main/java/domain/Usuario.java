@@ -15,30 +15,13 @@ public class Usuario extends Actor {
 
 	// Attributes -------------------------------------------------------------
 
-	private String plazaPropiaId;
 	private Collection<String> plazasDeseadasId;
-
-	public String getPlazaPropiaId() {
-		return plazaPropiaId;
-	}
-
-	public void setPlazaPropiaId(String plazaPropiaId) {
-		this.plazaPropiaId = plazaPropiaId;
-	}
-
+	
 	public Collection<String> getPlazasDeseadasId() {
 		return plazasDeseadasId;
 	}
 
 	public void setPlazasDeseadasId(Collection<String> plazasDeseadasId) {
 		this.plazasDeseadasId = plazasDeseadasId;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [plazaPropiaId=" + plazaPropiaId + ", plazasDeseadasId=" + plazasDeseadasId + ", getNombre()="
-				+ getNombre() + ", getApellidos()=" + getApellidos() + ", getTelefono()=" + getTelefono()
-				+ ", getEmail()=" + getEmail() + ", getUserAccountId()=" + getUserAccountId() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 }

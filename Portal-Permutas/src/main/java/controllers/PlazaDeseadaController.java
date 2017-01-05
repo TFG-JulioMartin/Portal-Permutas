@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +28,19 @@ public class PlazaDeseadaController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	Collection<PlazaDeseada> findAllByUserId() {
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Collection<PlazaDeseada>> findAllByUserId(@PathVariable String id) {
 
 		Collection<PlazaDeseada> res;
 
-		res = plazaDeseadaService.findAll();
+		// checkprincipal
+		res = plazaDeseadaService.findAllByUserId(id);
 
-		return res;
+		if (res == null) {
+			return new ResponseEntity<Collection<PlazaDeseada>>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Collection<PlazaDeseada>>(res, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -46,7 +52,7 @@ public class PlazaDeseadaController {
 
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/plaza/{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable String userId, @PathVariable("id") String id) {
 		usuarioService.validateUser(userId);
 
@@ -55,13 +61,6 @@ public class PlazaDeseadaController {
 		plazaDeseada = plazaDeseadaService.findOne(id);
 
 		usuarioService.deletePlazaDeseada(plazaDeseada);
-
-	}
-
-	@RequestMapping(value = "{zona}", method = RequestMethod.GET)
-	void findByZona(@PathVariable("zona") String zona) {
-
-		plazaDeseadaService.findByZona(zona);
 
 	}
 }

@@ -78,7 +78,7 @@
  
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/*.do" />
+			<mvc:mapping path="/**/*" />
 			<ref bean="openEntityManagerInViewInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>-->
@@ -112,10 +112,17 @@
 			<ref bean="localeChangeInterceptor" />
 		</property>
 	</bean>
+	
+	<mvc:resources mapping="/**.html" location="/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/styles/**" location="/styles/" />
+	<mvc:resources mapping="/scripts/**" location="/scripts/" />
+	<mvc:resources mapping="/app/**" location="/app/" />	
+	<mvc:resources mapping="/node_modules/**" location="/node_modules/" /> 
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/*.do" />
+			<mvc:mapping path="/**/*" />
 			<ref bean="localeChangeInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -138,8 +145,8 @@
 		</security:authentication-provider>
 	</security:authentication-manager>
 
-	<!-- Tiles -->
-
+	<!-- Tiles
+	 
 	<import resource="config/tiles.xml" />
 
 	<bean id="tilesConfigurer"
@@ -151,7 +158,7 @@
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
-	</bean>
+	</bean> -->
 	
 	<!-- Cache -->
 	

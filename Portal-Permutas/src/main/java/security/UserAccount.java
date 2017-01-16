@@ -13,26 +13,20 @@ package security;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import domain.DomainEntity;
-
 @Document(collection = "userAccount")
-@Entity
-@Access(AccessType.PROPERTY)
-public class UserAccount extends DomainEntity implements UserDetails {
+public class UserAccount implements UserDetails {
 
 	// Constructors -----------------------------------------------------------
 
@@ -48,9 +42,19 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	// UserDetails interface --------------------------------------------------
 
+	@Id
+	private String id;
 	private String username;
 	private String password;
 	private Collection<Authority> authorities;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)

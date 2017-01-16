@@ -21,16 +21,24 @@
 	<!-- Security infrastructure -->
 
 	<bean id="loginService" class="security.LoginService" />
+	
 
 	<bean id="passwordEncoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+		
+	<security:authentication-manager>
+	<security:authentication-provider user-service-ref="loginService">
+	<security:password-encoder ref="passwordEncoder" />
+	</security:authentication-provider>
+	</security:authentication-manager>
 
 	<!-- Access control -->
 
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" /> 
-
 		<security:intercept-url pattern="/favicon.ico" access="permitAll" /> 
+		<security:intercept-url pattern="/index.html" access="permitAll" />		
+		<security:intercept-url pattern="/style.css" access="permitAll" />
 		<security:intercept-url pattern="/images/**" access="permitAll" /> 
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" />
@@ -42,28 +50,31 @@
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
-		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
-		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
+		<security:intercept-url pattern="/security/*" access="permitAll" /> 
+		<!-- <security:intercept-url pattern="/security/loginFailure" access="permitAll" />  -->
 
-		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+		<security:intercept-url pattern="/welcome/*" access="permitAll" /> 
 
-		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
-		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/administrator/action-1" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/administrator/action-2" access="hasRole('ADMIN')" /> 
 
-		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
-		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/customer/action-1" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/customer/action-2" access="hasRole('CUSTOMER')" /> 
 
-		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-1" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-2" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/action-3" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
+		<security:intercept-url pattern="/j_spring_security_check" access="permitAll" />
 
 		<security:form-login 
-			login-page="/security/login.do"
+			login-page="/security/login"
+			login-processing-url="/j_spring_security_check"
+			default-target-url="/index.html"
 			password-parameter="password" 
 			username-parameter="username"
-			authentication-failure-url="/security/loginFailure.do" />
+			authentication-failure-url="/api/plazaPropia/all" />
 
 		<security:logout 
 			logout-success-url="/" 

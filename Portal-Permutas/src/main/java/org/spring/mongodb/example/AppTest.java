@@ -32,42 +32,44 @@ public class AppTest {
 		// plazaDeseada1.setZona("Zona1");
 		//
 		// mongoOperation.save(plazaDeseada1);
-		
-		PlazaDeseada plazaDeseada2 = new PlazaDeseada();
-		plazaDeseada2.setCuidad("Sevilla");
-		plazaDeseada2.setUsuarioId("5866b0466647cbc7f7893046");
-		plazaDeseada2.setZona("Zona2");
 
-		mongoOperation.save(plazaDeseada2);
-
-		// Usuario usuario = new Usuario();
-		// usuario.setApellidos("Martín Alba");
-		// usuario.setEmail("jmartinalba88@gmail.com");
-		// usuario.setNombre("Julio");
-		// usuario.setTelefono("623354654");
+		// PlazaDeseada plazaDeseada2 = new PlazaDeseada();
+		// plazaDeseada2.setCuidad("Sevilla");
+		// plazaDeseada2.setUsuarioId("5866b0466647cbc7f7893046");
+		// plazaDeseada2.setZona("Zona2");
 		//
-		// mongoOperation.save(usuario);
-		//
-		// PlazaPropia plazaPropia = new PlazaPropia();
-		// plazaPropia.setCentro("centro1");
-		// plazaPropia.setCiudad("Sevilla");
-		// plazaPropia.setDireccion("direccion1");
-		// plazaPropia.setTitulo("titulo1");
-		// plazaPropia.setUsuarioId(usuario.getId());
+		// mongoOperation.save(plazaDeseada2);
 
-		// mongoOperation.save(plazaPropia);
+		UserAccount userAccount;
+		Authority authority;
 
-		// UserAccount userAccount = new UserAccount();
-		// userAccount.setUsername("usuario1");
-		// userAccount.setPassword("usuario1");
-		// Collection<Authority> authorities = new ArrayList<>();
-		// Authority authority = new Authority();
-		// authority.setAuthority("ADMIN");
-		// authorities.add(authority);
-		// userAccount.setAuthorities(authorities);
+		userAccount = new UserAccount();
+		authority = new Authority();
 
-		// save
-		// mongoOperation.save(userAccount);
+		authority.setAuthority("USUARIO");
+		userAccount.addAuthority(authority);
+		userAccount.setUsername("usuario1");
+		userAccount.setPassword("usuario1");
+
+		mongoOperation.save(userAccount);
+
+		Usuario usuario = new Usuario();
+		usuario.setApellidos("Martín Alba");
+		usuario.setEmail("jmartinalba88@gmail.com");
+		usuario.setNombre("Julio");
+		usuario.setTelefono("623354654");
+		usuario.setUserAccountId(userAccount.getId());
+
+		mongoOperation.save(usuario);
+
+		PlazaPropia plazaPropia = new PlazaPropia();
+		plazaPropia.setCentro("centro1");
+		plazaPropia.setCiudad("Sevilla");
+		plazaPropia.setDireccion("direccion1");
+		plazaPropia.setTitulo("titulo1");
+		plazaPropia.setUsuarioId(usuario.getId());
+
+		mongoOperation.save(plazaPropia);
 
 		// now user object got the created id.
 		// System.out.println("1. usuario : " + usuario + "2. plazaPropia : " +

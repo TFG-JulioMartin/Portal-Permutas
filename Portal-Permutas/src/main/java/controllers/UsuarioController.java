@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,17 @@ public class UsuarioController {
 
 	// Registra un nuevo usuario
 
+	@RequestMapping(method = RequestMethod.GET,produces = "application/json")	
+	ResponseEntity<Collection<Usuario>> get() {
+
+		Collection<Usuario> usuario = usuarioService.findAll();
+
+		return new ResponseEntity<Collection<Usuario>>(usuario, HttpStatus.OK);
+
+	}
+	
+	
+	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	void register(@RequestBody UsuarioForm usuarioForm) {

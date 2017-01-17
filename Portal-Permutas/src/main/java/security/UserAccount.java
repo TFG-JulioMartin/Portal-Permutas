@@ -10,55 +10,41 @@
 
 package security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.Assert;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Document(collection = "userAccount")
-public class UserAccount implements UserDetails {
-
-	// Constructors -----------------------------------------------------------
-
-	private static final long serialVersionUID = 7254823034213841482L;
-
-	public UserAccount() {
-		super();
-
-		this.authorities = new ArrayList<Authority>();
-	}
-
-	// Attributes -------------------------------------------------------------
-
-	// UserDetails interface --------------------------------------------------
+public class UserAccount {
 
 	@Id
 	private String id;
+
+	@Indexed(unique = true)
 	private String username;
+
 	private String password;
-	private Collection<Authority> authorities;
+	private String firstName;
+	private String lastName;
 
-	public String getId() {
-		return id;
+	private boolean accountNonExpired;
+	private boolean accountNonLocked;
+	private boolean credentialsNonExpired;
+	private boolean enabled;
+
+	private Set<String> roles = new HashSet<String>();
+
+	public void addRole(String role) {
+		roles.add(role);
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public Set<String> getRoles() {
+		return roles;
 	}
 
-	@Size(min = 5, max = 32)
-	@Column(unique = true)
-	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -67,8 +53,6 @@ public class UserAccount implements UserDetails {
 		this.username = username;
 	}
 
-	@Size(min = 5, max = 32)
-	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -77,56 +61,51 @@ public class UserAccount implements UserDetails {
 		this.password = password;
 	}
 
-	@NotEmpty
-	@Valid
-	@ElementCollection
-	@Override
-	public Collection<Authority> getAuthorities() {
-		// WARNING: Should return an unmodifiable copy, but it's not possible
-		// with hibernate!
-		return authorities;
-	}
-
-	public void setAuthorities(Collection<Authority> authorities) {
-		this.authorities = authorities;
-	}
-
-	public void addAuthority(Authority authority) {
-		Assert.notNull(authority);
-		Assert.isTrue(!authorities.contains(authority));
-
-		authorities.add(authority);
-	}
-
-	public void removeAuthority(Authority authority) {
-		Assert.notNull(authority);
-		Assert.isTrue(authorities.contains(authority));
-
-		authorities.remove(authority);
-	}
-
-	@Transient
-	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return accountNonExpired;
 	}
 
-	@Transient
-	@Override
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
 	public boolean isAccountNonLocked() {
-		return true;
+		return accountNonLocked;
 	}
 
-	@Transient
-	@Override
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return credentialsNonExpired;
 	}
 
-	@Transient
-	@Override
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public boolean isEnabled() {
-		return true;
+		return enabled;
 	}
 
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }

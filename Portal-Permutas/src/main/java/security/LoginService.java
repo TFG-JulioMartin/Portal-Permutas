@@ -11,66 +11,41 @@
 package security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
-@Transactional
 public class LoginService implements UserDetailsService {
 
-	// Managed repository -----------------------------------------------------
-
 	@Autowired
-	UserAccountRepository userRepository;
+	private UserAccountRepository userRepository;
 
-	// Business methods -------------------------------------------------------
-
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Assert.notNull(username);
+		UserAccount user = userRepository.findByUsername(username);
+		if (user == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				user.isEnabled(), user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonLocked(),
+				getAuthorities(user));
 
-		UserDetails result;
-
-		result = userRepository.findByUsername(username);
-		Assert.notNull(result);
-		// WARNING: The following sentences prevent lazy initialisation
-		// problems!
-		Assert.notNull(result.getAuthorities());
-		result.getAuthorities().size();
-
-		return result;
 	}
 
-	public static UserAccount getPrincipal() {
-		UserAccount result;
-		SecurityContext context;
-		Authentication authentication;
-		Object principal;
-
-		// If the asserts in this method fail, then you're
-		// likely to have your Tomcat's working directory
-		// corrupt. Please, clear your browser's cache, stop
-		// Tomcat, update your Maven's project configuration,
-		// clean your project, clean Tomcat's working directory,
-		// republish your project, and start it over.
-
-		context = SecurityContextHolder.getContext();
-		Assert.notNull(context);
-		authentication = context.getAuthentication();
-		Assert.notNull(authentication);
-		principal = authentication.getPrincipal();
-		Assert.isTrue(principal instanceof UserAccount);
-		result = (UserAccount) principal;
-		Assert.notNull(result);
-		Assert.isTrue(!result.getId().equals(0));
-
-		return result;
+	private List<GrantedAuthority> getAuthorities(UserAccount user) {
+		Set<String> roles = user.getRoles();
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (String role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role));
+		}
+		return authorities;
 	}
-
 }

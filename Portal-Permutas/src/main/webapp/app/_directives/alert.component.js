@@ -9,17 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var index_1 = require('../_services/index');
+var AlertComponent = (function () {
+    function AlertComponent(alertService) {
+        this.alertService = alertService;
     }
-    AppComponent = __decorate([
+    AlertComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.alertService.getMessage().subscribe(function (message) { _this.message = message; });
+    };
+    AlertComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "<h1>Welcome</h1>\n  <hello-user></hello-user>\n  <nav>\n      <a routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\n      <a routerLink=\"/register\" routerLinkActive=\"active\">Register</a>\n      <a routerLink=\"/\" routerLinkActive=\"active\">Home</a>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  "
+            moduleId: module.id,
+            selector: 'alert',
+            templateUrl: 'alert.component.html'
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [index_1.AlertService])
+    ], AlertComponent);
+    return AlertComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.AlertComponent = AlertComponent;
+//# sourceMappingURL=alert.component.js.map

@@ -16,7 +16,7 @@ var AuthenticationService = (function () {
         this.http = http;
     }
     AuthenticationService.prototype.login = function (username, password) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+        return this.http.post('/Portal-Permutas/j_spring_security_check?username=' + username + '&password=' + password)
             .map(function (response) {
             // login successful if there's a jwt token in the response
             var user = response.json();

@@ -9,5 +9,5 @@ function hideLoading() {
 exports.hideLoading = hideLoading;
 function doNothing() { }
 exports.doNothing = doNothing;
-exports.webServiceEndpoint = 'http://localhost:8080/api';
+exports.webServiceEndpoint = 'http://localhost:8080';
 //# sourceMappingURL=commons.js.map

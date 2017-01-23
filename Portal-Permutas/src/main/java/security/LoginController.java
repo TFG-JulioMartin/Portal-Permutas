@@ -10,18 +10,24 @@
 
 package security;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
+import domain.Propuesta;
 import services.UsuarioService;
 
 @Controller
@@ -42,6 +48,21 @@ public class LoginController extends AbstractController {
 		super();
 	}
 
+	// Authenticate -----------------------------------------------------------
+
+	@RequestMapping(value = "/principal", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<UserAccount> getPrincipal() {
+		UserAccount res;
+
+		res = service.getPrincipal();
+
+		if (res == null) {
+			return new ResponseEntity<UserAccount>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<UserAccount>(res, HttpStatus.OK);
+	}
+
 	// Login ------------------------------------------------------------------
 
 	@RequestMapping("/login")
@@ -52,13 +73,9 @@ public class LoginController extends AbstractController {
 
 		ModelAndView result;
 
-		result = new ModelAndView("security/login");
+		result = new ModelAndView();
 		result.addObject("credentials", credentials);
 		result.addObject("showError", showError);
-
-		System.out.println(showError);
-		System.out.println(credentials.getUsername());
-		
 
 		return result;
 	}

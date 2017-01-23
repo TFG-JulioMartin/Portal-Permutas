@@ -8,12 +8,10 @@ import { Component } from '@angular/core';
   <nav>
       <a routerLink="/login" routerLinkActive="active">Login</a>
       <a routerLink="/register" routerLinkActive="active">Register</a>
+      <a routerLink="/" routerLinkActive="active">Home</a>
   </nav>
   
   <br>
-  <div class="container">
-  <g-map></g-map>
-  </div>
   <router-outlet></router-outlet>
   `
 })

@@ -8,10 +8,13 @@ export class AuthenticationService {
     constructor(private http: Http) { }
 
     login(username: string, password: string) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
+    let data = 'username='+username+'&password='+password;
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+    let options = new RequestOptions({headers: headers}
+        return this.http.post('/Portal-Permutas/j_spring_security_check',data)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let user = response.json();
+                let user = response.json(); 
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));

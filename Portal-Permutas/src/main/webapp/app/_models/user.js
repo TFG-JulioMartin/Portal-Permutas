@@ -5,4 +5,4 @@ var User = (function () {
     return User;
 }());
 exports.User = User;
-//# sourceMappingURL=users.js.map
+//# sourceMappingURL=user.js.map

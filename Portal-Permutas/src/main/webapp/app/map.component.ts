@@ -13,6 +13,7 @@ import {
      }
   `],
   template: `
+  	<div class="container">
     <sebm-google-map 
       [latitude]="lat"
       [longitude]="lng"
@@ -44,6 +45,7 @@ import {
       </sebm-google-map-circle>
 
     </sebm-google-map>
+    </div>
 `})
 export class MapComponent {
   // google maps zoom level

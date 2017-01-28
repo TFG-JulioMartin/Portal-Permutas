@@ -5,25 +5,35 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
+    currentUser: user;
+    
+    constructor(private http: Http) {
+    	currentUser=null; 
+    }
 
     login(username: string, password: string) {
-    let data = 'username='+username+'&password='+password;
-    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
-    let options = new RequestOptions({headers: headers}
-        return this.http.post('/Portal-Permutas/j_spring_security_check',data)
+        return this.http.post('/Portal-Permutas/j_spring_security_check?username=' + username + '&password=' + password)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let user = response.json(); 
-                if (user && user.token) {
+                console.log(response);
+                let myuser = response.json(); 
+                if (myuser && myuser.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('currentUser', JSON.stringify(myuser));
+                    currentUser=(user)myuser;
                 }
+                
             });
+            
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        currentUser=null;
+    }
+    
+    getCurrentUser(): user {
+    	return currentUser
     }
 }

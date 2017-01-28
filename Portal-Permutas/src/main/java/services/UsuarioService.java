@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Actor;
-import domain.PlazaDeseada;
+import domain.ZonaDeseada;
 import domain.PlazaPropia;
 import domain.Usuario;
 import forms.UsuarioForm;
@@ -228,14 +228,14 @@ public class UsuarioService {
 	public void validateUser(String userId) {
 	}
 
-	public void addPlazaDeseada(PlazaDeseada plazaDeseada) {
+	public void addPlazaDeseada(ZonaDeseada plazaDeseada) {
 
 		// check principal
 		// save plaza
 
 	}
 
-	public void deletePlazaDeseada(PlazaDeseada plazaDeseada) {
+	public void deletePlazaDeseada(ZonaDeseada plazaDeseada) {
 
 		// check principal
 		// delete plaza del usuario

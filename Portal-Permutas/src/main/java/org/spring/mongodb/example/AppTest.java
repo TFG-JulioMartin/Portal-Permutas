@@ -1,19 +1,12 @@
 package org.spring.mongodb.example;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import domain.PlazaPropia;
-import domain.PlazaDeseada;
-import domain.Usuario;
-import security.Authority;
+import domain.ZonaDeseada;
 import security.UserAccount;
 
 //import domain.PlazaPropia;
@@ -27,66 +20,168 @@ public class AppTest {
 		ApplicationContext ctx = new GenericXmlApplicationContext("spring/config/SpringMongoConfig.xml");
 		MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
-		// PlazaDeseada plazaDeseada1 = new PlazaDeseada();
-		// plazaDeseada1.setCuidad("Sevilla");
-		// plazaDeseada1.setUsuarioId("5866b0466647cbc7f7893046");
-		// plazaDeseada1.setZona("Zona1");
-		//
-		// mongoOperation.save(plazaDeseada1);
+		// -------------------- Borrar todo --------------------------
+		
+		mongoOperation.dropCollection("userAccount");
+		mongoOperation.dropCollection("plazaPropia");
+		mongoOperation.dropCollection("zonaDeseada");
 
-		// PlazaDeseada plazaDeseada2 = new PlazaDeseada();
-		// plazaDeseada2.setCuidad("Sevilla");
-		// plazaDeseada2.setUsuarioId("5866b0466647cbc7f7893046");
-		// plazaDeseada2.setZona("Zona2");
-		//
-		// mongoOperation.save(plazaDeseada2);
-		
-		UserAccount userAccount = new UserAccount();
-		
+		// --------------------USER ACCOUNTS--------------------------
+
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 
-	
-		userAccount.setUsername("julio");
-		userAccount.setPassword(encoder.encodePassword("julio", null));
-		userAccount.setEnabled(true);
-		userAccount.setAccountNonExpired(true);
-		userAccount.setAccountNonLocked(true);
-		userAccount.setCredentialsNonExpired(true);
-		userAccount.addRole("ROLE_USER");
-		
-		mongoOperation.save(userAccount);
+		UserAccount userAccount1 = new UserAccount();
 
-		// UserAccount userAccount;
-		// Authority authority;
-		//
-		// userAccount = new UserAccount();
-		// authority = new Authority();
-		//
-		// authority.setAuthority("USUARIO");
-		// userAccount.addAuthority(authority);
-		// userAccount.setUsername("usuario1");
-		// userAccount.setPassword("usuario1");
-		//
-		// mongoOperation.save(userAccount);
-		//
-		// Usuario usuario = new Usuario();
-		// usuario.setApellidos("Martín Alba");
-		// usuario.setEmail("jmartinalba88@gmail.com");
-		// usuario.setNombre("Julio");
-		// usuario.setTelefono("623354654");
-		// usuario.setUserAccountId(userAccount.getId());
-		//
-		// mongoOperation.save(usuario);
-		//
-		// PlazaPropia plazaPropia = new PlazaPropia();
-		// plazaPropia.setCentro("centro1");
-		// plazaPropia.setCiudad("Sevilla");
-		// plazaPropia.setDireccion("direccion1");
-		// plazaPropia.setTitulo("titulo1");
-		// plazaPropia.setUsuarioId(usuario.getId());
-		//
-		// mongoOperation.save(plazaPropia);
+		userAccount1.setUsername("usuario1");
+		userAccount1.setPassword(encoder.encodePassword("usuario1", null));
+		userAccount1.setNombre("Julio");
+		userAccount1.setApellidos("Martin");
+		userAccount1.setEmail("juliom@hotmail.com");
+		userAccount1.setTelefono("621165843");
+		userAccount1.setEnabled(true);
+		userAccount1.setAccountNonExpired(true);
+		userAccount1.setAccountNonLocked(true);
+		userAccount1.setCredentialsNonExpired(true);
+		userAccount1.addRole("ROLE_USER");
+
+		mongoOperation.save(userAccount1);
+
+		UserAccount userAccount2 = new UserAccount();
+
+		userAccount2.setUsername("usuario2");
+		userAccount2.setPassword(encoder.encodePassword("usuario2", null));
+		userAccount2.setNombre("Pedro");
+		userAccount2.setApellidos("Moreno");
+		userAccount2.setEmail("pedrom@hotmail.com");
+		userAccount2.setTelefono("623362029");
+		userAccount2.setEnabled(true);
+		userAccount2.setAccountNonExpired(true);
+		userAccount2.setAccountNonLocked(true);
+		userAccount2.setCredentialsNonExpired(true);
+		userAccount2.addRole("ROLE_USER");
+
+		mongoOperation.save(userAccount2);
+
+		UserAccount userAccount3 = new UserAccount();
+
+		userAccount3.setUsername("usuario3");
+		userAccount3.setPassword(encoder.encodePassword("usuario3", null));
+		userAccount3.setNombre("Carlos");
+		userAccount3.setApellidos("Moya");
+		userAccount3.setEmail("carlosm@hotmail.com");
+		userAccount3.setTelefono("613354963");
+		userAccount3.setEnabled(true);
+		userAccount3.setAccountNonExpired(true);
+		userAccount3.setAccountNonLocked(true);
+		userAccount3.setCredentialsNonExpired(true);
+		userAccount3.addRole("ROLE_USER");
+
+		mongoOperation.save(userAccount3);
+
+		// --------------------Plazas Propias--------------------------
+
+		PlazaPropia plazaPropia1 = new PlazaPropia();
+
+		plazaPropia1.setCentro("Colegio Buen Pastor");
+		plazaPropia1.setCiudad("Sevilla");
+		plazaPropia1.setDireccion("Calle Martinez de Medina, 2, Sevilla");
+		plazaPropia1.setTitulo("Plaza de 1 año como profesor de lengua");
+		plazaPropia1.setUsuarioId(userAccount1.getId());
+
+		mongoOperation.save(plazaPropia1);
+
+		PlazaPropia plazaPropia2 = new PlazaPropia();
+
+		plazaPropia2.setCentro("Colegio de San Francisco de Paula");
+		plazaPropia2.setCiudad("Sevilla");
+		plazaPropia2.setDireccion("Calle Sta. Angela de la Cruz, 11, Sevilla");
+		plazaPropia2.setTitulo("Plaza de 1 año como tutor");
+		plazaPropia2.setUsuarioId(userAccount2.getId());
+
+		mongoOperation.save(plazaPropia2);
+
+		PlazaPropia plazaPropia3 = new PlazaPropia();
+
+		plazaPropia3.setCentro("Colegio Compañia de Maria");
+		plazaPropia3.setCiudad("Sevilla");
+		plazaPropia3.setDireccion("Calle Colombia, 2, Sevilla");
+		plazaPropia3.setTitulo("Plaza de 6 meses como profesor de ingles");
+		plazaPropia3.setUsuarioId(userAccount3.getId());
+
+		mongoOperation.save(plazaPropia3);
+		
+		
+		// -------------------- Zonas Deseadas --------------------------
+		
+		ZonaDeseada zonaDeseada1 = new ZonaDeseada();
+		
+		zonaDeseada1.setLatitud(37.3694661);
+		zonaDeseada1.setLongitud(-5.984664199999997);
+		zonaDeseada1.setRadio(300.0);
+		zonaDeseada1.setUsuarioId(userAccount1.getId());
+		
+		mongoOperation.save(zonaDeseada1);
+		
+		
+		ZonaDeseada zonaDeseada2 = new ZonaDeseada();
+		
+		zonaDeseada2.setLatitud(37.37909246284138);
+		zonaDeseada2.setLongitud(-5.962958335876465);
+		zonaDeseada2.setRadio(300.0);
+		zonaDeseada2.setUsuarioId(userAccount1.getId());
+		
+		mongoOperation.save(zonaDeseada2);
+		
+		
+		ZonaDeseada zonaDeseada3 = new ZonaDeseada();
+		
+		zonaDeseada3.setLatitud(37.3933543);
+		zonaDeseada3.setLongitud(-5.990608699999939);
+		zonaDeseada3.setRadio(300.0);
+		zonaDeseada3.setUsuarioId(userAccount1.getId());
+		
+		mongoOperation.save(zonaDeseada3);
+		
+		
+		ZonaDeseada zonaDeseada4 = new ZonaDeseada();
+		
+		zonaDeseada4.setLatitud(37.3849985);
+		zonaDeseada4.setLongitud(-5.973834000000011);
+		zonaDeseada4.setRadio(300.0);
+		zonaDeseada4.setUsuarioId(userAccount2.getId());
+		
+		mongoOperation.save(zonaDeseada4);
+		
+		
+		ZonaDeseada zonaDeseada5 = new ZonaDeseada();
+		
+		zonaDeseada5.setLatitud(37.37588679823346);
+		zonaDeseada5.setLongitud(-5.959610939025879);
+		zonaDeseada5.setRadio(300.0);
+		zonaDeseada5.setUsuarioId(userAccount2.getId());
+		
+		mongoOperation.save(zonaDeseada5);
+		
+		
+		ZonaDeseada zonaDeseada6 = new ZonaDeseada();
+		
+		zonaDeseada6.setLatitud(37.3849985);
+		zonaDeseada6.setLongitud(-5.973834000000011);
+		zonaDeseada6.setRadio(300.0);
+		zonaDeseada6.setUsuarioId(userAccount2.getId());
+		
+		mongoOperation.save(zonaDeseada6);
+		
+		
+		
+		
+		
+		
+		
+	
+
+		// -----------------------------------------FIN-------------------------------------------------
 
 		// now user object got the created id.
 		// System.out.println("1. usuario : " + usuario + "2. plazaPropia : " +

@@ -14,21 +14,29 @@ require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
     function AuthenticationService(http) {
         this.http = http;
+        currentUser = null;
     }
     AuthenticationService.prototype.login = function (username, password) {
         return this.http.post('/Portal-Permutas/j_spring_security_check?username=' + username + '&password=' + password)
             .map(function (response) {
             // login successful if there's a jwt token in the response
-            var user = response.json();
-            if (user && user.token) {
+            console.log(response);
+            var myuser = response.json();
+            if (myuser && myuser.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('currentUser', JSON.stringify(myuser));
+                currentUser = (user);
+                myuser;
             }
         });
     };
     AuthenticationService.prototype.logout = function () {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        currentUser = null;
+    };
+    AuthenticationService.prototype.getCurrentUser = function () {
+        return currentUser;
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 

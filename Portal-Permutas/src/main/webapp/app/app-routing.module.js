@@ -13,10 +13,12 @@ var router_1 = require('@angular/router');
 var login_component_1 = require('./login/login.component');
 var register_component_1 = require('./register/register.component');
 var map_component_1 = require('./map.component');
+var plazas_list_component_1 = require('./listadoPlazas/plazas-list.component');
 var routes = [
     { path: '', component: map_component_1.MapComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
+    { path: 'list', component: plazas_list_component_1.PlazasListComponent },
     { path: '**', redirectTo: '' }
 ];
 var AppRoutingModule = (function () {

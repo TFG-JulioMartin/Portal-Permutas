@@ -14,53 +14,53 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import domain.PlazaDeseada;
-import services.PlazaDeseadaService;
+import domain.ZonaDeseada;
+import services.ZonaDeseadaService;
 import services.UsuarioService;
 
 @RestController
-@RequestMapping("/api/plazaDeseada")
-public class PlazaDeseadaController {
+@RequestMapping("/api/zonaDeseada")
+public class ZonaDeseadaController {
 
 	@Autowired
-	private PlazaDeseadaService plazaDeseadaService;
+	private ZonaDeseadaService zonaDeseadaService;
 
 	@Autowired
 	private UsuarioService usuarioService;
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<PlazaDeseada>> findAllByUserId(@PathVariable String id) {
+	ResponseEntity<Collection<ZonaDeseada>> findAllByUserId(@PathVariable String id) {
 
-		Collection<PlazaDeseada> res;
+		Collection<ZonaDeseada> res;
 
 		// checkprincipal
-		res = plazaDeseadaService.findAllByUserId(id);
+		res = zonaDeseadaService.findAllByUserId(id);
 
 		if (res == null) {
-			return new ResponseEntity<Collection<PlazaDeseada>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Collection<ZonaDeseada>>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<Collection<PlazaDeseada>>(res, HttpStatus.OK);
+		return new ResponseEntity<Collection<ZonaDeseada>>(res, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	void add(@PathVariable String userId, @RequestBody @Valid PlazaDeseada plazaDeseada) {
+	void add(@PathVariable String userId, @RequestBody @Valid ZonaDeseada zonaDeseada) {
 		usuarioService.validateUser(userId);
 
-		usuarioService.addPlazaDeseada(plazaDeseada);
+		usuarioService.addPlazaDeseada(zonaDeseada);
 
 	}
 
-	@RequestMapping(value = "/plaza/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/zona/{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable String userId, @PathVariable("id") String id) {
 		usuarioService.validateUser(userId);
 
-		PlazaDeseada plazaDeseada;
+		ZonaDeseada zonaDeseada;
 
-		plazaDeseada = plazaDeseadaService.findOne(id);
+		zonaDeseada = zonaDeseadaService.findOne(id);
 
-		usuarioService.deletePlazaDeseada(plazaDeseada);
+		usuarioService.deletePlazaDeseada(zonaDeseada);
 
 	}
 }

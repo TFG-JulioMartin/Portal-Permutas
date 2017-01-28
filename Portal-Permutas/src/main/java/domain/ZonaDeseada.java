@@ -3,12 +3,12 @@ package domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "plazaDeseada")
-public class PlazaDeseada {
+@Document(collection = "zonaDeseada")
+public class ZonaDeseada {
 
 	// Constructors -----------------------------------------------------------
 
-	public PlazaDeseada() {
+	public ZonaDeseada() {
 		super();
 	}
 
@@ -16,8 +16,9 @@ public class PlazaDeseada {
 
 	@Id
 	private String id;
-	private String cuidad;
-	private String zona;
+	private Double latitud;
+	private Double longitud;
+	private Double radio;
 	private String usuarioId;
 
 	public String getId() {
@@ -28,20 +29,28 @@ public class PlazaDeseada {
 		this.id = id;
 	}
 
-	public String getCuidad() {
-		return cuidad;
+	public Double getLatitud() {
+		return latitud;
 	}
 
-	public void setCuidad(String cuidad) {
-		this.cuidad = cuidad;
+	public void setLatitud(Double latitud) {
+		this.latitud = latitud;
 	}
 
-	public String getZona() {
-		return zona;
+	public Double getLongitud() {
+		return longitud;
 	}
 
-	public void setZona(String zona) {
-		this.zona = zona;
+	public void setLongitud(Double longitud) {
+		this.longitud = longitud;
+	}
+
+	public Double getRadio() {
+		return radio;
+	}
+
+	public void setRadio(Double radio) {
+		this.radio = radio;
 	}
 
 	public String getUsuarioId() {

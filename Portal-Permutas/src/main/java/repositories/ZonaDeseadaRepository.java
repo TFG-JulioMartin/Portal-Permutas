@@ -5,11 +5,11 @@ import java.util.Collection;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.PlazaDeseada;
+import domain.ZonaDeseada;
 
 @Repository
-public interface PlazaDeseadaRepository extends MongoRepository<PlazaDeseada, String> {
+public interface ZonaDeseadaRepository extends MongoRepository<ZonaDeseada, String> {
 
-	public Collection<PlazaDeseada> findByUsuarioId(String id);
+	public Collection<ZonaDeseada> findByUsuarioId(String id);
 
 }

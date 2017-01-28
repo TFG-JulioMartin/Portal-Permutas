@@ -9,17 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/publish');
+var PlazaService = (function () {
+    function PlazaService(http) {
+        this.http = http;
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            template: "<h1>Welcome</h1>\n  <hello-user></hello-user>\n  <nav>\n      <a routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\n      <a routerLink=\"/register\" routerLinkActive=\"active\">Register</a>\n      <a routerLink=\"/\" routerLinkActive=\"active\">Home</a>\n      <a routerLink=\"/list\" routerLinkActive=\"active\">Listado</a>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  "
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    PlazaService.prototype.getPlazas = function () {
+        return this.http.get('/Portal-Permutas/api/plazaPropia/all').map(this.extractData).publish().refCount();
+    };
+    PlazaService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body || {};
+    };
+    PlazaService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], PlazaService);
+    return PlazaService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.PlazaService = PlazaService;
+//# sourceMappingURL=plaza.service.js.map

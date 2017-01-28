@@ -10,9 +10,11 @@ import { MapComponent }   from './map.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { LoginComponent }   from './login/login.component';
 import { RegisterComponent }   from './register/register.component';
+import { PlazasListComponent }   from './listadoPlazas/plazas-list.component';
 
 import { AlertComponent } from './_directives/index';
 import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { PlazaService } from './listadoPlazas/plaza.service';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -20,10 +22,11 @@ import { AppRoutingModule }     from './app-routing.module';
   imports: [ BrowserModule, FormsModule, HttpModule, AppRoutingModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA0Bx2IH546c7E3E5mqtSwQq8z-inqpWts'
     }) ],
-  declarations: [ AppComponent, AlertComponent, HelloUserComponent, MapComponent, LoginComponent, RegisterComponent ],
+  declarations: [ AppComponent, AlertComponent, HelloUserComponent, PlazasListComponent, MapComponent, LoginComponent, RegisterComponent ],
   providers: [
         AlertService,
         AuthenticationService,
+        PlazaService,
         UserService,
     ],
   bootstrap:    [ AppComponent ]

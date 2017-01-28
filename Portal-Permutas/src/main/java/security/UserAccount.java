@@ -27,8 +27,10 @@ public class UserAccount {
 	private String username;
 
 	private String password;
-	private String firstName;
-	private String lastName;
+	private String nombre;
+	private String apellidos;
+	private String email;
+	private String telefono;
 
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
@@ -85,20 +87,44 @@ public class UserAccount {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getId() {
+		return id;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	public boolean isEnabled() {

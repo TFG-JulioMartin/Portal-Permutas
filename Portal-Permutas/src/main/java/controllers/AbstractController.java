@@ -24,7 +24,8 @@ public class AbstractController {
 	@ExceptionHandler(Throwable.class)
 	public ModelAndView panic(Throwable oops) {
 		ModelAndView result;
-
+		
+		System.out.println(oops);
 		result = new ModelAndView("misc/panic");
 		result.addObject("name", ClassUtils.getShortName(oops.getClass()));
 		result.addObject("exception", oops.getMessage());

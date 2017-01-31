@@ -14,10 +14,8 @@ public class UsuarioForm {
 	private String apellidos;
 	private String telefono;
 	private String email;
-	private boolean termsAccepted;
 	private String username;
 	private String password;
-	private String secondPassword;
 	private String titulo;
 	private String ciudad;
 	private String centro;
@@ -55,14 +53,6 @@ public class UsuarioForm {
 		this.email = email;
 	}
 
-	public boolean getTermsAccepted() {
-		return termsAccepted;
-	}
-
-	public void setTermsAccepted(boolean termsAccepted) {
-		this.termsAccepted = termsAccepted;
-	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -77,14 +67,6 @@ public class UsuarioForm {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getSecondPassword() {
-		return secondPassword;
-	}
-
-	public void setSecondPassword(String secondPassword) {
-		this.secondPassword = secondPassword;
 	}
 
 	public String getTitulo() {

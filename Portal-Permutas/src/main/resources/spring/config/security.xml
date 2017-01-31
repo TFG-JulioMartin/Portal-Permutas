@@ -60,11 +60,14 @@
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 		<security:intercept-url pattern="/j_spring_security_check" access="permitAll" />
+		<security:intercept-url pattern="/security/**" access="permitAll" />
+		<security:intercept-url pattern="/register" access="permitAll" />
+		<security:intercept-url pattern="/login" access="permitAll" />
 
 		<security:form-login 
 			login-page="/security/login"
-			login-processing-url="/j_spring_security_check"
-			password-parameter="password" 
+			password-parameter="password"
+			default-target-url="/security/login" 
 			username-parameter="username"
 			authentication-failure-url="/api/plazaPropia/all" />
 

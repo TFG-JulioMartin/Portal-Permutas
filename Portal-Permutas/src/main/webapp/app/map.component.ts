@@ -3,6 +3,11 @@ import {
   OnInit
 } from '@angular/core';
 
+import {PlazaService} from './listadoPlazas/plaza.service';
+import {GeocodingService} from './_services/index';
+import {PlazaPropia} from './listadoPlazas/plazaPropia';
+import {Router} from '@angular/router';
+
 
 @Component({
   moduleId:	module.id,
@@ -12,46 +17,32 @@ import {
        height: 600px;
      }
   `],
-  template: `
-  	<div class="container">
-    <sebm-google-map 
-      [latitude]="lat"
-      [longitude]="lng"
-      [zoom]="zoom"
-      [disableDefaultUI]="false"
-      [zoomControl]="false"
-      (mapClick)="mapClicked($event)">
-    
-      <sebm-google-map-marker 
-          *ngFor="let m of markers; let i = index"
-          (markerClick)="clickedMarker(m.label, i)"
-          [latitude]="m.lat"
-          [longitude]="m.lng"
-          [label]="m.label"
-          [markerDraggable]="m.draggable"
-          (dragEnd)="markerDragEnd(m, $event)">
-          
-        <sebm-google-map-info-window>
-          <strong>InfoWindow content</strong>
-        </sebm-google-map-info-window>
-        
-      </sebm-google-map-marker>
-      
-      <sebm-google-map-circle [latitude]="lat" [longitude]="lng" 
-          [radius]="300"
-          [fillColor]="'red'"
-          [circleDraggable]="true"
-          [editable]="true">
-      </sebm-google-map-circle>
+  templateUrl: 'map.component.html'
+})
 
-    </sebm-google-map>
-    </div>
-`})
-export class MapComponent {
+export class MapComponent implements OnInit{
   // google maps zoom level
-  
-   ngOnInit(): void {}
+
+	plazas: PlazaPropia[];
+	markers2: marker[];
+	address = 'Plaza Vicente Aleixandre, Sevilla';
+	
+    constructor(private plazaService: PlazaService, private geocodingService: GeocodingService, private router: Router) {
+	}  
+	ngOnInit(){
+		this.getPlazas();
+		this.getCoords();
+	}
   zoom: number = 13;
+  
+	getPlazas(): void {
+    	this.plazaService.getPlazas().subscribe(plazas => this.plazas = plazas);
+	}
+	
+	getCoords(): void {
+		this.geocodingService.codeAddress(this.address);
+	}
+	
   
   // initial center position for the map
   lat: number = 37.362444;

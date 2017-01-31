@@ -10,27 +10,20 @@
 
 package security;
 
-import java.util.Collection;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
-import domain.Propuesta;
-import services.UsuarioService;
 
-@Controller
+@RestController
 @RequestMapping("/security")
 public class LoginController extends AbstractController {
 
@@ -38,9 +31,6 @@ public class LoginController extends AbstractController {
 
 	@Autowired
 	LoginService service;
-
-	@Autowired
-	private UsuarioService usuarioService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -65,19 +55,23 @@ public class LoginController extends AbstractController {
 
 	// Login ------------------------------------------------------------------
 
-	@RequestMapping("/login")
-	public ModelAndView login(@Valid @ModelAttribute Credentials credentials, BindingResult bindingResult,
-			@RequestParam(required = false) boolean showError) {
-		Assert.notNull(credentials);
-		Assert.notNull(bindingResult);
+	@RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<User> login() {
+		User res;
 
-		ModelAndView result;
+		System.out.println("entra");
 
-		result = new ModelAndView();
-		result.addObject("credentials", credentials);
-		result.addObject("showError", showError);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		return result;
+		res = (User) auth.getPrincipal();
+
+		System.out.println(res);
+
+		if (res == null) {
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<User>(res, HttpStatus.OK);
 	}
 
 	// LoginFailure -----------------------------------------------------------

@@ -13,7 +13,7 @@ import { RegisterComponent }   from './register/register.component';
 import { PlazasListComponent }   from './listadoPlazas/plazas-list.component';
 
 import { AlertComponent } from './_directives/index';
-import { AlertService, AuthenticationService, UserService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, GeocodingService} from './_services/index';
 import { PlazaService } from './listadoPlazas/plaza.service';
 
 import { AppRoutingModule }     from './app-routing.module';
@@ -27,6 +27,7 @@ import { AppRoutingModule }     from './app-routing.module';
         AlertService,
         AuthenticationService,
         PlazaService,
+        GeocodingService,
         UserService,
     ],
   bootstrap:    [ AppComponent ]

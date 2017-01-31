@@ -36,6 +36,7 @@ var AppModule = (function () {
                 index_2.AlertService,
                 index_2.AuthenticationService,
                 plaza_service_1.PlazaService,
+                index_2.GeocodingService,
                 index_2.UserService,
             ],
             bootstrap: [app_component_1.AppComponent]

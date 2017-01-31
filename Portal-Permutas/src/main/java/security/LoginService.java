@@ -52,7 +52,15 @@ public class LoginService implements UserDetailsService {
 		}
 		return authorities;
 	}
-	
+
+	public UserAccount findOne(String id) {
+		UserAccount res;
+
+		res = userRepository.findOne(id);
+
+		return res;
+	}
+
 	public UserAccount getPrincipal() {
 		UserAccount result;
 		SecurityContext context;

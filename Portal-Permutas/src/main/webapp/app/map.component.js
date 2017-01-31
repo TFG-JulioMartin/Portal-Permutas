@@ -9,8 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var plaza_service_1 = require('./listadoPlazas/plaza.service');
+var index_1 = require('./_services/index');
+var router_1 = require('@angular/router');
 var MapComponent = (function () {
-    function MapComponent() {
+    function MapComponent(plazaService, geocodingService, router) {
+        this.plazaService = plazaService;
+        this.geocodingService = geocodingService;
+        this.router = router;
+        this.address = 'Plaza Vicente Aleixandre, Sevilla';
         this.zoom = 13;
         // initial center position for the map
         this.lat = 37.362444;
@@ -30,8 +37,17 @@ var MapComponent = (function () {
             }
         ];
     }
-    // google maps zoom level
-    MapComponent.prototype.ngOnInit = function () { };
+    MapComponent.prototype.ngOnInit = function () {
+        this.getPlazas();
+        this.getCoords();
+    };
+    MapComponent.prototype.getPlazas = function () {
+        var _this = this;
+        this.plazaService.getPlazas().subscribe(function (plazas) { return _this.plazas = plazas; });
+    };
+    MapComponent.prototype.getCoords = function () {
+        this.geocodingService.codeAddress(this.address);
+    };
     MapComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
     };
@@ -49,8 +65,9 @@ var MapComponent = (function () {
             moduleId: module.id,
             selector: 'g-map',
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
-            template: "\n  \t<div class=\"container\">\n    <sebm-google-map \n      [latitude]=\"lat\"\n      [longitude]=\"lng\"\n      [zoom]=\"zoom\"\n      [disableDefaultUI]=\"false\"\n      [zoomControl]=\"false\"\n      (mapClick)=\"mapClicked($event)\">\n    \n      <sebm-google-map-marker \n          *ngFor=\"let m of markers; let i = index\"\n          (markerClick)=\"clickedMarker(m.label, i)\"\n          [latitude]=\"m.lat\"\n          [longitude]=\"m.lng\"\n          [label]=\"m.label\"\n          [markerDraggable]=\"m.draggable\"\n          (dragEnd)=\"markerDragEnd(m, $event)\">\n          \n        <sebm-google-map-info-window>\n          <strong>InfoWindow content</strong>\n        </sebm-google-map-info-window>\n        \n      </sebm-google-map-marker>\n      \n      <sebm-google-map-circle [latitude]=\"lat\" [longitude]=\"lng\" \n          [radius]=\"300\"\n          [fillColor]=\"'red'\"\n          [circleDraggable]=\"true\"\n          [editable]=\"true\">\n      </sebm-google-map-circle>\n\n    </sebm-google-map>\n    </div>\n" }), 
-        __metadata('design:paramtypes', [])
+            templateUrl: 'map.component.html'
+        }), 
+        __metadata('design:paramtypes', [plaza_service_1.PlazaService, index_1.GeocodingService, router_1.Router])
     ], MapComponent);
     return MapComponent;
 }());

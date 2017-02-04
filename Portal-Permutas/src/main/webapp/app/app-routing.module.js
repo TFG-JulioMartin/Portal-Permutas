@@ -14,11 +14,15 @@ var login_component_1 = require('./login/login.component');
 var register_component_1 = require('./register/register.component');
 var map_component_1 = require('./map.component');
 var plazas_list_component_1 = require('./listadoPlazas/plazas-list.component');
+var zona_deseada_component_1 = require('./zonasDeseadas/zona-deseada.component');
+var editar_usuario_component_1 = require('./editarUsuario/editar-usuario.component');
 var routes = [
     { path: '', component: map_component_1.MapComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
     { path: 'list', component: plazas_list_component_1.PlazasListComponent },
+    { path: 'zonas', component: zona_deseada_component_1.ZonaDeseadaComponent },
+    { path: 'editaUsuario', component: editar_usuario_component_1.EditarUsuarioComponent },
     { path: '**', redirectTo: '' }
 ];
 var AppRoutingModule = (function () {

@@ -1,0 +1,42 @@
+<h4>Lat de click: {{slat}}</h4>
+<h4>Lng de click: {{slng}}</h4>
+<h4>Lat de Rclick: {{elat}}</h4>
+<h4>Lng de Rclick: {{slng}}</h4>
+
+<div class="container">
+    <sebm-google-map 
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false"
+      (mapClick)="mapClicked($event)"
+      (mapRightClick)="mapRightCliked($event)">
+    
+      <sebm-google-map-marker 
+          *ngFor="let m of markers; let i = index"
+          (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [label]="m.label"
+          [markerDraggable]="m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)">
+          
+        <sebm-google-map-info-window>
+          <strong>InfoWindow content</strong>
+        </sebm-google-map-info-window>
+        
+      </sebm-google-map-marker>
+      
+      <sebm-google-map-circle 
+      	  *ngFor="let z of zonas"
+      	  [latitude]="z.latitud" 
+      	  [longitude]="z.longitud" 
+          [radius]="z.radio"
+          [fillColor]="'red'"
+          [circleDraggable]="false"
+          [editable]="false">
+      </sebm-google-map-circle>
+
+    </sebm-google-map>
+</div>

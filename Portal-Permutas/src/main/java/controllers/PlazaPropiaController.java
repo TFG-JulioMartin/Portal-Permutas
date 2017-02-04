@@ -29,8 +29,6 @@ public class PlazaPropiaController {
 		Collection<PlazaPropia> res;
 
 		res = plazaPropiaService.findAll();
-		
-		System.out.println("falla");
 
 		return new ResponseEntity<Collection<PlazaPropia>>(res, HttpStatus.OK);
 	}

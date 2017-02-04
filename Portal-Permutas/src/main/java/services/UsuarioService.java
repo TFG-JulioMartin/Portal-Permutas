@@ -119,13 +119,17 @@ public class UsuarioService {
 
 	}
 
-	// Temporal
-	public UserAccount modificaUserAccount(UserAccount usuario) {
-		UserAccount res;
-
-		res = new UserAccount();
-
-		return res;
+	public void modificaUserAccount(UserAccount usuario) {
+		
+		// Cambiar a buscar la cuenta del principal.
+		UserAccount userAccount = findOne("5895b95e61e67638e2cb19c2");
+		
+		userAccount.setApellidos(usuario.getApellidos());
+		userAccount.setEmail(usuario.getEmail());
+		userAccount.setNombre(usuario.getNombre());
+		userAccount.setTelefono(usuario.getTelefono());
+		
+		save(userAccount);
 	}
 
 	public void validateUser(String userId) {

@@ -23,28 +23,24 @@ var GeocodingService = (function (_super) {
         _super.call(this, __loader, __zone);
         this.__loader = __loader;
         this.__zone = __zone;
+    }
+    GeocodingService.prototype.getLatLan = function (address) {
+        var _this = this;
         this.__loader.load().then(function () {
             console.log('google script loaded');
             var geocoder = new google.maps.Geocoder();
-        });
-    }
-    GeocodingService.prototype.codeAddress = function (address) {
-        var _this = this;
-        return new Observable_1.Observable(function (observer) {
-            // Invokes geocode method of Google Maps API geocoding.
-            _this.geocoder.geocode({ 'address': address }, (
-            // Results & status.
-            // Results & status.
-            function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    observer.next(results);
-                    observer.complete();
-                }
-                else {
-                    console.log('Geocoding service: geocode was not successful for the following reason: ' + status);
-                    observer.error(status);
-                }
-            }));
+            return new Observable_1.Observable(function (observer) {
+                _this.geocoder.geocode({ 'address': address }, (function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        observer.next(results);
+                        observer.complete();
+                    }
+                    else {
+                        console.log('Geocoding service: geocode was not successful for the following reason: ' + status);
+                        observer.error(status);
+                    }
+                }));
+            });
         });
     };
     GeocodingService = __decorate([

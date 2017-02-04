@@ -11,10 +11,14 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { LoginComponent }   from './login/login.component';
 import { RegisterComponent }   from './register/register.component';
 import { PlazasListComponent }   from './listadoPlazas/plazas-list.component';
+import { ZonaDeseadaComponent }      from './zonasDeseadas/zona-deseada.component';
+import { EditarUsuarioComponent }      from './editarUsuario/editar-usuario.component';
 
 import { AlertComponent } from './_directives/index';
 import { AlertService, AuthenticationService, UserService, GeocodingService} from './_services/index';
 import { PlazaService } from './listadoPlazas/plaza.service';
+import { ZonaDeseadaService } from './zonasDeseadas/zona-deseada.service';
+import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -22,12 +26,24 @@ import { AppRoutingModule }     from './app-routing.module';
   imports: [ BrowserModule, FormsModule, HttpModule, AppRoutingModule, AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA0Bx2IH546c7E3E5mqtSwQq8z-inqpWts'
     }) ],
-  declarations: [ AppComponent, AlertComponent, HelloUserComponent, PlazasListComponent, MapComponent, LoginComponent, RegisterComponent ],
+  declarations: [
+  		AppComponent,
+  		AlertComponent,
+  		HelloUserComponent,
+  		PlazasListComponent,
+  		MapComponent,
+  		LoginComponent,
+  		RegisterComponent, 
+  		ZonaDeseadaComponent,
+  		EditarUsuarioComponent 
+  	],
   providers: [
         AlertService,
         AuthenticationService,
         PlazaService,
+        ZonaDeseadaService,
         GeocodingService,
+        GoogleMapsAPIWrapper,
         UserService,
     ],
   bootstrap:    [ AppComponent ]

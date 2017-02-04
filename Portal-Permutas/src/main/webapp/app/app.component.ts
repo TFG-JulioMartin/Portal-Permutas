@@ -10,6 +10,8 @@ import { Component } from '@angular/core';
       <a routerLink="/register" routerLinkActive="active">Register</a>
       <a routerLink="/" routerLinkActive="active">Home</a>
       <a routerLink="/list" routerLinkActive="active">Listado</a>
+      <a routerLink="/zonas" routerLinkActive="active">Zonas</a>
+      <a routerLink="/editaUsuario" routerLinkActive="active">Editar Usuario</a>
   </nav>
   
   <br>

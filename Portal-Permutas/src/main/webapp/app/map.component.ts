@@ -24,26 +24,35 @@ export class MapComponent implements OnInit{
   // google maps zoom level
 
 	plazas: PlazaPropia[];
-	markers2: marker[];
-	address = 'Plaza Vicente Aleixandre, Sevilla';
+	arr;
+	newArr = [];
 	
     constructor(private plazaService: PlazaService, private geocodingService: GeocodingService, private router: Router) {
+    	this.arr = [ {address: 'Plaza Vicente Aleixandre, Sevilla'}, {address: 'Calle Colombia, Sevilla'}]
+    	// this.getLanLon();
 	}  
 	ngOnInit(){
 		this.getPlazas();
-		this.getCoords();
 	}
   zoom: number = 13;
   
 	getPlazas(): void {
     	this.plazaService.getPlazas().subscribe(plazas => this.plazas = plazas);
 	}
+		
+	getLanLon() {
+    	this.arr.forEach(x => {
+        	this.geocodingService.getLatLan(x.address).subscribe(data => {
+          		let lati = data.results[0].geometry.location.lat;
+          		let long = data.results[0].geometry.location.lng;
+          		let newObj = Object.assign({}, {address: x.address, lat: lati, lon: long})
+          		this.newArr.push(newObj);
+        	});    
+    	})
+  	}
+
+
 	
-	getCoords(): void {
-		this.geocodingService.codeAddress(this.address);
-	}
-	
-  
   // initial center position for the map
   lat: number = 37.362444;
   lng: number = -5.9965;
@@ -51,6 +60,8 @@ export class MapComponent implements OnInit{
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
   }
+  
+  addToMarkers(
   
   mapClicked($event: MouseEvent) {
     this.markers.push({

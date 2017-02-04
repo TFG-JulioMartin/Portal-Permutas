@@ -17,13 +17,12 @@ var MapComponent = (function () {
         this.plazaService = plazaService;
         this.geocodingService = geocodingService;
         this.router = router;
-        this.newArr = [];
+        this.address = 'Plaza Vicente Aleixandre, Sevilla';
+        this.latitude = 37.3694661;
         this.zoom = 13;
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
-        this.arr = [{ address: 'Plaza Vicente Aleixandre, Sevilla' }, { address: 'Calle Colombia, Sevilla' }];
-        // this.getLanLon();
     }
     MapComponent.prototype.ngOnInit = function () {
         this.getPlazas();
@@ -32,15 +31,10 @@ var MapComponent = (function () {
         var _this = this;
         this.plazaService.getPlazas().subscribe(function (plazas) { return _this.plazas = plazas; });
     };
-    MapComponent.prototype.getLanLon = function () {
+    MapComponent.prototype.search = function () {
         var _this = this;
-        this.arr.forEach(function (x) {
-            _this.geocodingService.getLatLan(x.address).subscribe(function (data) {
-                var lati = data.results[0].geometry.location.lat;
-                var long = data.results[0].geometry.location.lng;
-                var newObj = Object.assign({}, { address: x.address, lat: lati, lon: long });
-                _this.newArr.push(newObj);
-            });
+        this.geocodingService.getLatLan('Plaza Vicente Aleixandre, Sevilla').subscribe(function (data) {
+            _this.latitude = data.results[0].geometry.location.lat;
         });
     };
     MapComponent.prototype.clickedMarker = function (label, index) {
@@ -53,9 +47,10 @@ var MapComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'map.component.html'
         }), 
-        __metadata('design:paramtypes', [plaza_service_1.PlazaService, index_1.GeocodingService, router_1.Router])
+        __metadata('design:paramtypes', [(typeof (_a = typeof plaza_service_1.PlazaService !== 'undefined' && plaza_service_1.PlazaService) === 'function' && _a) || Object, (typeof (_b = typeof index_1.GeocodingService !== 'undefined' && index_1.GeocodingService) === 'function' && _b) || Object, router_1.Router])
     ], MapComponent);
     return MapComponent;
+    var _a, _b;
 }());
 exports.MapComponent = MapComponent;
 //# sourceMappingURL=map.component.js.map

@@ -2,8 +2,6 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import domain.ZonaDeseada;
-import services.ZonaDeseadaService;
+import forms.ZonaDeseadaDTO;
 import services.UsuarioService;
+import services.ZonaDeseadaService;
 
 @RestController
 @RequestMapping("/api/zonaDeseada")
@@ -28,13 +27,13 @@ public class ZonaDeseadaController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<ZonaDeseada>> findAllByUserId(@PathVariable String id) {
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Collection<ZonaDeseada>> findAll() {
 
 		Collection<ZonaDeseada> res;
 
 		// checkprincipal
-		res = zonaDeseadaService.findAllByUserId(id);
+		res = zonaDeseadaService.findAll();
 
 		if (res == null) {
 			return new ResponseEntity<Collection<ZonaDeseada>>(HttpStatus.NOT_FOUND);
@@ -45,12 +44,39 @@ public class ZonaDeseadaController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	void add(@PathVariable String userId, @RequestBody @Valid ZonaDeseada zonaDeseada) {
-		usuarioService.validateUser(userId);
+	void create(@RequestBody ZonaDeseadaDTO zona) {
 
-		usuarioService.addPlazaDeseada(zonaDeseada);
+		System.out.println("Entra al controlador");
+		zonaDeseadaService.reconstruct(zona);
 
 	}
+
+	// @RequestMapping(value = "/user/{id}", method = RequestMethod.GET,
+	// produces = "application/json")
+	// ResponseEntity<Collection<ZonaDeseada>> findAllByUserId(@PathVariable
+	// String id) {
+	//
+	// Collection<ZonaDeseada> res;
+	//
+	// // checkprincipal
+	// res = zonaDeseadaService.findAllByUserId(id);
+	//
+	// if (res == null) {
+	// return new ResponseEntity<Collection<ZonaDeseada>>(HttpStatus.NOT_FOUND);
+	// }
+	//
+	// return new ResponseEntity<Collection<ZonaDeseada>>(res, HttpStatus.OK);
+	// }
+
+	// @RequestMapping(method = RequestMethod.POST)
+	// @ResponseStatus(HttpStatus.CREATED)
+	// void add(@PathVariable String userId, @RequestBody @Valid ZonaDeseada
+	// zonaDeseada) {
+	// usuarioService.validateUser(userId);
+	//
+	// usuarioService.addPlazaDeseada(zonaDeseada);
+	//
+	// }
 
 	@RequestMapping(value = "/zona/{id}", method = RequestMethod.DELETE)
 	void delete(@PathVariable String userId, @PathVariable("id") String id) {

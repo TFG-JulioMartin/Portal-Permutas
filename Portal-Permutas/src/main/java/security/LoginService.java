@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -84,5 +85,15 @@ public class LoginService implements UserDetailsService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public UserAccount getPrincipal2() {
+		UserAccount res;
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		res = (UserAccount) auth.getPrincipal();
+
+		return res;
 	}
 }

@@ -23,9 +23,9 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	// Registra un nuevo usuario
 
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
 	ResponseEntity<Collection<UserAccount>> get() {
 
 		Collection<UserAccount> userAccount = usuarioService.findAll();
@@ -34,6 +34,8 @@ public class UsuarioController {
 
 	}
 
+	// Registra un nuevo usuario
+	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	void register(@RequestBody UsuarioForm user) {
@@ -42,15 +44,16 @@ public class UsuarioController {
 
 	}
 
-	// Busca el usuario por su id
+	// Busca el usuario logeado
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<UserAccount> findByUserId(@PathVariable String id) {
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<UserAccount> findByUserId() {
 
 		UserAccount res;
 
-		// checkprincipal
-		res = usuarioService.findOne(id);
+		// checkea principal -> busca principal // De momento devuelve uno concreto.
+		res = usuarioService.findOne("5895b95e61e67638e2cb19c2");
+		System.out.println("Entra al findUser");
 
 		if (res == null) {
 			return new ResponseEntity<UserAccount>(HttpStatus.NOT_FOUND);
@@ -61,9 +64,10 @@ public class UsuarioController {
 
 	// Modifica el perfil del usuario logeado
 
-	@RequestMapping(value = "/modifica/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/modifica", method = RequestMethod.PUT)
 	public ResponseEntity<UserAccount> updatePlaza(@RequestBody UserAccount usuario) {
 
+		System.out.println("Entra al modifica");
 		if (usuario == null) {
 			return new ResponseEntity<UserAccount>(HttpStatus.NOT_FOUND);
 		}

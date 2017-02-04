@@ -17,14 +17,14 @@ var UserService = (function () {
     UserService.prototype.getAll = function () {
         return this.http.get('/api/users', this.jwt()).map(function (response) { return response.json(); });
     };
-    UserService.prototype.getById = function (id) {
-        return this.http.get('/api/users/' + id, this.jwt()).map(function (response) { return response.json(); });
+    UserService.prototype.getPrincipal = function () {
+        return this.http.get('/Portal-Permutas/api/usuario', this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
         return this.http.post('/Portal-Permutas/api/usuario', user, this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.put('/Portal-Permutas/api/usuario/modifica', user, this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.delete = function (id) {
         return this.http.delete('/api/users/' + id, this.jwt()).map(function (response) { return response.json(); });

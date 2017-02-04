@@ -19,9 +19,13 @@ var core_2 = require('angular2-google-maps/core');
 var login_component_1 = require('./login/login.component');
 var register_component_1 = require('./register/register.component');
 var plazas_list_component_1 = require('./listadoPlazas/plazas-list.component');
+var zona_deseada_component_1 = require('./zonasDeseadas/zona-deseada.component');
+var editar_usuario_component_1 = require('./editarUsuario/editar-usuario.component');
 var index_1 = require('./_directives/index');
 var index_2 = require('./_services/index');
 var plaza_service_1 = require('./listadoPlazas/plaza.service');
+var zona_deseada_service_1 = require('./zonasDeseadas/zona-deseada.service');
+var core_3 = require('angular2-google-maps/core');
 var app_routing_module_1 = require('./app-routing.module');
 var AppModule = (function () {
     function AppModule() {
@@ -31,12 +35,24 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule, core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyA0Bx2IH546c7E3E5mqtSwQq8z-inqpWts'
                 })],
-            declarations: [app_component_1.AppComponent, index_1.AlertComponent, hello_user_component_1.HelloUserComponent, plazas_list_component_1.PlazasListComponent, map_component_1.MapComponent, login_component_1.LoginComponent, register_component_1.RegisterComponent],
+            declarations: [
+                app_component_1.AppComponent,
+                index_1.AlertComponent,
+                hello_user_component_1.HelloUserComponent,
+                plazas_list_component_1.PlazasListComponent,
+                map_component_1.MapComponent,
+                login_component_1.LoginComponent,
+                register_component_1.RegisterComponent,
+                zona_deseada_component_1.ZonaDeseadaComponent,
+                editar_usuario_component_1.EditarUsuarioComponent
+            ],
             providers: [
                 index_2.AlertService,
                 index_2.AuthenticationService,
                 plaza_service_1.PlazaService,
+                zona_deseada_service_1.ZonaDeseadaService,
                 index_2.GeocodingService,
+                core_3.GoogleMapsAPIWrapper,
                 index_2.UserService,
             ],
             bootstrap: [app_component_1.AppComponent]

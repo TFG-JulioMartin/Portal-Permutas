@@ -87,6 +87,8 @@ public class AppTest {
 		plazaPropia1.setCiudad("Sevilla");
 		plazaPropia1.setDireccion("Calle Martinez de Medina, 2, Sevilla");
 		plazaPropia1.setTitulo("Plaza de 1 año como profesor de lengua");
+		plazaPropia1.setLatitud(37.3849985);
+		plazaPropia1.setLongitud(-5.973834000000011);
 		plazaPropia1.setUsuarioId(userAccount1.getId());
 
 		mongoOperation.save(plazaPropia1);
@@ -97,6 +99,8 @@ public class AppTest {
 		plazaPropia2.setCiudad("Sevilla");
 		plazaPropia2.setDireccion("Calle Sta. Angela de la Cruz, 11, Sevilla");
 		plazaPropia2.setTitulo("Plaza de 1 año como tutor");
+		plazaPropia2.setLatitud(37.3933543);
+		plazaPropia2.setLongitud(-5.990608699999939);
 		plazaPropia2.setUsuarioId(userAccount2.getId());
 
 		mongoOperation.save(plazaPropia2);
@@ -107,6 +111,8 @@ public class AppTest {
 		plazaPropia3.setCiudad("Sevilla");
 		plazaPropia3.setDireccion("Calle Colombia, 2, Sevilla");
 		plazaPropia3.setTitulo("Plaza de 6 meses como profesor de ingles");
+		plazaPropia3.setLatitud(37.36958509999999);
+		plazaPropia3.setLongitud(-5.984676799999988);
 		plazaPropia3.setUsuarioId(userAccount3.getId());
 
 		mongoOperation.save(plazaPropia3);
@@ -116,8 +122,8 @@ public class AppTest {
 		
 		ZonaDeseada zonaDeseada1 = new ZonaDeseada();
 		
-		zonaDeseada1.setLatitud(37.3694661);
-		zonaDeseada1.setLongitud(-5.984664199999997);
+		zonaDeseada1.setLatitud(37.36958509999999);
+		zonaDeseada1.setLongitud(-5.984676799999988);
 		zonaDeseada1.setRadio(300.0);
 		zonaDeseada1.setUsuarioId(userAccount1.getId());
 		
@@ -133,7 +139,6 @@ public class AppTest {
 		
 		mongoOperation.save(zonaDeseada2);
 		
-		
 		ZonaDeseada zonaDeseada3 = new ZonaDeseada();
 		
 		zonaDeseada3.setLatitud(37.3933543);
@@ -142,7 +147,6 @@ public class AppTest {
 		zonaDeseada3.setUsuarioId(userAccount1.getId());
 		
 		mongoOperation.save(zonaDeseada3);
-		
 		
 		ZonaDeseada zonaDeseada4 = new ZonaDeseada();
 		

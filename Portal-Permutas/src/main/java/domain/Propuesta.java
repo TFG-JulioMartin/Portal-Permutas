@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,11 +20,11 @@ public class Propuesta {
 	private String id;
 	private String titulo;
 	private String texto;
-	private boolean aceptada;
-	private boolean pendiente;
-	private String plazaId;
+	private boolean estado;
 	private String remitenteId;
 	private String destinatarioId;
+	private Date fecha;
+	private Date fechaAcepRech;
 
 	public String getId() {
 		return id;
@@ -48,28 +50,12 @@ public class Propuesta {
 		this.texto = texto;
 	}
 
-	public boolean getAceptada() {
-		return aceptada;
+	public boolean isEstado() {
+		return estado;
 	}
 
-	public void setAceptada(boolean aceptada) {
-		this.aceptada = aceptada;
-	}
-
-	public boolean getPendiente() {
-		return pendiente;
-	}
-
-	public void setPendiente(boolean pendiente) {
-		this.pendiente = pendiente;
-	}
-
-	public String getPlazaId() {
-		return plazaId;
-	}
-
-	public void setPlazaId(String plazaId) {
-		this.plazaId = plazaId;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 	public String getRemitenteId() {
@@ -87,4 +73,21 @@ public class Propuesta {
 	public void setDestinatarioId(String destinatarioId) {
 		this.destinatarioId = destinatarioId;
 	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Date getFechaAcepRech() {
+		return fechaAcepRech;
+	}
+
+	public void setFechaAcepRech(Date fechaAcepRech) {
+		this.fechaAcepRech = fechaAcepRech;
+	}
+
 }

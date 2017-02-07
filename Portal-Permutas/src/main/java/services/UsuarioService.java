@@ -114,6 +114,7 @@ public class UsuarioService {
 		plazaPropia.setDireccion(usuarioForm.getDireccion());
 		plazaPropia.setTitulo(usuarioForm.getTitulo());
 		plazaPropia.setUsuarioId(userAccount.getId());
+		// Falta Crear las coordenadas;
 
 		plazaPropiaService.save(plazaPropia);
 

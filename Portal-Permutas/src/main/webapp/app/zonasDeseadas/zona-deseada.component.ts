@@ -6,7 +6,8 @@ import {
 import {Router} from '@angular/router';
 
 import {ZonaDeseadaService} from './zona-deseada.service';
-import {ZonaDeseada} from '../domain';
+import {ZonaDeseada, Coincidencia} from '../domain';
+import {Table} from '../table';
 
 
 @Component({
@@ -20,10 +21,11 @@ import {ZonaDeseada} from '../domain';
   templateUrl: 'zona-deseada.component.html'
 })
 
-export class ZonaDeseadaComponent implements OnInit{
+export class ZonaDeseadaComponent implements OnInit, , Table<PlazaPropia>{
   // google maps zoom level
   
 	zonas: ZonaDeseada[];
+	coincidencias : Coincidencia[];
 	model: any = {};
 	slat: number;
 	slng: number;
@@ -35,10 +37,15 @@ export class ZonaDeseadaComponent implements OnInit{
 	
     ngOnInit() {
         this.getZonas();
+        this.getCoincidencias();
     }
     
     getZonas(): void {
     	this.zonaDeseadaService.getZonas().subscribe(zonas => this.zonas = zonas);
+  	}
+  	
+  	getCoincidencias(): void {
+    	this.zonaDeseadaService.checkCoincidencias().subscribe(coincidencias => this.coincidencias = coincidencias);
   	}
   	
   zoom: number = 13;

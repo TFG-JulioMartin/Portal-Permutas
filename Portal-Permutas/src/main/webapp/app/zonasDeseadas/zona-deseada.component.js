@@ -37,10 +37,15 @@ var ZonaDeseadaComponent = (function () {
     }
     ZonaDeseadaComponent.prototype.ngOnInit = function () {
         this.getZonas();
+        this.getCoincidencias();
     };
     ZonaDeseadaComponent.prototype.getZonas = function () {
         var _this = this;
         this.zonaDeseadaService.getZonas().subscribe(function (zonas) { return _this.zonas = zonas; });
+    };
+    ZonaDeseadaComponent.prototype.getCoincidencias = function () {
+        var _this = this;
+        this.zonaDeseadaService.checkCoincidencias().subscribe(function (coincidencias) { return _this.coincidencias = coincidencias; });
     };
     ZonaDeseadaComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));

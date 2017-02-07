@@ -23,6 +23,9 @@ var ZonaDeseadaService = (function () {
         console.log(zona);
         return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).subscribe(function (response) { });
     };
+    ZonaDeseadaService.prototype.checkCoincidencias = function () {
+        return this.http.get('/Portal-Permutas/api/zonaDeseada/matchings').map(this.extractData).publish().refCount();
+    };
     ZonaDeseadaService.prototype.extractData = function (res) {
         var body = res.json();
         return body || {};

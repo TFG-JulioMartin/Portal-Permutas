@@ -24,6 +24,16 @@ export interface ZonaDeseadaDTO {
     
 }
 
+export interface Coincidencia {
+
+    id : string;
+    idDestinatario: string;
+    titulo : string;
+    nombre : string;
+    
+    
+}
+
 export interface User {
     id: number;
     username: string;

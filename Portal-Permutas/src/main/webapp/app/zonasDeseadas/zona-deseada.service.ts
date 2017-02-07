@@ -22,6 +22,10 @@ export class ZonaDeseadaService {
     	return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).subscribe((response) => {});
     }
     
+    checkCoincidencias(): Rx.Observable<Coincidencia[]> {
+    	return this.http.get('/Portal-Permutas/api/zonaDeseada/matchings').map(this.extractData).publish().refCount();
+    }
+    
     private extractData(res: Response) {
         let body = res.json();
         return body || {};

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import domain.Coincidencia;
 import domain.ZonaDeseada;
 import forms.ZonaDeseadaDTO;
 import services.UsuarioService;
@@ -40,6 +41,23 @@ public class ZonaDeseadaController {
 		}
 
 		return new ResponseEntity<Collection<ZonaDeseada>>(res, HttpStatus.OK);
+	}
+
+	// Comprueba si hay alguna coincidencia.
+
+	@RequestMapping(value = "/matchings", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Collection<Coincidencia>> compruebaCoincidencias() {
+
+		Collection<Coincidencia> res;
+
+		// checkprincipal
+		res = zonaDeseadaService.checkCoincidencias();
+
+		if (res == null) {
+			return new ResponseEntity<Collection<Coincidencia>>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Collection<Coincidencia>>(res, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

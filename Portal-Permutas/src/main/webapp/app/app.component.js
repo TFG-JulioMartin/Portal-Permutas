@@ -15,7 +15,11 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<h1>Welcome</h1>\n  <hello-user></hello-user>\n  <nav>\n      <a routerLink=\"/login\" routerLinkActive=\"active\">Login</a>\n      <a routerLink=\"/register\" routerLinkActive=\"active\">Register</a>\n      <a routerLink=\"/\" routerLinkActive=\"active\">Home</a>\n      <a routerLink=\"/list\" routerLinkActive=\"active\">Listado</a>\n      <a routerLink=\"/zonas\" routerLinkActive=\"active\">Zonas</a>\n      <a routerLink=\"/editaUsuario\" routerLinkActive=\"active\">Editar Usuario</a>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  "
+            template: "<h1>Welcome</h1>\n  <nav>\n      <button><a routerLink=\"/login\" routerLinkActive=\"active\">Login</a></button>\n      <button><a routerLink=\"/register\" routerLinkActive=\"active\">Register</a></button>\n      <button><a routerLink=\"/\" routerLinkActive=\"active\">Home</a></button>\n      <button><a routerLink=\"/list\" routerLinkActive=\"active\">Listado</a></button>\n      <button><a routerLink=\"/zonas\" routerLinkActive=\"active\">Zonas</a></button>\n      <button><a routerLink=\"/editaUsuario\" routerLinkActive=\"active\">Editar Usuario</a></button>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  ",
+            styles: [
+                'nav { margin-left: 40%; }',
+                'h1 { margin-left: 47%; }'
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

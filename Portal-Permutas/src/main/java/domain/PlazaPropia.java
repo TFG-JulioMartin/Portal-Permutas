@@ -20,6 +20,8 @@ public class PlazaPropia {
 	private String ciudad;
 	private String centro;
 	private String direccion;
+	private double latitud;
+	private double longitud;
 	private String usuarioId;
 
 	public String getId() {
@@ -61,8 +63,23 @@ public class PlazaPropia {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
-	
+
+	public double getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(double latitud) {
+		this.latitud = latitud;
+	}
+
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
+	}
+
 	public String getUsuarioId() {
 		return usuarioId;
 	}
@@ -70,4 +87,5 @@ public class PlazaPropia {
 	public void setUsuarioId(String usuarioId) {
 		this.usuarioId = usuarioId;
 	}
+
 }

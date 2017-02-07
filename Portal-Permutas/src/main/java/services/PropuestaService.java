@@ -89,13 +89,13 @@ public class PropuestaService {
 		return res;
 	}
 
+	// temporales
+	
 	public void aceptaPropuesta(Propuesta propuesta) {
-		propuesta.setAceptada(true);
-		propuesta.setPendiente(false);
+		propuesta.setEstado(true);
 	}
 
 	public void rechazaPropuesta(Propuesta propuesta) {
-		propuesta.setAceptada(false);
-		propuesta.setPendiente(false);
+		propuesta.setEstado(true);
 	}
 }

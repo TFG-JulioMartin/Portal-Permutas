@@ -6,4 +6,5 @@ __export(require('./alert.service'));
 __export(require('./authentication.service'));
 __export(require('./user.service'));
 __export(require('./geocoding.service'));
+__export(require('./propuesta.service'));
 //# sourceMappingURL=index.js.map

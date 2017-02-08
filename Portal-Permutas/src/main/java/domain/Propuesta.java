@@ -20,7 +20,7 @@ public class Propuesta {
 	private String id;
 	private String titulo;
 	private String texto;
-	private boolean estado;
+	private int estado;
 	private String remitenteId;
 	private String destinatarioId;
 	private Date fecha;
@@ -50,11 +50,11 @@ public class Propuesta {
 		this.texto = texto;
 	}
 
-	public boolean isEstado() {
+	public int isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 

@@ -33,8 +33,7 @@ public class ZonaDeseadaController {
 
 		Collection<ZonaDeseada> res;
 
-		// checkprincipal
-		res = zonaDeseadaService.findAll();
+		res = zonaDeseadaService.findAllByPrincipal();
 
 		if (res == null) {
 			return new ResponseEntity<Collection<ZonaDeseada>>(HttpStatus.NOT_FOUND);
@@ -51,7 +50,7 @@ public class ZonaDeseadaController {
 		Collection<Coincidencia> res;
 
 		// checkprincipal
-		res = zonaDeseadaService.checkCoincidencias();
+		res = zonaDeseadaService.compruebaCoincidencias();
 
 		if (res == null) {
 			return new ResponseEntity<Collection<Coincidencia>>(HttpStatus.NOT_FOUND);
@@ -64,7 +63,6 @@ public class ZonaDeseadaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	void create(@RequestBody ZonaDeseadaDTO zona) {
 
-		System.out.println("Entra al controlador");
 		zonaDeseadaService.reconstruct(zona);
 
 	}

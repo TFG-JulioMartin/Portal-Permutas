@@ -6,12 +6,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.PlazaPropia;
 import domain.ZonaDeseada;
 import forms.UsuarioForm;
+import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
 
@@ -25,6 +27,9 @@ public class UsuarioService {
 	private UserAccountRepository userAccountRepository;
 
 	// Supporting services----------------------------------------------------
+
+	@Autowired
+	private LoginService loginService;
 
 	@Autowired
 	private PlazaPropiaService plazaPropiaService;
@@ -92,12 +97,23 @@ public class UsuarioService {
 
 	// Other business methods-------------------------------------------------
 
+	public UserAccount findPrincipal() {
+		UserAccount res;
+		User user;
+
+		user = loginService.getPrincipal2();
+
+		res = userAccountRepository.findByUsername(user.getUsername());
+
+		return res;
+	}
+
 	public void reconstruct(UsuarioForm usuarioForm) {
 		UserAccount userAccount;
 		PlazaPropia plazaPropia;
 
 		userAccount = new UserAccount();
-		 plazaPropia = new PlazaPropia();
+		plazaPropia = new PlazaPropia();
 
 		userAccount.setApellidos(usuarioForm.getApellidos());
 		userAccount.setEmail(usuarioForm.getEmail());
@@ -105,7 +121,6 @@ public class UsuarioService {
 		userAccount.setTelefono(usuarioForm.getTelefono());
 		userAccount.setUsername(usuarioForm.getUsername());
 		userAccount.setPassword(usuarioForm.getPassword());
-
 
 		create(userAccount);
 
@@ -121,15 +136,15 @@ public class UsuarioService {
 	}
 
 	public void modificaUserAccount(UserAccount usuario) {
-		
+
 		// Cambiar a buscar la cuenta del principal.
-		UserAccount userAccount = findOne("5895b95e61e67638e2cb19c2");
-		
+		UserAccount userAccount = findPrincipal();
+
 		userAccount.setApellidos(usuario.getApellidos());
 		userAccount.setEmail(usuario.getEmail());
 		userAccount.setNombre(usuario.getNombre());
 		userAccount.setTelefono(usuario.getTelefono());
-		
+
 		save(userAccount);
 	}
 

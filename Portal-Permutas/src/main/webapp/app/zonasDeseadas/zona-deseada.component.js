@@ -15,6 +15,7 @@ var ZonaDeseadaComponent = (function () {
     function ZonaDeseadaComponent(zonaDeseadaService, router) {
         this.zonaDeseadaService = zonaDeseadaService;
         this.router = router;
+        this.idDestino = 'mal';
         this.model = {};
         this.zoom = 13;
         // initial center position for the map
@@ -34,11 +35,9 @@ var ZonaDeseadaComponent = (function () {
                 draggable: true
             }
         ];
-    }
-    ZonaDeseadaComponent.prototype.ngOnInit = function () {
-        this.getZonas();
         this.getCoincidencias();
-    };
+        this.getZonas();
+    }
     ZonaDeseadaComponent.prototype.getZonas = function () {
         var _this = this;
         this.zonaDeseadaService.getZonas().subscribe(function (zonas) { return _this.zonas = zonas; });
@@ -46,6 +45,19 @@ var ZonaDeseadaComponent = (function () {
     ZonaDeseadaComponent.prototype.getCoincidencias = function () {
         var _this = this;
         this.zonaDeseadaService.checkCoincidencias().subscribe(function (coincidencias) { return _this.coincidencias = coincidencias; });
+    };
+    ZonaDeseadaComponent.prototype.getIdDestino = function () {
+        return this.idDestino;
+    };
+    ZonaDeseadaComponent.prototype.proponer = function (id) {
+        for (var _i = 0, _a = this.coincidencias; _i < _a.length; _i++) {
+            var c = _a[_i];
+            if (c.id == id) {
+                this.idDestino = c.idUsuarioDestino;
+            }
+        }
+        console.log(this.idDestino);
+        this.router.navigate(['/crearPropuesta']);
     };
     ZonaDeseadaComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));

@@ -34,6 +34,19 @@ export interface Coincidencia {
     
 }
 
+export interface Propuesta {
+
+    id : string;
+    titulo : string;
+    texto : string;
+    estado: number;
+    remitenteId : string;
+    destinatarioId : string;
+    fecha : string
+    fechaAcepRech : string;   
+    
+}
+
 export interface User {
     id: number;
     username: string;

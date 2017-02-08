@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
       <button><a routerLink="/list" routerLinkActive="active">Listado</a></button>
       <button><a routerLink="/zonas" routerLinkActive="active">Zonas</a></button>
       <button><a routerLink="/editaUsuario" routerLinkActive="active">Editar Usuario</a></button>
+      <button><a routerLink="/crearPropuesta" routerLinkActive="active">CrearPropuesta</a></button>
   </nav>
   
   <br>

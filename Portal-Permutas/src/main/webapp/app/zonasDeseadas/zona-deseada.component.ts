@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
+import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 
 import {ZonaDeseadaService} from './zona-deseada.service';
@@ -21,11 +17,12 @@ import {Table} from '../table';
   templateUrl: 'zona-deseada.component.html'
 })
 
-export class ZonaDeseadaComponent implements OnInit, , Table<PlazaPropia>{
+export class ZonaDeseadaComponent implements Table<PlazaPropia>{
   // google maps zoom level
   
 	zonas: ZonaDeseada[];
 	coincidencias : Coincidencia[];
+	idDestino: string = 'mal';
 	model: any = {};
 	slat: number;
 	slng: number;
@@ -33,11 +30,8 @@ export class ZonaDeseadaComponent implements OnInit, , Table<PlazaPropia>{
 	elng: number;
 	
 	constructor(private zonaDeseadaService: ZonaDeseadaService, private router: Router) {
-    }
-	
-    ngOnInit() {
-        this.getZonas();
-        this.getCoincidencias();
+		this.getCoincidencias();
+		this.getZonas();
     }
     
     getZonas(): void {
@@ -46,6 +40,20 @@ export class ZonaDeseadaComponent implements OnInit, , Table<PlazaPropia>{
   	
   	getCoincidencias(): void {
     	this.zonaDeseadaService.checkCoincidencias().subscribe(coincidencias => this.coincidencias = coincidencias);
+  	}
+  	
+  	getIdDestino() : string {
+  		return this.idDestino;
+  	}
+  		
+  	proponer(id : string) : void {
+  		for(let c of this.coincidencias){
+  			if(c.id == id){
+  				this.idDestino = c.idUsuarioDestino;
+  			}
+  		}
+  		console.log(this.idDestino);
+  		this.router.navigate(['/crearPropuesta']);
   	}
   	
   zoom: number = 13;

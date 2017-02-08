@@ -54,7 +54,7 @@
 			 <tr *ngFor="let c of coincidencias">
              	<td>{{c.titulo}}</td>
                 <td>{{c.nombreUsuarioDestino}}</td>
-                <td><button>Proponer</button></td>             
+                <td><button (click)='proponer(c.id)'>Proponer</button></td>             
              </tr>
         </tbody>
 	</table>

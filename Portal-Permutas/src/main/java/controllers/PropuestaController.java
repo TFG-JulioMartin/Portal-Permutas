@@ -58,6 +58,23 @@ public class PropuestaController {
 		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
 	}
 
+	// Para testeo solo
+
+	@RequestMapping(value = "/findOne", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Propuesta> findOne() {
+
+		Propuesta res;
+
+		// checkprincipal
+		res = propuestaService.findOne("5899fe5f61e6264d5bebf163");
+
+		if (res == null) {
+			return new ResponseEntity<Propuesta>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
+	}
+
 	// Crea una nueva propuesta.
 
 	@RequestMapping(method = RequestMethod.POST)

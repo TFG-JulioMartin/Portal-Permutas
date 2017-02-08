@@ -6,8 +6,6 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -16,7 +14,6 @@ import domain.PlazaPropia;
 import domain.ZonaDeseada;
 import forms.ZonaDeseadaDTO;
 import repositories.ZonaDeseadaRepository;
-import security.LoginService;
 import security.UserAccount;
 
 @Service
@@ -29,9 +26,6 @@ public class ZonaDeseadaService {
 	private ZonaDeseadaRepository zonaDeseadaRepository;
 
 	// Supporting services ----------------------------------------------------
-
-	@Autowired
-	private LoginService loginService;
 
 	@Autowired
 	private PlazaPropiaService plazaPropiaService;
@@ -90,7 +84,7 @@ public class ZonaDeseadaService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<ZonaDeseada> findAllByUserId() {
+	public Collection<ZonaDeseada> findAllByPrincipal() {
 		Collection<ZonaDeseada> res;
 		Collection<ZonaDeseada> todas;
 		UserAccount userAccount;
@@ -98,9 +92,8 @@ public class ZonaDeseadaService {
 
 		res = new ArrayList<ZonaDeseada>();
 		todas = findAll();
-		userAccount = loginService.getPrincipal2();
+		userAccount = usuarioService.findPrincipal();
 		id = userAccount.getId();
-
 		for (ZonaDeseada z : todas) {
 			if (z.getUsuarioId().equals(id)) {
 				res.add(z);
@@ -114,10 +107,6 @@ public class ZonaDeseadaService {
 
 		// Busca plazas cercanas a la zona dada.
 		return new ArrayList<ZonaDeseada>();
-	}
-
-	public Page<ZonaDeseada> findPlazas(Pageable pageable) {
-		return zonaDeseadaRepository.findAll(pageable);
 	}
 
 	public void reconstruct(ZonaDeseadaDTO zona) {
@@ -178,57 +167,32 @@ public class ZonaDeseadaService {
 
 	public Collection<Coincidencia> compruebaCoincidencias() {
 		Collection<Coincidencia> res;
-
-		res = new ArrayList<Coincidencia>();
-		Coincidencia c1 = new Coincidencia();
-		Coincidencia c2 = new Coincidencia();
-
-		c1.setId("1");
-		c2.setId("2");
-
-		c1.setNombreUsuarioDestino("Nombre1");
-		c2.setNombreUsuarioDestino("Nombre2");
-
-		c1.setTitulo("Titulo1");
-		c2.setTitulo("Titulo2");
-
-		res.add(c1);
-		res.add(c2);
-
-		return res;
-	}
-
-	public Collection<Coincidencia> checkCoincidencias() {
-		// Cambiar a las del principal
-		Collection<Coincidencia> res;
 		Collection<ZonaDeseada> principalZonas;
 		Collection<PlazaPropia> allPlazas;
+		int contador = 0;
 
 		res = new ArrayList<Coincidencia>();
-		principalZonas = new ArrayList<ZonaDeseada>();
+		principalZonas = findAllByPrincipal();
 		allPlazas = plazaPropiaService.findAll();
-		ZonaDeseada z1 = findOne("5898c37f61e6598b14cce7e4");
-		ZonaDeseada z2 = findOne("5898c37f61e6598b14cce7e5");
-		ZonaDeseada z3 = findOne("5898c37f61e6598b14cce7e6");
-
-		principalZonas.add(z1);
-		principalZonas.add(z2);
-		principalZonas.add(z3);
 
 		for (PlazaPropia p : allPlazas) {
 			for (ZonaDeseada z : principalZonas) {
 				if (distance(p.getLatitud(), z.getLatitud(), p.getLongitud(), z.getLongitud()) < z.getRadio()) {
-					// Si la distancia entre las coordenadas de la plaza y las coordenadas de la zona es
-					// menos que el radio, se considera que la plaza esta dentro de la zona deseada y se
+					// Si la distancia entre las coordenadas de la plaza y las
+					// coordenadas de la zona es
+					// menos que el radio, se considera que la plaza esta dentro
+					// de la zona deseada y se
 					// crea una coincidencia.
 					Coincidencia c = new Coincidencia();
 					UserAccount userAccount = usuarioService.findOne(p.getUsuarioId());
-					
-					c.setId("1");
+
+					c.setId(String.valueOf(contador));
 					c.setIdUsuarioDestino(p.getUsuarioId());
 					c.setNombreUsuarioDestino(userAccount.getNombre() + " " + userAccount.getApellidos());
 					c.setTitulo(p.getTitulo());
-					
+
+					contador++;
+
 					res.add(c);
 				}
 			}

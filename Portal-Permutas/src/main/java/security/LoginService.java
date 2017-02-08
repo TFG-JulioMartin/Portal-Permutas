@@ -87,12 +87,12 @@ public class LoginService implements UserDetailsService {
 		return result;
 	}
 
-	public UserAccount getPrincipal2() {
-		UserAccount res;
+	public User getPrincipal2() {
+		User res;
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		res = (UserAccount) auth.getPrincipal();
+		res = (User) auth.getPrincipal();
 
 		return res;
 	}

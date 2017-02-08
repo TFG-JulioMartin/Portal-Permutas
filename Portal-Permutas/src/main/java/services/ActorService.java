@@ -10,8 +10,6 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import repositories.ActorRepository;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -52,29 +50,27 @@ public class ActorService {
 
 	// Other business methods-------------------------------------------------
 
-//	 public Actor findByPrincipal() {
-//	 Actor result;
-//	 UserAccount userAccount;
-//	
-//	 userAccount = LoginService.getPrincipal();
-//	 result = findByUserAccount(userAccount);
-//	
-//	 Assert.notNull(result);
-//	
-//	 return result;
-//	 }
-//	
-//	 public Actor findByUserAccount(UserAccount userAccount) {
-//	 assert userAccount != null;
-//	
-//	 Actor result;
-//	
-//	 result = actorRepository.findByUserAccountId(userAccount.getId());
-//	 assert result != null;
-//	
-//	 return result;
-//	 }
-	
-	
+	// public Actor findByPrincipal() {
+	// Actor result;
+	// UserAccount userAccount;
+	//
+	// userAccount = LoginService.getPrincipal();
+	// result = findByUserAccount(userAccount);
+	//
+	// Assert.notNull(result);
+	//
+	// return result;
+	// }
+	//
+	// public Actor findByUserAccount(UserAccount userAccount) {
+	// assert userAccount != null;
+	//
+	// Actor result;
+	//
+	// result = actorRepository.findByUserAccountId(userAccount.getId());
+	// assert result != null;
+	//
+	// return result;
+	// }
 
 }

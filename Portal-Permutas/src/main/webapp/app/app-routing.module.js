@@ -16,6 +16,7 @@ var map_component_1 = require('./map.component');
 var plazas_list_component_1 = require('./listadoPlazas/plazas-list.component');
 var zona_deseada_component_1 = require('./zonasDeseadas/zona-deseada.component');
 var editar_usuario_component_1 = require('./editarUsuario/editar-usuario.component');
+var crear_propuesta_component_1 = require('./crearPropuesta/crear-propuesta.component');
 var routes = [
     { path: '', component: map_component_1.MapComponent },
     { path: 'login', component: login_component_1.LoginComponent },
@@ -23,6 +24,7 @@ var routes = [
     { path: 'list', component: plazas_list_component_1.PlazasListComponent },
     { path: 'zonas', component: zona_deseada_component_1.ZonaDeseadaComponent },
     { path: 'editaUsuario', component: editar_usuario_component_1.EditarUsuarioComponent },
+    { path: 'crearPropuesta', component: crear_propuesta_component_1.CrearPropuestaComponent },
     { path: '**', redirectTo: '' }
 ];
 var AppRoutingModule = (function () {

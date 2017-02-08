@@ -1,11 +1,14 @@
 package org.spring.mongodb.example;
 
+import java.util.Date;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import domain.PlazaPropia;
+import domain.Propuesta;
 import domain.ZonaDeseada;
 import security.UserAccount;
 
@@ -25,6 +28,7 @@ public class AppTest {
 		mongoOperation.dropCollection("userAccount");
 		mongoOperation.dropCollection("plazaPropia");
 		mongoOperation.dropCollection("zonaDeseada");
+		mongoOperation.dropCollection("propuesta");
 
 		// --------------------USER ACCOUNTS--------------------------
 
@@ -173,9 +177,24 @@ public class AppTest {
 		zonaDeseada6.setLatitud(37.3849985);
 		zonaDeseada6.setLongitud(-5.973834000000011);
 		zonaDeseada6.setRadio(300.0);
-		zonaDeseada6.setUsuarioId(userAccount2.getId());
+		zonaDeseada6.setUsuarioId(userAccount3.getId());
 		
 		mongoOperation.save(zonaDeseada6);
+		
+		
+		// -------------------- Propuestas --------------------------
+		
+		
+		Propuesta propuesta1 = new Propuesta();
+
+		propuesta1.setDestinatarioId("5898c37f61e6598b14cce7df");
+		propuesta1.setEstado(0);
+		propuesta1.setFecha(new Date());
+		propuesta1.setRemitenteId("5898c37f61e6598b14cce7de");
+		propuesta1.setTitulo("tituloPropuesta1");
+		propuesta1.setTexto("Este es el texto de la propuesta 1");
+
+		mongoOperation.save(propuesta1);
 		
 		
 		

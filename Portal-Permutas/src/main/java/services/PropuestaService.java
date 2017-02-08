@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Coincidencia;
 import domain.Propuesta;
 import repositories.PropuestaRepository;
 
@@ -36,6 +38,9 @@ public class PropuestaService {
 
 		result = new Propuesta();
 
+		result.setEstado(0);
+		result.setFecha(new Date());
+
 		return result;
 	}
 
@@ -61,6 +66,14 @@ public class PropuestaService {
 
 	public void save(Propuesta propuesta) {
 		Assert.notNull(propuesta);
+
+		long milliseconds;
+		Date moment;
+
+		milliseconds = System.currentTimeMillis() - 100;
+		moment = new Date(milliseconds);
+
+		propuesta.setFecha(moment);
 
 		propuestaRepository.save(propuesta);
 	}
@@ -89,13 +102,26 @@ public class PropuestaService {
 		return res;
 	}
 
+	public Propuesta creaPropuesta(Coincidencia coincidencia) {
+		Propuesta res;
+
+		res = create();
+		
+		res.setDestinatarioId(coincidencia.getIdUsuarioDestino());
+		// Cambiar al principal
+		res.setRemitenteId("5898c37f61e6598b14cce7de");
+		
+		return res;
+
+	}
+
 	// temporales
-	
+
 	public void aceptaPropuesta(Propuesta propuesta) {
-		propuesta.setEstado(true);
+		propuesta.setEstado(1);
 	}
 
 	public void rechazaPropuesta(Propuesta propuesta) {
-		propuesta.setEstado(true);
+		propuesta.setEstado(2);
 	}
 }

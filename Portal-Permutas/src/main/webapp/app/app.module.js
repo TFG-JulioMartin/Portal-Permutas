@@ -21,6 +21,7 @@ var register_component_1 = require('./register/register.component');
 var plazas_list_component_1 = require('./listadoPlazas/plazas-list.component');
 var zona_deseada_component_1 = require('./zonasDeseadas/zona-deseada.component');
 var editar_usuario_component_1 = require('./editarUsuario/editar-usuario.component');
+var crear_propuesta_component_1 = require('./crearPropuesta/crear-propuesta.component');
 var index_1 = require('./_directives/index');
 var index_2 = require('./_services/index');
 var plaza_service_1 = require('./listadoPlazas/plaza.service');
@@ -44,6 +45,7 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 register_component_1.RegisterComponent,
                 zona_deseada_component_1.ZonaDeseadaComponent,
+                crear_propuesta_component_1.CrearPropuestaComponent,
                 editar_usuario_component_1.EditarUsuarioComponent
             ],
             providers: [
@@ -53,6 +55,9 @@ var AppModule = (function () {
                 zona_deseada_service_1.ZonaDeseadaService,
                 index_2.GeocodingService,
                 core_3.GoogleMapsAPIWrapper,
+                index_2.PropuestaService,
+                zona_deseada_component_1.ZonaDeseadaComponent,
+                crear_propuesta_component_1.CrearPropuestaComponent,
                 index_2.UserService,
             ],
             bootstrap: [app_component_1.AppComponent]

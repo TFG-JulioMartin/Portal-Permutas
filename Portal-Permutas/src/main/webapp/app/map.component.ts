@@ -28,8 +28,9 @@ export class MapComponent implements OnInit{
 	newArr = [];
 	
     constructor(private plazaService: PlazaService, private geocodingService: GeocodingService, private router: Router) {
-    	this.arr = [ {address: 'Plaza Vicente Aleixandre, Sevilla'}, {address: 'Calle Colombia, Sevilla'}]
+    	this.arr = [ {address: 'Calle Martinez de Medina, 2, Sevilla'}, {address: 'Calle Sta. Angela de la Cruz, 11, Sevilla'}]
     	// this.getLanLon();
+    	this.getPlazas();
 	}  
 	ngOnInit(){
 		this.getPlazas();
@@ -41,15 +42,18 @@ export class MapComponent implements OnInit{
 	}
 		
 	getLanLon() {
-    	this.arr.forEach(x => {
-        	this.geocodingService.getLatLan(x.address).subscribe(data => {
-          		let lati = data.results[0].geometry.location.lat;
-          		let long = data.results[0].geometry.location.lng;
-          		let newObj = Object.assign({}, {address: x.address, lat: lati, lon: long})
-          		this.newArr.push(newObj);
-        	});    
-    	})
-  	}
+        this.arr.forEach(x => {
+            Observable<google.maps.GeocoderResult> observable=this.geocodingService.getLatLan(x.address);
+            observable.subscribe(data => {
+                console.log(" Procesando ");
+                let lati = data.geometry.location.lat;
+                let long = data.geometry.location.lng;
+                let newObj = Object.assign({}, {address: x.address, lat: lati, lon: long})
+                console.log(" POSICION: ("+lati+" | "+long+") ");
+                this.newArr.push(newObj);
+            });    
+        })
+    }
 
 
 	
@@ -60,8 +64,6 @@ export class MapComponent implements OnInit{
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
   }
-  
-  addToMarkers(
   
   mapClicked($event: MouseEvent) {
     this.markers.push({

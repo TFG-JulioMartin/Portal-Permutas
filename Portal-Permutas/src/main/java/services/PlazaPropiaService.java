@@ -22,6 +22,9 @@ public class PlazaPropiaService {
 
 	// Supporting services ----------------------------------------------------
 
+	@Autowired
+	private UsuarioService usuarioService;
+
 	// Constructors -----------------------------------------------------------
 
 	public PlazaPropiaService() {
@@ -89,17 +92,28 @@ public class PlazaPropiaService {
 		return res;
 	}
 
+	public PlazaPropia findByPrincipal() {
+		PlazaPropia res;
+
+		res = findByUserId(usuarioService.findPrincipal().getId());
+
+		return res;
+	}
+
 	public void modificaPlaza(PlazaPropia plazaPropia) {
 
 		PlazaPropia plazaActual;
-		//Buscar el principal
 
-		plazaActual = findByUserId("");
+		plazaActual = findByPrincipal();
+
+		// Falta modificar la lat y lng.
 
 		plazaActual.setCentro(plazaPropia.getCentro());
 		plazaActual.setCiudad(plazaPropia.getCiudad());
 		plazaActual.setDireccion(plazaPropia.getDireccion());
 		plazaActual.setTitulo(plazaPropia.getTitulo());
+
+		save(plazaActual);
 	}
 
 }

@@ -19,12 +19,8 @@ var PropuestaService = (function () {
     PropuestaService.prototype.getPropuesta = function () {
         return this.http.get('/Portal-Permutas/api/propuesta/findOne').map(this.extractData).publish().refCount();
     };
-    PropuestaService.prototype.createZone = function (zona) {
-        console.log(zona);
-        return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).subscribe(function (response) { });
-    };
-    PropuestaService.prototype.checkCoincidencias = function () {
-        return this.http.get('/Portal-Permutas/api/zonaDeseada/matchings').map(this.extractData).publish().refCount();
+    PropuestaService.prototype.create = function (propuesta) {
+        return this.http.post('/Portal-Permutas/api/propuesta', propuesta).subscribe(function (response) { });
     };
     PropuestaService.prototype.extractData = function (res) {
         var body = res.json();

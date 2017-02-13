@@ -17,13 +17,8 @@ export class PropuestaService {
         return this.http.get('/Portal-Permutas/api/propuesta/findOne').map(this.extractData).publish().refCount();
     }
     
-    createZone(zona: ZonaDeseadaDTO) {
-    	console.log(zona);
-    	return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).subscribe((response) => {});
-    }
-    
-    checkCoincidencias(): Rx.Observable<Coincidencia[]> {
-    	return this.http.get('/Portal-Permutas/api/zonaDeseada/matchings').map(this.extractData).publish().refCount();
+    create(propuesta: Propuesta){
+    	return this.http.post('/Portal-Permutas/api/propuesta', propuesta).subscribe((response) => {});
     }
     
     private extractData(res: Response) {

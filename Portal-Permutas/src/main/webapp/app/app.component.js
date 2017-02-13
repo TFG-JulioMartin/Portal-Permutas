@@ -9,19 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var index_1 = require('./_services/index');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(authenticationService, router) {
+        this.authenticationService = authenticationService;
+        this.router = router;
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.loggedIn = this.authenticationService.isLoggedIn();
     }
+    AppComponent.prototype.logout = function () {
+        this.router.navigate(['/j_spring_security_logout']);
+        this.authenticationService.changeLoginStatus(false);
+        localStorage.removeItem('currentUser');
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<h1>Welcome</h1>\n  <nav>\n      <button><a routerLink=\"/login\" routerLinkActive=\"active\">Login</a></button>\n      <button><a routerLink=\"/register\" routerLinkActive=\"active\">Register</a></button>\n      <button><a routerLink=\"/\" routerLinkActive=\"active\">Home</a></button>\n      <button><a routerLink=\"/list\" routerLinkActive=\"active\">Listado</a></button>\n      <button><a routerLink=\"/zonas\" routerLinkActive=\"active\">Zonas</a></button>\n      <button><a routerLink=\"/editaUsuario\" routerLinkActive=\"active\">Editar Usuario</a></button>\n      <button><a routerLink=\"/crearPropuesta\" routerLinkActive=\"active\">CrearPropuesta</a></button>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  ",
+            template: "<div *ngIf=\"!this.authenticationService.isLoggedIn()\"><h1>Welcome</h1></div>\n             <div *ngIf=\"this.authenticationService.isLoggedIn()\"><h1>Welcome {{currentUser.nombre}}!</h1></div>\n             <div>{{this.authenticationService.isLoggedIn()}}</div>\n  <nav>\n   <div *ngIf=\"!this.authenticationService.isLoggedIn()\">\n    <button><a routerLink=\"/\" routerLinkActive=\"active\">Home</a></button>\n    <button><a routerLink=\"/login\" routerLinkActive=\"active\">Login</a></button>\n    <button><a routerLink=\"/register\" routerLinkActive=\"active\">Register</a></button>\n    </div>\n    <div *ngIf=\"this.authenticationService.isLoggedIn()\">\n    <button><a routerLink=\"/\" routerLinkActive=\"active\">Home</a></button>\n    <button><a routerLink=\"/list\" routerLinkActive=\"active\">Listado</a></button>\n    <button><a routerLink=\"/zonas\" routerLinkActive=\"active\">Zonas</a></button>\n    <button><a routerLink=\"/editaUsuario\" routerLinkActive=\"active\">Editar Usuario</a></button>\n    <button><a routerLink=\"/editaPlaza\" routerLinkActive=\"active\">Editar Plaza</a></button>\n    <button (click)='logout()'>Logout ({{currentUser.username}})</button>\n    </div>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  ",
             styles: [
-                'nav { margin-left: 40%; }',
+                'nav { margin-left: 35%; }',
                 'h1 { margin-left: 47%; }'
             ]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [index_1.AuthenticationService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

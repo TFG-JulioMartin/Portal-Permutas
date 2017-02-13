@@ -24,24 +24,35 @@ var GeocodingService = (function (_super) {
         _super.call(this, __loader, __zone);
         this.__loader = __loader;
         this.__zone = __zone;
+        this.cargado = false;
         this.__loader.load().then(function () {
             console.log('google script loaded');
-            _this.geocoder = new google.maps.Geocoder();
+            //console.log(this.geocoder);
+            _this.cargado = true;
         });
     }
     GeocodingService.prototype.getLatLan = function (address) {
-        var geo = this.geocoder;
+        var _this = this;
         return new Observable_1.Observable(function (observer) {
-            geo.geocode({ 'address': address }, (function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    observer.next(results);
-                    observer.complete();
-                }
-                else {
-                    console.log('Geocoding service: geocode was not successful for the following reason: ' + status);
-                    observer.error(status);
-                }
-            }));
+            if (_this.cargado) {
+                (new google.maps.Geocoder()).geocode({ 'address': address }, (function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        var i;
+                        console.log(results.length);
+                        for (i = 0; i < results.length; i++) {
+                            console.log(results[i]);
+                            observer.next(results[i]);
+                        }
+                        observer.complete();
+                    }
+                    else {
+                        console.log('ERROR> Geocoding service: geocode was not successful for the following reason: ' + status);
+                        observer.complete();
+                    }
+                }));
+            }
+            if (observer)
+                observer.complete();
         });
     };
     GeocodingService = __decorate([

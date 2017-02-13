@@ -1,4 +1,3 @@
-
 <div class="container">
     <sebm-google-map 
       [latitude]="lat"
@@ -9,26 +8,18 @@
       (mapClick)="mapClicked($event)">
     
       <sebm-google-map-marker 
-          *ngFor="let p of newArr let i = index"
-          (markerClick)="clickedMarker(p.address, i)"
-          [latitude]="p.lat"
-          [longitude]="-5.990608699"
-          [label]="p.address"
-          [markerDraggable]="p.draggable"
-          (dragEnd)="markerDragEnd(p, $event)">
+          *ngFor="let p of plazas let i = index"
+          (markerClick)="clickedMarker(m.label, i)"
+          [latitude]="p.latitud"
+          [longitude]="p.longitud"
+          [title]="p.titulo"      
+          (dragEnd)="markerDragEnd(m, $event)">
           
         <sebm-google-map-info-window>
           <strong>InfoWindow content</strong>
         </sebm-google-map-info-window>
         
       </sebm-google-map-marker>
-      
-      <sebm-google-map-circle [latitude]="lat" [longitude]="lng" 
-          [radius]="300"
-          [fillColor]="'red'"
-          [circleDraggable]="true"
-          [editable]="true">
-      </sebm-google-map-circle>
-
+ 
     </sebm-google-map>
 </div>

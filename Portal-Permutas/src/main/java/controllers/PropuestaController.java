@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import domain.Coincidencia;
 import domain.Propuesta;
 import services.PropuestaService;
 
@@ -79,9 +80,9 @@ public class PropuestaController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	void add(@PathVariable String userId, @RequestBody @Valid Propuesta propuesta) {
+	void add(@RequestBody Propuesta propuesta) {
 
-		propuestaService.save(propuesta);
+		propuestaService.creaPropuesta(propuesta);
 
 	}
 

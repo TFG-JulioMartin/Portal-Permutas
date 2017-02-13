@@ -3,12 +3,12 @@
     <form name="form" (ngSubmit)="f.form.valid && crearPropuesta()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="titulo">Titulo</label>
-            <input type="text" class="form-control" name="titulo" [(ngModel)]="model.titulo" #titulo="ngModel" required />
+            <input type="text" class="form-control" name="titulo" [(ngModel)]="propuesta.titulo" #titulo="ngModel" required />
             <div *ngIf="f.submitted && !titulo.valid" class="help-block">Titulo is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="texto">Texto</label>
-            <input type="text" class="form-control" name="texto" [(ngModel)]="model.texto" #texto="ngModel" required />
+            <input type="text" class="form-control" name="texto" [(ngModel)]="propuesta.texto" #texto="ngModel" required />
             <div *ngIf="f.submitted && !texto.valid" class="help-block">Texto is required</div>
         </div>
         <div class="form-group">

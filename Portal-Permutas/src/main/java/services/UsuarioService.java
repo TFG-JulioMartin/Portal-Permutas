@@ -137,7 +137,6 @@ public class UsuarioService {
 
 	public void modificaUserAccount(UserAccount usuario) {
 
-		// Cambiar a buscar la cuenta del principal.
 		UserAccount userAccount = findPrincipal();
 
 		userAccount.setApellidos(usuario.getApellidos());

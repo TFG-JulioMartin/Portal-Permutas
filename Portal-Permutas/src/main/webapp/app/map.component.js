@@ -22,8 +22,23 @@ var MapComponent = (function () {
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
-        this.arr = [{ address: 'Plaza Vicente Aleixandre, Sevilla' }, { address: 'Calle Colombia, Sevilla' }];
+        this.markers = [
+            {
+                lat: 37.382444,
+                lng: -5.99625,
+                label: 'A',
+                draggable: true
+            },
+            {
+                lat: 37.3541545,
+                lng: -5.9885772,
+                label: 'A',
+                draggable: true
+            }
+        ];
+        this.arr = [{ address: 'Calle Martinez de Medina, 2, Sevilla' }, { address: 'Calle Sta. Angela de la Cruz, 11, Sevilla' }];
         // this.getLanLon();
+        this.getPlazas();
     }
     MapComponent.prototype.ngOnInit = function () {
         this.getPlazas();
@@ -35,16 +50,29 @@ var MapComponent = (function () {
     MapComponent.prototype.getLanLon = function () {
         var _this = this;
         this.arr.forEach(function (x) {
-            _this.geocodingService.getLatLan(x.address).subscribe(function (data) {
-                var lati = data.results[0].geometry.location.lat;
-                var long = data.results[0].geometry.location.lng;
+            Observable < google.maps.GeocoderResult > observable;
+            _this.geocodingService.getLatLan(x.address);
+            observable.subscribe(function (data) {
+                console.log(" Procesando ");
+                var lati = data.geometry.location.lat;
+                var long = data.geometry.location.lng;
                 var newObj = Object.assign({}, { address: x.address, lat: lati, lon: long });
+                console.log(" POSICION: (" + lati + " | " + long + ") ");
                 _this.newArr.push(newObj);
             });
         });
     };
     MapComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
+    };
+    MapComponent.prototype.mapClicked = function ($event) {
+        this.markers.push({
+            lat: $event.coords.lat,
+            lng: $event.coords.lng
+        });
+    };
+    MapComponent.prototype.markerDragEnd = function (m, $event) {
+        console.log('dragEnd', m, $event);
     };
     MapComponent = __decorate([
         core_1.Component({

@@ -11,43 +11,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('../_services/index');
-var zona_deseada_component_1 = require('../zonasDeseadas/zona-deseada.component');
 var CrearPropuestaComponent = (function () {
-    function CrearPropuestaComponent(router, propuestaService, alertService, zonaDeseadaComponent) {
+    function CrearPropuestaComponent(router, route, propuestaService, alertService) {
         this.router = router;
+        this.route = route;
         this.propuestaService = propuestaService;
         this.alertService = alertService;
-        this.zonaDeseadaComponent = zonaDeseadaComponent;
-        this.model = {};
+        this.propuesta = {};
         this.loading = false;
-        this.setId(this.id);
-        console.log(this.zonaDeseadaComponent.getIdDestino());
     }
-    CrearPropuestaComponent.prototype.setId = function (id) {
-        id = this.zonaDeseadaComponent.getIdDestino();
-    };
-    CrearPropuestaComponent.prototype.getPropuesta = function () {
+    CrearPropuestaComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.propuestaService.getPropuesta().subscribe(function (propuesta) { return _this.propuesta = propuesta; });
+        this.route.params.subscribe(function (params) {
+            _this.id = params['id'];
+        });
     };
     CrearPropuestaComponent.prototype.crearPropuesta = function () {
-        var _this = this;
         this.loading = true;
-        this.userService.update(this.principal)
-            .subscribe(function (data) {
-            _this.alertService.success('Registration successful', true);
-            _this.router.navigate(['/home']);
-        }, function (error) {
-            _this.alertService.error(error);
-            _this.loading = false;
-        });
+        this.propuesta.destinatarioId = this.id;
+        this.propuestaService.create(this.propuesta);
+        this.router.navigate(['/']);
     };
     CrearPropuestaComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'crear-propuesta.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, index_1.PropuestaService, index_1.AlertService, zona_deseada_component_1.ZonaDeseadaComponent])
+        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, index_1.PropuestaService, index_1.AlertService])
     ], CrearPropuestaComponent);
     return CrearPropuestaComponent;
 }());

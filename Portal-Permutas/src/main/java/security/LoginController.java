@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
+import services.UsuarioService;
 
 @RestController
 @RequestMapping("/security")
@@ -31,6 +32,9 @@ public class LoginController extends AbstractController {
 
 	@Autowired
 	LoginService service;
+
+	@Autowired
+	private UsuarioService usuarioService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -56,22 +60,20 @@ public class LoginController extends AbstractController {
 	// Login ------------------------------------------------------------------
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<User> login() {
-		User res;
+	public ResponseEntity<UserAccount> login() {
+		UserAccount res;
 
 		System.out.println("entra");
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		res = (User) auth.getPrincipal();
+		res = usuarioService.findPrincipal();
 
 		System.out.println(res);
 
 		if (res == null) {
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<UserAccount>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<User>(res, HttpStatus.OK);
+		return new ResponseEntity<UserAccount>(res, HttpStatus.OK);
 	}
 
 	// LoginFailure -----------------------------------------------------------

@@ -25,6 +25,9 @@ public class PropuestaService {
 
 	// Supporting services ----------------------------------------------------
 
+	@Autowired
+	private UsuarioService usuarioService;
+
 	// Constructors -----------------------------------------------------------
 
 	public PropuestaService() {
@@ -102,17 +105,17 @@ public class PropuestaService {
 		return res;
 	}
 
-	public Propuesta creaPropuesta(Coincidencia coincidencia) {
+	public void creaPropuesta(Propuesta propuesta) {
 		Propuesta res;
 
 		res = create();
-		
-		res.setDestinatarioId(coincidencia.getIdUsuarioDestino());
-		// Cambiar al principal
-		res.setRemitenteId("5898c37f61e6598b14cce7de");
-		
-		return res;
 
+		res.setDestinatarioId(propuesta.getDestinatarioId());
+		res.setRemitenteId(usuarioService.findPrincipal().getId());
+		res.setTitulo(propuesta.getTitulo());
+		res.setTexto(propuesta.getTexto());
+
+		save(res);
 	}
 
 	// temporales

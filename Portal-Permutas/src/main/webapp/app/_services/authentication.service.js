@@ -14,18 +14,26 @@ require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
     function AuthenticationService(http) {
         this.http = http;
+        this.loggedIn = false;
     }
     AuthenticationService.prototype.login = function (username, password) {
+        var _this = this;
         return this.http.post('/Portal-Permutas/j_spring_security_check?username=' + username + '&password=' + password)
             .map(function (response) {
             // login successful if there's a jwt token in the response
-            console.log(response);
-            var myuser = response.json();
-            if (myuser && myuser.token) {
+            var user = response.json();
+            if (user.nombre) {
+                _this.changeLoginStatus(true);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(myuser));
+                localStorage.setItem('currentUser', JSON.stringify(user));
             }
         });
+    };
+    AuthenticationService.prototype.changeLoginStatus = function (status) {
+        this.loggedIn = status;
+    };
+    AuthenticationService.prototype.isLoggedIn = function () {
+        return this.loggedIn;
     };
     AuthenticationService.prototype.logout = function () {
         // remove user from local storage to log user out

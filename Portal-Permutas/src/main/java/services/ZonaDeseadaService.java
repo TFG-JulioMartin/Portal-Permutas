@@ -121,6 +121,7 @@ public class ZonaDeseadaService {
 		zonaDeseada.setLatitud(lat);
 		zonaDeseada.setLongitud(lng);
 		zonaDeseada.setRadio(radio);
+		zonaDeseada.setUsuarioId(usuarioService.findPrincipal().getId());
 
 		save(zonaDeseada);
 	}
@@ -168,12 +169,16 @@ public class ZonaDeseadaService {
 	public Collection<Coincidencia> compruebaCoincidencias() {
 		Collection<Coincidencia> res;
 		Collection<ZonaDeseada> principalZonas;
+		PlazaPropia plazaPropia;
 		Collection<PlazaPropia> allPlazas;
 		int contador = 0;
 
 		res = new ArrayList<Coincidencia>();
 		principalZonas = findAllByPrincipal();
 		allPlazas = plazaPropiaService.findAll();
+		plazaPropia = plazaPropiaService.findByPrincipal();
+		
+		allPlazas.remove(plazaPropia);
 
 		for (PlazaPropia p : allPlazas) {
 			for (ZonaDeseada z : principalZonas) {

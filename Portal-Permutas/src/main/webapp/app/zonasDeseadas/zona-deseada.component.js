@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var zona_deseada_service_1 = require('./zona-deseada.service');
+var plaza_service_1 = require('../listadoPlazas/plaza.service');
 var ZonaDeseadaComponent = (function () {
-    function ZonaDeseadaComponent(zonaDeseadaService, router) {
+    function ZonaDeseadaComponent(zonaDeseadaService, plazaService, router) {
         this.zonaDeseadaService = zonaDeseadaService;
+        this.plazaService = plazaService;
         this.router = router;
-        this.idDestino = 'mal';
         this.model = {};
         this.zoom = 13;
         // initial center position for the map
@@ -36,8 +37,13 @@ var ZonaDeseadaComponent = (function () {
             }
         ];
         this.getCoincidencias();
+        this.getPlazas();
         this.getZonas();
     }
+    ZonaDeseadaComponent.prototype.getPlazas = function () {
+        var _this = this;
+        this.plazaService.getPlazas().subscribe(function (plazas) { return _this.plazas = plazas; });
+    };
     ZonaDeseadaComponent.prototype.getZonas = function () {
         var _this = this;
         this.zonaDeseadaService.getZonas().subscribe(function (zonas) { return _this.zonas = zonas; });
@@ -46,18 +52,9 @@ var ZonaDeseadaComponent = (function () {
         var _this = this;
         this.zonaDeseadaService.checkCoincidencias().subscribe(function (coincidencias) { return _this.coincidencias = coincidencias; });
     };
-    ZonaDeseadaComponent.prototype.getIdDestino = function () {
-        return this.idDestino;
-    };
     ZonaDeseadaComponent.prototype.proponer = function (id) {
-        for (var _i = 0, _a = this.coincidencias; _i < _a.length; _i++) {
-            var c = _a[_i];
-            if (c.id == id) {
-                this.idDestino = c.idUsuarioDestino;
-            }
-        }
-        console.log(this.idDestino);
-        this.router.navigate(['/crearPropuesta']);
+        this.idDestino = id;
+        this.router.navigate(['/crearPropuesta', id]);
     };
     ZonaDeseadaComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
@@ -95,7 +92,7 @@ var ZonaDeseadaComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'zona-deseada.component.html'
         }), 
-        __metadata('design:paramtypes', [zona_deseada_service_1.ZonaDeseadaService, router_1.Router])
+        __metadata('design:paramtypes', [zona_deseada_service_1.ZonaDeseadaService, plaza_service_1.PlazaService, router_1.Router])
     ], ZonaDeseadaComponent);
     return ZonaDeseadaComponent;
 }());

@@ -17,7 +17,17 @@ export class PlazaService {
         return this.http.get('/Portal-Permutas/api/plazaPropia/all').map(this.extractData).publish().refCount();
     }
     
+    getPrincipal() {
+        return this.http.get('/Portal-Permutas/api/plazaPropia').map(this.extractData).publish().refCount();
+    }
+    
+    update(plaza: PlazaPropia) {
+        return this.http.put('/Portal-Permutas/api/plazaPropia/modifica', plaza).map(this.extractData).publish().refCount();
+    }
+    
     private extractData(res: Response) {
         let body = res.json();
         return body || {};
     }
+    
+}

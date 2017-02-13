@@ -14,12 +14,11 @@
       (mapRightClick)="mapRightCliked($event)">
     
       <sebm-google-map-marker 
-          *ngFor="let m of markers; let i = index"
+          *ngFor="let p of plazas; let i = index"
           (markerClick)="clickedMarker(m.label, i)"
-          [latitude]="m.lat"
-          [longitude]="m.lng"
-          [label]="m.label"
-          [markerDraggable]="m.draggable"
+          [latitude]="p.latitud"
+          [longitude]="p.longitud"
+          [title]="p.titulo"
           (dragEnd)="markerDragEnd(m, $event)">
           
         <sebm-google-map-info-window>
@@ -54,7 +53,7 @@
 			 <tr *ngFor="let c of coincidencias">
              	<td>{{c.titulo}}</td>
                 <td>{{c.nombreUsuarioDestino}}</td>
-                <td><button (click)='proponer(c.id)'>Proponer</button></td>             
+                <td><button (click)='proponer(c.idUsuarioDestino)'>Proponer</button></td>             
              </tr>
         </tbody>
 	</table>

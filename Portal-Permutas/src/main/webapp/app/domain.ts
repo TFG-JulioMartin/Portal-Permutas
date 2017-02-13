@@ -1,6 +1,13 @@
 export interface PlazaPropia {
 
-    id : number;
+    id : string;
+    titulo : string;
+    ciudad : string;
+    centro : string;
+    direccion : string;
+    latitud : number;
+    longitud : number;
+    usuarioId : string;
     
 }
 

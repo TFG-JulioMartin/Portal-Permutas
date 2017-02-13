@@ -4,16 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent }   from './app.component';
-import { HelloUserComponent }   from './hello-user.component';
-import { MapComponent }   from './map.component';
+import { AppComponent } from './app.component';
+import { HelloUserComponent } from './hello-user.component';
+import { MapComponent } from './map.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
-import { LoginComponent }   from './login/login.component';
-import { RegisterComponent }   from './register/register.component';
-import { PlazasListComponent }   from './listadoPlazas/plazas-list.component';
-import { ZonaDeseadaComponent }      from './zonasDeseadas/zona-deseada.component';
-import { EditarUsuarioComponent }      from './editarUsuario/editar-usuario.component';
-import { CrearPropuestaComponent }      from './crearPropuesta/crear-propuesta.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { PlazasListComponent } from './listadoPlazas/plazas-list.component';
+import { ZonaDeseadaComponent } from './zonasDeseadas/zona-deseada.component';
+import { EditarUsuarioComponent } from './editarUsuario/editar-usuario.component';
+import { CrearPropuestaComponent } from './crearPropuesta/crear-propuesta.component';
+import { EditarPlazaComponent } from './editarPlaza/editar-plaza.component';
 
 import { AlertComponent } from './_directives/index';
 import { AlertService, AuthenticationService, UserService, GeocodingService, PropuestaService} from './_services/index';
@@ -37,7 +38,8 @@ import { AppRoutingModule }     from './app-routing.module';
   		RegisterComponent, 
   		ZonaDeseadaComponent,
   		CrearPropuestaComponent,
-  		EditarUsuarioComponent 
+  		EditarUsuarioComponent,
+  		EditarPlazaComponent
   	],
   providers: [
         AlertService,
@@ -47,9 +49,7 @@ import { AppRoutingModule }     from './app-routing.module';
         GeocodingService,
         GoogleMapsAPIWrapper,
         PropuestaService,
-        ZonaDeseadaComponent,
-        CrearPropuestaComponent,
-        UserService,
+        UserService
     ],
   bootstrap:    [ AppComponent ]
 })

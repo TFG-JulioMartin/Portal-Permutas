@@ -18,6 +18,8 @@ var zona_deseada_component_1 = require('./zonasDeseadas/zona-deseada.component')
 var editar_usuario_component_1 = require('./editarUsuario/editar-usuario.component');
 var crear_propuesta_component_1 = require('./crearPropuesta/crear-propuesta.component');
 var editar_plaza_component_1 = require('./editarPlaza/editar-plaza.component');
+var listar_propuestas_enviadas_component_1 = require('./listarPropuestas/listar-propuestas-enviadas.component');
+var listar_propuestas_recibidas_component_1 = require('./listarPropuestas/listar-propuestas-recibidas.component');
 var routes = [
     { path: '', component: map_component_1.MapComponent },
     { path: 'login', component: login_component_1.LoginComponent },
@@ -27,6 +29,8 @@ var routes = [
     { path: 'editaUsuario', component: editar_usuario_component_1.EditarUsuarioComponent },
     { path: 'editaPlaza', component: editar_plaza_component_1.EditarPlazaComponent },
     { path: 'crearPropuesta/:id', component: crear_propuesta_component_1.CrearPropuestaComponent },
+    { path: 'propuestasEnviadas', component: listar_propuestas_enviadas_component_1.ListarPropuestasEnviadasComponent },
+    { path: 'propuestasRecibidas', component: listar_propuestas_recibidas_component_1.ListarPropuestasRecibidasComponent },
     { path: '**', redirectTo: '' }
 ];
 var AppRoutingModule = (function () {

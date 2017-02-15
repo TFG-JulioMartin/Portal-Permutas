@@ -10,6 +10,8 @@ import { ZonaDeseadaComponent } from './zonasDeseadas/zona-deseada.component';
 import { EditarUsuarioComponent } from './editarUsuario/editar-usuario.component';
 import { CrearPropuestaComponent } from './crearPropuesta/crear-propuesta.component';
 import { EditarPlazaComponent } from './editarPlaza/editar-plaza.component';
+import { ListarPropuestasEnviadasComponent } from './listarPropuestas/listar-propuestas-enviadas.component';
+import { ListarPropuestasRecibidasComponent } from './listarPropuestas/listar-propuestas-recibidas.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent},
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'editaUsuario', component: EditarUsuarioComponent },
   { path: 'editaPlaza', component: EditarPlazaComponent },
   { path: 'crearPropuesta/:id', component: CrearPropuestaComponent },
+  { path: 'propuestasEnviadas', component: ListarPropuestasEnviadasComponent },
+  { path: 'propuestasRecibidas', component: ListarPropuestasRecibidasComponent },
   { path: '**', redirectTo: '' }
 ];
 

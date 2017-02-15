@@ -1,0 +1,36 @@
+<h1>Propuestas Recibidas</h1>
+
+	<div class="table-responsive col-md-12">
+	<table class="table table-striped" cellspacing="0" cellpadding="0">
+    	<thead>
+        	<tr>
+            	<th>Título</th>
+                <th>Remitente</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Fecha Acept/Rechaz</th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr *ngFor="let propuesta of propuestas">
+            	<td>{{propuesta.titulo}}</td>
+                <td>{{propuesta.nombreRemitente}}</td>
+                <td>{{propuesta.fecha | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="propuesta.estado == 0">Pendiente</td>
+                <td *ngIf="propuesta.estado == 1">Aceptada</td>
+                <td *ngIf="propuesta.estado == 2">Rechazada</td>
+                <td *ngIf="propuesta.fechaAcepRech">{{propuesta.fechaAcepRech | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="propuesta.estado == 0"><button (click)='aceptar(propuesta.id)'>Aceptar</button></td>
+                <td *ngIf="propuesta.estado == 0"><button (click)='rechazar(propuesta.id)'>Rechazar</button></td> 
+                <td><button (click)='getPlazaRemitente(propuesta.idRemitente)'>Detalles</button></td>     
+        	</tr>
+		</tbody>
+	</table>
+</div>
+
+<div *ngIf="plazaRemitente">
+	<span>{{plazaRemitente.titulo}}</span><br>
+	<span>{{plazaRemitente.centro}}</span><br>
+	<span>{{plazaRemitente.direccion}}</span><br>
+	<span><button (click)='cerrar()'>Cerrar</button></span>
+</div>

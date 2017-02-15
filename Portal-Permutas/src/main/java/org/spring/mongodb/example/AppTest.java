@@ -187,14 +187,25 @@ public class AppTest {
 		
 		Propuesta propuesta1 = new Propuesta();
 
-		propuesta1.setDestinatarioId("5898c37f61e6598b14cce7df");
+		propuesta1.setDestinatarioId(userAccount2.getId());
 		propuesta1.setEstado(0);
 		propuesta1.setFecha(new Date());
-		propuesta1.setRemitenteId("5898c37f61e6598b14cce7de");
+		propuesta1.setRemitenteId(userAccount1.getId());
 		propuesta1.setTitulo("tituloPropuesta1");
 		propuesta1.setTexto("Este es el texto de la propuesta 1");
 
 		mongoOperation.save(propuesta1);
+		
+		Propuesta propuesta2 = new Propuesta();
+
+		propuesta2.setDestinatarioId(userAccount1.getId());
+		propuesta2.setEstado(0);
+		propuesta2.setFecha(new Date());
+		propuesta2.setRemitenteId(userAccount3.getId());
+		propuesta2.setTitulo("tituloPropuesta2");
+		propuesta2.setTexto("Este es el texto de la propuesta 2");
+
+		mongoOperation.save(propuesta2);
 		
 		
 		

@@ -1,0 +1,26 @@
+<h1>Propuestas Enviadas</h1>
+<div class="table-responsive col-md-12">
+	<table class="table table-striped" cellspacing="0" cellpadding="0">
+    	<thead>
+        	<tr *ngFor="let p of propuestas">
+            	<th>Título</th>
+                <th>Destinatario</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th *ngIf="p.estado == 1">Fecha Acept.</th>
+                <th *ngIf="p.estado == 2">Fecha Rechaz.</th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr *ngFor="let propuesta of propuestas">
+            	<td>{{propuesta.titulo}}</td>
+                <td>{{propuesta.nombreDestinatario}}</td>
+                <td>{{propuesta.fecha | date: 'dd/MM/yyyy'}}</td>
+                <td *ngIf="propuesta.estado == 0">Pendiente</td>
+                <td *ngIf="propuesta.estado == 1">Aceptada</td>
+                <td *ngIf="propuesta.estado == 2">Rechazada</td>
+                <td *ngIf="propuesta.fechaAcepRech">{{propuesta.fechaAcepRech | date: 'dd/MM/yyyy'}}</td>          
+        	</tr>
+		</tbody>
+	</table>
+</div>  

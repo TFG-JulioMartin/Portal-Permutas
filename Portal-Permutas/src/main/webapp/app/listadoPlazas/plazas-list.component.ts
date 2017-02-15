@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMap';
 import {PaginationPage, PaginationPropertySort} from '../pagination';
 import {Table} from '../table';
 import {showLoading, hideLoading, doNothing} from '../commons'
-import {PlazaService} from './plaza.service';
+import { PlazaService } from '../_services/index';
 import {PlazaPropia} from './plazaPropia';
 
 

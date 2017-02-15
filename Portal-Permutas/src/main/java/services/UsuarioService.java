@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import domain.PlazaPropia;
 import domain.ZonaDeseada;
 import forms.UsuarioForm;
+import repositories.UsuarioRepository;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
@@ -25,6 +26,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UserAccountRepository userAccountRepository;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	// Supporting services----------------------------------------------------
 
@@ -96,6 +100,13 @@ public class UsuarioService {
 	}
 
 	// Other business methods-------------------------------------------------
+	public UserAccount findByUserId(String id) {
+		UserAccount res;
+
+		res = usuarioRepository.findById(id);
+
+		return res;
+	}
 
 	public UserAccount findPrincipal() {
 		UserAccount res;

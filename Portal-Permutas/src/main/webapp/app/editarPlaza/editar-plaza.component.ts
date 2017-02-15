@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AlertService } from '../_services/index';
-import { PlazaService } from '../listadoPlazas/plaza.service';
+import { AlertService, PlazaService } from '../_services/index';
 import { PlazaPropia } from '../domain';
 
 @Component({

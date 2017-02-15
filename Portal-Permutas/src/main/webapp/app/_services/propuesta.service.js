@@ -16,11 +16,23 @@ var PropuestaService = (function () {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    PropuestaService.prototype.getPropuesta = function () {
-        return this.http.get('/Portal-Permutas/api/propuesta/findOne').map(this.extractData).publish().refCount();
+    PropuestaService.prototype.getPropuesta = function (id) {
+        return this.http.get('/Portal-Permutas/api/propuesta/findOne/' + id).map(this.extractData).publish().refCount();
+    };
+    PropuestaService.prototype.getPropuestasEnviadas = function () {
+        return this.http.get('/Portal-Permutas/api/propuesta/enviadas').map(this.extractData).publish().refCount();
+    };
+    PropuestaService.prototype.getPropuestasRecibidas = function () {
+        return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(this.extractData).publish().refCount();
     };
     PropuestaService.prototype.create = function (propuesta) {
         return this.http.post('/Portal-Permutas/api/propuesta', propuesta).subscribe(function (response) { });
+    };
+    PropuestaService.prototype.aceptarPropuesta = function (id) {
+        return this.http.put('/Portal-Permutas/api/propuesta/aceptar/' + id).map(function (res) { return res.json(); });
+    };
+    PropuestaService.prototype.rechazarPropuesta = function (id) {
+        return this.http.put('/Portal-Permutas/api/propuesta/rechazar/' + id).map(function (res) { return res.json(); });
     };
     PropuestaService.prototype.extractData = function (res) {
         var body = res.json();

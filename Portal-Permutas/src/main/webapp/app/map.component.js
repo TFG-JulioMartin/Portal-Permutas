@@ -9,16 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var plaza_service_1 = require('./listadoPlazas/plaza.service');
-var index_1 = require('./_services/index');
 var router_1 = require('@angular/router');
+var index_1 = require('./_services/index');
 var MapComponent = (function () {
     function MapComponent(plazaService, geocodingService, router) {
         this.plazaService = plazaService;
         this.geocodingService = geocodingService;
         this.router = router;
-        this.newArr = [];
+        // google maps zoom level  
         this.zoom = 13;
+        this.newArr = [];
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
@@ -81,7 +81,7 @@ var MapComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'map.component.html'
         }), 
-        __metadata('design:paramtypes', [plaza_service_1.PlazaService, index_1.GeocodingService, router_1.Router])
+        __metadata('design:paramtypes', [index_1.PlazaService, index_1.GeocodingService, router_1.Router])
     ], MapComponent);
     return MapComponent;
 }());

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('../_services/index');
-var plaza_service_1 = require('../listadoPlazas/plaza.service');
 var EditarPlazaComponent = (function () {
     function EditarPlazaComponent(router, plazaService, alertService) {
         this.router = router;
@@ -42,7 +41,7 @@ var EditarPlazaComponent = (function () {
             moduleId: module.id,
             templateUrl: 'editar-plaza.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, plaza_service_1.PlazaService, index_1.AlertService])
+        __metadata('design:paramtypes', [router_1.Router, index_1.PlazaService, index_1.AlertService])
     ], EditarPlazaComponent);
     return EditarPlazaComponent;
 }());

@@ -15,10 +15,11 @@ import { ZonaDeseadaComponent } from './zonasDeseadas/zona-deseada.component';
 import { EditarUsuarioComponent } from './editarUsuario/editar-usuario.component';
 import { CrearPropuestaComponent } from './crearPropuesta/crear-propuesta.component';
 import { EditarPlazaComponent } from './editarPlaza/editar-plaza.component';
+import { ListarPropuestasEnviadasComponent } from './listarPropuestas/listar-propuestas-enviadas.component';
+import { ListarPropuestasRecibidasComponent } from './listarPropuestas/listar-propuestas-recibidas.component';
 
 import { AlertComponent } from './_directives/index';
-import { AlertService, AuthenticationService, UserService, GeocodingService, PropuestaService} from './_services/index';
-import { PlazaService } from './listadoPlazas/plaza.service';
+import { AlertService, AuthenticationService, UserService, GeocodingService, PropuestaService, PlazaService} from './_services/index';
 import { ZonaDeseadaService } from './zonasDeseadas/zona-deseada.service';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 
@@ -39,7 +40,9 @@ import { AppRoutingModule }     from './app-routing.module';
   		ZonaDeseadaComponent,
   		CrearPropuestaComponent,
   		EditarUsuarioComponent,
-  		EditarPlazaComponent
+  		EditarPlazaComponent,
+  		ListarPropuestasEnviadasComponent,
+  		ListarPropuestasRecibidasComponent
   	],
   providers: [
         AlertService,

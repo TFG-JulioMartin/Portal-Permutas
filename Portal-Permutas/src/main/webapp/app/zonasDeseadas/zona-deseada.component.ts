@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 
 import {ZonaDeseadaService} from './zona-deseada.service';
-import {PlazaService} from '../listadoPlazas/plaza.service';
+import { PlazaService } from '../_services/index';
 import {ZonaDeseada, Coincidencia} from '../domain';
 import {Table} from '../table';
 
 
 @Component({
   moduleId:	module.id,
-  selector: 'g-map',
   styles: [`
     .sebm-google-map-container {
        height: 600px;

@@ -9,7 +9,6 @@ import { AuthenticationService } from './_services/index';
   selector: 'my-app',
   template: `<div *ngIf="!this.authenticationService.isLoggedIn()"><h1>Welcome</h1></div>
              <div *ngIf="this.authenticationService.isLoggedIn()"><h1>Welcome {{currentUser.nombre}}!</h1></div>
-             <div>{{this.authenticationService.isLoggedIn()}}</div>
   <nav>
    <div *ngIf="!this.authenticationService.isLoggedIn()">
     <button><a routerLink="/" routerLinkActive="active">Home</a></button>
@@ -22,6 +21,8 @@ import { AuthenticationService } from './_services/index';
     <button><a routerLink="/zonas" routerLinkActive="active">Zonas</a></button>
     <button><a routerLink="/editaUsuario" routerLinkActive="active">Editar Usuario</a></button>
     <button><a routerLink="/editaPlaza" routerLinkActive="active">Editar Plaza</a></button>
+    <button><a routerLink="/propuestasEnviadas" routerLinkActive="active">Propuestas Enviadas</a></button>
+    <button><a routerLink="/propuestasRecibidas" routerLinkActive="active">Propuestas Recibidas</a></button>
     <button (click)='logout()'>Logout ({{currentUser.username}})</button>
     </div>
   </nav>

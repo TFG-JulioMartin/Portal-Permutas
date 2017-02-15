@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Person} from './domain'
-import {PaginationPage, PaginationPropertySort} from './pagination';
 import {webServiceEndpoint} from './commons';
 import {Http, Response, URLSearchParams, RequestOptions} from '@angular/http';
 import * as Rx from "rxjs/Rx";

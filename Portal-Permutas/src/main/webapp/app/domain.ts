@@ -54,6 +54,22 @@ export interface Propuesta {
     
 }
 
+export interface PropuestaDTO {
+
+    id : string;
+    titulo : string;
+    texto : string;
+    estado: number;
+    nombreRemitente : string;
+    nombreDestinatario : string;
+    fecha : string
+    fechaAcepRech : string;   
+    idRemitente : string;
+	latitudRemitente : number;
+	longitudRemitente : number;
+    
+}
+
 export interface User {
     id: number;
     username: string;

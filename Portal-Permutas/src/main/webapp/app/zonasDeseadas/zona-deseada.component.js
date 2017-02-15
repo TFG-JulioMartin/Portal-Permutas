@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var zona_deseada_service_1 = require('./zona-deseada.service');
-var plaza_service_1 = require('../listadoPlazas/plaza.service');
+var index_1 = require('../_services/index');
 var ZonaDeseadaComponent = (function () {
     function ZonaDeseadaComponent(zonaDeseadaService, plazaService, router) {
         this.zonaDeseadaService = zonaDeseadaService;
@@ -88,11 +88,10 @@ var ZonaDeseadaComponent = (function () {
     ZonaDeseadaComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'g-map',
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'zona-deseada.component.html'
         }), 
-        __metadata('design:paramtypes', [zona_deseada_service_1.ZonaDeseadaService, plaza_service_1.PlazaService, router_1.Router])
+        __metadata('design:paramtypes', [zona_deseada_service_1.ZonaDeseadaService, index_1.PlazaService, router_1.Router])
     ], ZonaDeseadaComponent);
     return ZonaDeseadaComponent;
 }());

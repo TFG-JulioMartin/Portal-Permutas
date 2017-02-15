@@ -12,26 +12,26 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 require('rxjs/add/operator/switchMap');
 var index_1 = require('../_services/index');
-var PlazasListComponent = (function () {
-    function PlazasListComponent(plazaService, router) {
-        this.plazaService = plazaService;
+var ListarPropuestasEnviadasComponent = (function () {
+    function ListarPropuestasEnviadasComponent(propuestaService, router) {
+        this.propuestaService = propuestaService;
         this.router = router;
     }
-    PlazasListComponent.prototype.ngOnInit = function () {
-        this.getPlazas();
+    ListarPropuestasEnviadasComponent.prototype.ngOnInit = function () {
+        this.getPropuestasEnviadas();
     };
-    PlazasListComponent.prototype.getPlazas = function () {
+    ListarPropuestasEnviadasComponent.prototype.getPropuestasEnviadas = function () {
         var _this = this;
-        this.plazaService.getPlazas().subscribe(function (plazas) { return _this.plazas = plazas; });
+        this.propuestaService.getPropuestasEnviadas().subscribe(function (propuestas) { return _this.propuestas = propuestas; });
     };
-    PlazasListComponent = __decorate([
+    ListarPropuestasEnviadasComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'plazas-list.component.html'
+            templateUrl: 'listar-propuestas-enviadas.component.html'
         }), 
-        __metadata('design:paramtypes', [index_1.PlazaService, router_1.Router])
-    ], PlazasListComponent);
-    return PlazasListComponent;
+        __metadata('design:paramtypes', [index_1.PropuestaService, router_1.Router])
+    ], ListarPropuestasEnviadasComponent);
+    return ListarPropuestasEnviadasComponent;
 }());
-exports.PlazasListComponent = PlazasListComponent;
-//# sourceMappingURL=plazas-list.component.js.map
+exports.ListarPropuestasEnviadasComponent = ListarPropuestasEnviadasComponent;
+//# sourceMappingURL=listar-propuestas-enviadas.component.js.map

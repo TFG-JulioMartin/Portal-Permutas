@@ -2,8 +2,6 @@ package controllers;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import domain.Coincidencia;
 import domain.Propuesta;
+import forms.PropuestaDTO;
 import services.PropuestaService;
 
 @RestController
@@ -25,21 +23,36 @@ public class PropuestaController {
 	@Autowired
 	private PropuestaService propuestaService;
 
-	// Busca todas las propuestas del usuario logeado.
+	// Busca todas las propuestas enviadas del usuario logeado.
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<Propuesta>> findAllByUserId(@PathVariable String id) {
+	@RequestMapping(value = "/enviadas", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Collection<PropuestaDTO>> findAllEnviadas() {
 
-		Collection<Propuesta> res;
+		Collection<PropuestaDTO> res;
 
-		// checkprincipal
-		res = propuestaService.findAllByUserId(id);
+		res = propuestaService.findAllPropuestasEnviadasDTO();
 
 		if (res == null) {
-			return new ResponseEntity<Collection<Propuesta>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Collection<PropuestaDTO>>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<Collection<Propuesta>>(res, HttpStatus.OK);
+		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
+	}
+
+	// Busca todas las propuestas recibidas del usuario logeado.
+
+	@RequestMapping(value = "/recibidas", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Collection<PropuestaDTO>> findAllRecibidas() {
+
+		Collection<PropuestaDTO> res;
+
+		res = propuestaService.findAllPropuestasRecibidasDTO();
+
+		if (res == null) {
+			return new ResponseEntity<Collection<PropuestaDTO>>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
 	}
 
 	// Busca una propuesta por su id.
@@ -88,27 +101,19 @@ public class PropuestaController {
 
 	// Acepta una propuesta.
 
-	@RequestMapping(value = "acepta/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Propuesta> aceptaPropuesta(@RequestBody Propuesta propuesta) {
+	@RequestMapping(value = "aceptar/{id}", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void aceptaPropuesta(@PathVariable("id") String id) {
+		propuestaService.aceptaPropuesta(id);
 
-		if (propuesta == null) {
-			return new ResponseEntity<Propuesta>(HttpStatus.NOT_FOUND);
-		}
-
-		propuestaService.aceptaPropuesta(propuesta);
-		return new ResponseEntity<Propuesta>(propuesta, HttpStatus.OK);
 	}
 
 	// Rechaza una propuesta.
 
-	@RequestMapping(value = "rechaza/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Propuesta> rechazaPropuesta(@RequestBody Propuesta propuesta) {
+	@RequestMapping(value = "rechazar/{id}", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void rechazaPropuesta(@PathVariable("id") String id) {
+		propuestaService.rechazaPropuesta(id);
 
-		if (propuesta == null) {
-			return new ResponseEntity<Propuesta>(HttpStatus.NOT_FOUND);
-		}
-
-		propuestaService.rechazaPropuesta(propuesta);
-		return new ResponseEntity<Propuesta>(propuesta, HttpStatus.OK);
 	}
 }

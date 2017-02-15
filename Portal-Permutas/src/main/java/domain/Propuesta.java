@@ -50,7 +50,7 @@ public class Propuesta {
 		this.texto = texto;
 	}
 
-	public int isEstado() {
+	public int getEstado() {
 		return estado;
 	}
 

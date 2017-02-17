@@ -11,6 +11,9 @@ import { AlertService, UserService } from '../_services/index';
 export class RegisterComponent {
     model: any = {};
     loading = false;
+    color = 'primary';
+  	mode = 'determinate';
+  	value = 50;
 
     constructor(
         private router: Router,

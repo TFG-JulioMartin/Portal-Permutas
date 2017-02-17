@@ -120,7 +120,7 @@
 	<mvc:resources mapping="/app/**" location="/app/" />	
 	<mvc:resources mapping="/node_modules/**" location="/node_modules/" />
 	<mvc:resources mapping="/systemjs.config.js" location="/" />
-	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
+	<mvc:resources mapping="/favicon.ico" location="/" />
 
 	<mvc:interceptors>
 		<mvc:interceptor>

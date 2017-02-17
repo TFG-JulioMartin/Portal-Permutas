@@ -13,6 +13,9 @@ export class EditarUsuarioComponent {
     model: any = {};
     loading = false;
     principal: User;
+    color = 'primary';
+  	mode = 'determinate';
+  	value = 50;
     
 
     constructor(private router: Router, private userService: UserService, private alertService: AlertService) { 

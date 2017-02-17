@@ -3,6 +3,7 @@
 <h4>Lat de Rclick: {{elat}}</h4>
 <h4>Lng de Rclick: {{slng}}</h4>
 
+<md-card>
 <div class="container">
     <sebm-google-map 
       [latitude]="lat"
@@ -39,11 +40,15 @@
 
     </sebm-google-map>
 </div>
+</md-card>
 
-<div class="table-responsive col-md-12">
-	<h1>Coincidencias</h1>
-	<table class="table table-striped" cellspacing="0" cellpadding="0">
-		<thead>
+<md-card>
+	<md-card-title>
+		Coincidencias
+	</md-card-title>
+	
+	<table class="table">
+  	<thead class="thead-default">
 			<tr>
 				<th>Titulo</th>
                 <th>Nombre</th>
@@ -53,8 +58,8 @@
 			 <tr *ngFor="let c of coincidencias">
              	<td>{{c.titulo}}</td>
                 <td>{{c.nombreUsuarioDestino}}</td>
-                <td><button (click)='proponer(c.idUsuarioDestino)'>Proponer</button></td>             
+                <td><button md-raised-button (click)='proponer(c.idUsuarioDestino)' color="primary">Proponer</button></td>              
              </tr>
         </tbody>
 	</table>
-</div>
+</md-card>

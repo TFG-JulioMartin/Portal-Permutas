@@ -21,8 +21,16 @@ export class PropuestaService {
         return this.http.get('/Portal-Permutas/api/propuesta/enviadas').map(this.extractData).publish().refCount();
     }
     
+    getPropuestasEnviadasN(){
+        return this.http.get('/Portal-Permutas/api/propuesta/enviadasN').map(this.extractData).publish().refCount();
+    }
+    
     getPropuestasRecibidas(): Rx.Observable<PropuestaDTO[]> {
         return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(this.extractData).publish().refCount();
+    }
+    
+    getPropuestasRecibidasN(){
+        return this.http.get('/Portal-Permutas/api/propuesta/recibidasN').map(this.extractData).publish().refCount();
     }
     
     create(propuesta: Propuesta){

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HelloUserComponent } from './hello-user.component';
@@ -26,7 +27,7 @@ import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 import { AppRoutingModule }     from './app-routing.module';
 
 @NgModule({
-  imports: [ BrowserModule, FormsModule, HttpModule, AppRoutingModule, AgmCoreModule.forRoot({
+  imports: [ BrowserModule, FormsModule, HttpModule, AppRoutingModule, MaterialModule.forRoot(), AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA0Bx2IH546c7E3E5mqtSwQq8z-inqpWts'
     }) ],
   declarations: [

@@ -1,14 +1,16 @@
-<h1>Propuestas Enviadas</h1>
-<div class="table-responsive col-md-12">
-	<table class="table table-striped" cellspacing="0" cellpadding="0">
-    	<thead>
-        	<tr *ngFor="let p of propuestas">
-            	<th>Título</th>
+<md-card>
+	<md-card-title>
+		Propuestas Enviadas
+	</md-card-title>
+	
+	<table class="table">
+  	<thead class="thead-default">
+        	<tr>
+            	<th>Titulo</th>
                 <th>Destinatario</th>
                 <th>Fecha</th>
                 <th>Estado</th>
-                <th *ngIf="p.estado == 1">Fecha Acept.</th>
-                <th *ngIf="p.estado == 2">Fecha Rechaz.</th>
+                <th>Fecha Acept/Rechaz</th>
             </tr>
         </thead>
         <tbody>
@@ -23,4 +25,4 @@
         	</tr>
 		</tbody>
 	</table>
-</div>  
+</md-card>

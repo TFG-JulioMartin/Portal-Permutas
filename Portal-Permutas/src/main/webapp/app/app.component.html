@@ -1,0 +1,65 @@
+<md-sidenav-container class="demo-root" fullscreen>
+  <md-sidenav #start>
+    <md-nav-list>
+      <ng-container *ngIf="!this.authenticationService.isLoggedIn()">
+      <a *ngFor="let navItem of NotLoggedNavItems"
+         md-list-item
+         (click)="start.close()"
+         [routerLink]="[navItem.route]">
+        {{navItem.name}}
+      </a>
+	  </ng-container>
+	  
+	  <ng-container *ngIf="this.authenticationService.isLoggedIn()">
+      <a *ngFor="let navItem of LoggedNavItems"
+         md-list-item
+         (click)="start.close()"
+         [routerLink]="[navItem.route]">
+        {{navItem.name}}
+      </a>
+	  </ng-container>
+      <hr>
+      
+    </md-nav-list>
+    <button md-button (click)="start.close()">CLOSE</button>
+  </md-sidenav>
+  <div>
+    <md-toolbar color="primary">
+      <button md-icon-button (click)="start.open()">
+        <md-icon class="md-24" >menu</md-icon>
+      </button>
+      
+      <span>
+      	<button md-icon-button (click)='goToHome()'>
+      		<md-icon class="md-24">home</md-icon>
+      	</button>
+      </span>
+      <span>Portal-Permutas</span> 
+   	  <span class="example-fill-remaining-space" style="flex: 1 1 auto;"></span>
+   	  
+      <ng-container *ngIf="this.authenticationService.isLoggedIn()">   
+      	<button md-icon-button (click)='goToEditarUsuario()'>
+      		<md-icon class="md-48">account_circle</md-icon>	
+      	</button>
+      	<span style="font-size:14px;font-family:Roboto;">{{currentUser.username}}</span>
+      	&nbsp;
+      	<button md-icon-button (click)='goToRecibidas()'>
+      		<md-icon class="md-24">notifications</md-icon>
+      	</button> 
+      	<span *ngIf="numPR>0" style="font-size:14px;font-family:Roboto;">({{numPR}})</span>   	
+      	<button md-button (click)='logout()'>Logout ({{currentUser.username}})</button>   
+      </ng-container>
+      
+      <span *ngIf="!this.authenticationService.isLoggedIn()">
+      	<button md-button (click)='goToLogin()'>Login</button>
+      	<button md-button (click)='goToRegister()'>Register</button>
+      </span>
+
+    </md-toolbar>
+
+    <div #root="$implicit" dir="ltr" class="demo-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</md-sidenav-container>
+

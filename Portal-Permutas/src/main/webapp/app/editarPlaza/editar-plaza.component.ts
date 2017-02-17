@@ -13,6 +13,9 @@ export class EditarPlazaComponent {
     model: any = {};
     loading = false;
     plaza: PlazaPropia;
+    color = 'primary';
+  	mode = 'determinate';
+  	value = 50;
     
 
     constructor(private router: Router, private plazaService: PlazaService, private alertService: AlertService) { 

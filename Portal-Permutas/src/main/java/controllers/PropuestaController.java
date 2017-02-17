@@ -38,6 +38,16 @@ public class PropuestaController {
 
 		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/enviadasN", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Integer> findAllEnviadasN() {
+
+		Integer res;
+
+		res = propuestaService.findAllPropuestasEnviadasDTO().size();
+
+		return new ResponseEntity<Integer>(res, HttpStatus.OK);
+	}
 
 	// Busca todas las propuestas recibidas del usuario logeado.
 
@@ -53,6 +63,16 @@ public class PropuestaController {
 		}
 
 		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/recibidasN", method = RequestMethod.GET, produces = "application/json")
+	ResponseEntity<Integer> findAllRecibidasN() {
+
+		Integer res;
+
+		res = propuestaService.findAllPropuestasRecibidasDTO().size();
+
+		return new ResponseEntity<Integer>(res, HttpStatus.OK);
 	}
 
 	// Busca una propuesta por su id.

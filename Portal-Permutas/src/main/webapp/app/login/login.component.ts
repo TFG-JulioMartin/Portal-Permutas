@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {FormControl, Validators} from '@angular/forms';
 
 import { AlertService, AuthenticationService } from '../_services/index';
 
@@ -12,6 +13,9 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
+    color = 'primary';
+  	mode = 'determinate';
+  	value = 50;
 
     constructor(
         private route: ActivatedRoute,

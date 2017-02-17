@@ -11,28 +11,70 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('./_services/index');
+var index_2 = require('./_services/index');
 var AppComponent = (function () {
-    function AppComponent(authenticationService, router) {
+    function AppComponent(authenticationService, router, _element, propuestaService) {
         this.authenticationService = authenticationService;
         this.router = router;
+        this._element = _element;
+        this.propuestaService = propuestaService;
+        this.NotLoggedNavItems = [
+            { name: 'Home', route: '' },
+            { name: 'List', route: 'list' },
+            { name: 'Login', route: 'login' },
+            { name: 'Register', route: 'register' }
+        ];
+        this.LoggedNavItems = [
+            { name: 'Home', route: '' },
+            { name: 'List', route: 'list' },
+            { name: 'Zonas Deseadas', route: 'zonas' },
+            { name: 'Editar Perfil', route: 'editaUsuario' },
+            { name: 'Editar Plaza', route: 'editaPlaza' },
+            { name: 'Propuestas Enviadas', route: 'propuestasEnviadas' },
+            { name: 'Propuestas Recibidas', route: 'propuestasRecibidas' }
+        ];
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.loggedIn = this.authenticationService.isLoggedIn();
+        this.getNumeroPropuestasEnviadas();
+        this.getNumeroPropuestasRecibidas();
     }
+    AppComponent.prototype.getNumeroPropuestasEnviadas = function () {
+        var _this = this;
+        this.propuestaService.getPropuestasEnviadasN().subscribe(function (numPE) { return _this.numPE = numPE; });
+    };
+    AppComponent.prototype.getNumeroPropuestasRecibidas = function () {
+        var _this = this;
+        this.propuestaService.getPropuestasRecibidasN().subscribe(function (numPR) { return _this.numPR = numPR; });
+    };
     AppComponent.prototype.logout = function () {
         this.router.navigate(['/j_spring_security_logout']);
         this.authenticationService.changeLoginStatus(false);
         localStorage.removeItem('currentUser');
     };
+    AppComponent.prototype.goToLogin = function () {
+        this.router.navigate(['/login']);
+    };
+    AppComponent.prototype.goToRegister = function () {
+        this.router.navigate(['/register']);
+    };
+    AppComponent.prototype.goToHome = function () {
+        this.router.navigate(['/']);
+    };
+    AppComponent.prototype.goToEditarUsuario = function () {
+        this.router.navigate(['/editaUsuario']);
+    };
+    AppComponent.prototype.goToRecibidas = function () {
+        this.router.navigate(['/propuestasRecibidas']);
+    };
     AppComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-app',
-            template: "<div *ngIf=\"!this.authenticationService.isLoggedIn()\"><h1>Welcome</h1></div>\n             <div *ngIf=\"this.authenticationService.isLoggedIn()\"><h1>Welcome {{currentUser.nombre}}!</h1></div>\n  <nav>\n   <div *ngIf=\"!this.authenticationService.isLoggedIn()\">\n    <button><a routerLink=\"/\" routerLinkActive=\"active\">Home</a></button>\n    <button><a routerLink=\"/login\" routerLinkActive=\"active\">Login</a></button>\n    <button><a routerLink=\"/register\" routerLinkActive=\"active\">Register</a></button>\n    </div>\n    <div *ngIf=\"this.authenticationService.isLoggedIn()\">\n    <button><a routerLink=\"/\" routerLinkActive=\"active\">Home</a></button>\n    <button><a routerLink=\"/list\" routerLinkActive=\"active\">Listado</a></button>\n    <button><a routerLink=\"/zonas\" routerLinkActive=\"active\">Zonas</a></button>\n    <button><a routerLink=\"/editaUsuario\" routerLinkActive=\"active\">Editar Usuario</a></button>\n    <button><a routerLink=\"/editaPlaza\" routerLinkActive=\"active\">Editar Plaza</a></button>\n    <button><a routerLink=\"/propuestasEnviadas\" routerLinkActive=\"active\">Propuestas Enviadas</a></button>\n    <button><a routerLink=\"/propuestasRecibidas\" routerLinkActive=\"active\">Propuestas Recibidas</a></button>\n    <button (click)='logout()'>Logout ({{currentUser.username}})</button>\n    </div>\n  </nav>\n  \n  <br>\n  <router-outlet></router-outlet>\n  ",
-            styles: [
-                'nav { margin-left: 35%; }',
-                'h1 { margin-left: 47%; }'
-            ]
+            templateUrl: 'app.component.html',
+            styleUrls: ['app.component.css'],
+            encapsulation: core_1.ViewEncapsulation.None,
         }), 
-        __metadata('design:paramtypes', [index_1.AuthenticationService, router_1.Router])
+        __metadata('design:paramtypes', [index_1.AuthenticationService, router_1.Router, core_1.ElementRef, index_2.PropuestaService])
     ], AppComponent);
     return AppComponent;
 }());

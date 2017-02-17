@@ -155,7 +155,7 @@ public class UsuarioService {
 		userAccount.setNombre(usuario.getNombre());
 		userAccount.setTelefono(usuario.getTelefono());
 
-		save(userAccount);
+		userAccountRepository.save(userAccount);
 	}
 
 	public void validateUser(String userId) {

@@ -22,8 +22,14 @@ var PropuestaService = (function () {
     PropuestaService.prototype.getPropuestasEnviadas = function () {
         return this.http.get('/Portal-Permutas/api/propuesta/enviadas').map(this.extractData).publish().refCount();
     };
+    PropuestaService.prototype.getPropuestasEnviadasN = function () {
+        return this.http.get('/Portal-Permutas/api/propuesta/enviadasN').map(this.extractData).publish().refCount();
+    };
     PropuestaService.prototype.getPropuestasRecibidas = function () {
         return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(this.extractData).publish().refCount();
+    };
+    PropuestaService.prototype.getPropuestasRecibidasN = function () {
+        return this.http.get('/Portal-Permutas/api/propuesta/recibidasN').map(this.extractData).publish().refCount();
     };
     PropuestaService.prototype.create = function (propuesta) {
         return this.http.post('/Portal-Permutas/api/propuesta', propuesta).subscribe(function (response) { });

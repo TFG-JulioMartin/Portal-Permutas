@@ -1,50 +1,57 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation, ElementRef} from '@angular/core';
 import { User } from './_models/index';
 import {Router} from '@angular/router';
 
 import { AuthenticationService } from './_services/index';
+import { PropuestaService} from './_services/index';
 
 
 @Component({
+  moduleId: module.id,
   selector: 'my-app',
-  template: `<div *ngIf="!this.authenticationService.isLoggedIn()"><h1>Welcome</h1></div>
-             <div *ngIf="this.authenticationService.isLoggedIn()"><h1>Welcome {{currentUser.nombre}}!</h1></div>
-  <nav>
-   <div *ngIf="!this.authenticationService.isLoggedIn()">
-    <button><a routerLink="/" routerLinkActive="active">Home</a></button>
-    <button><a routerLink="/login" routerLinkActive="active">Login</a></button>
-    <button><a routerLink="/register" routerLinkActive="active">Register</a></button>
-    </div>
-    <div *ngIf="this.authenticationService.isLoggedIn()">
-    <button><a routerLink="/" routerLinkActive="active">Home</a></button>
-    <button><a routerLink="/list" routerLinkActive="active">Listado</a></button>
-    <button><a routerLink="/zonas" routerLinkActive="active">Zonas</a></button>
-    <button><a routerLink="/editaUsuario" routerLinkActive="active">Editar Usuario</a></button>
-    <button><a routerLink="/editaPlaza" routerLinkActive="active">Editar Plaza</a></button>
-    <button><a routerLink="/propuestasEnviadas" routerLinkActive="active">Propuestas Enviadas</a></button>
-    <button><a routerLink="/propuestasRecibidas" routerLinkActive="active">Propuestas Recibidas</a></button>
-    <button (click)='logout()'>Logout ({{currentUser.username}})</button>
-    </div>
-  </nav>
-  
-  <br>
-  <router-outlet></router-outlet>
-  `,
-  styles: [
-  
-  'nav { margin-left: 35%; }',
-  'h1 { margin-left: 47%; }'
-  
-  ]
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
+
 export class AppComponent { 
 
 	currentUser: User;
     loggedIn: any;
+    numPR : number;
+    numPE : number;
     
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    
+    NotLoggedNavItems = [
+    {name: 'Home', route: ''},
+    {name: 'List', route: 'list'},
+    {name: 'Login', route: 'login'},
+    {name: 'Register', route: 'register'}
+  ];
+  
+    LoggedNavItems = [
+    {name: 'Home', route: ''},
+    {name: 'List', route: 'list'},
+    {name: 'Zonas Deseadas', route: 'zonas'},
+    {name: 'Editar Perfil', route: 'editaUsuario'},
+    {name: 'Editar Plaza', route: 'editaPlaza'},
+    {name: 'Propuestas Enviadas', route: 'propuestasEnviadas'},
+    {name: 'Propuestas Recibidas', route: 'propuestasRecibidas'}
+  ];
+    
+    constructor(private authenticationService: AuthenticationService, private router: Router, private _element: ElementRef, private propuestaService: PropuestaService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.loggedIn = this.authenticationService.isLoggedIn();
+        this.getNumeroPropuestasEnviadas();
+        this.getNumeroPropuestasRecibidas();
+    }
+    
+    getNumeroPropuestasEnviadas(){
+    	this.propuestaService.getPropuestasEnviadasN().subscribe(numPE => this.numPE = numPE);
+    }
+    
+    getNumeroPropuestasRecibidas(){
+    	this.propuestaService.getPropuestasRecibidasN().subscribe(numPR => this.numPR = numPR);
     }
     
     logout() {
@@ -52,6 +59,25 @@ export class AppComponent {
         this.authenticationService.changeLoginStatus(false);
         localStorage.removeItem('currentUser');
     }
-
-
+    
+    goToLogin(){
+    	this.router.navigate(['/login']);
+    }
+    
+    goToRegister(){
+    	this.router.navigate(['/register']);
+    }
+    
+    goToHome(){
+    	this.router.navigate(['/']);
+    }
+    
+    goToEditarUsuario(){
+    	this.router.navigate(['/editaUsuario']);
+    }
+    
+    goToRecibidas(){
+    	this.router.navigate(['/propuestasRecibidas']);
+    }
+    
 }

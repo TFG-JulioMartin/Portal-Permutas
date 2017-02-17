@@ -18,6 +18,9 @@ var RegisterComponent = (function () {
         this.alertService = alertService;
         this.model = {};
         this.loading = false;
+        this.color = 'primary';
+        this.mode = 'determinate';
+        this.value = 50;
     }
     RegisterComponent.prototype.register = function () {
         var _this = this;

@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
+var material_1 = require('@angular/material');
 var app_component_1 = require('./app.component');
 var hello_user_component_1 = require('./hello-user.component');
 var map_component_1 = require('./map.component');
@@ -35,7 +36,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule, core_2.AgmCoreModule.forRoot({
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule, material_1.MaterialModule.forRoot(), core_2.AgmCoreModule.forRoot({
                     apiKey: 'AIzaSyA0Bx2IH546c7E3E5mqtSwQq8z-inqpWts'
                 })],
             declarations: [

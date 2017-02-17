@@ -18,6 +18,9 @@ var EditarPlazaComponent = (function () {
         this.alertService = alertService;
         this.model = {};
         this.loading = false;
+        this.color = 'primary';
+        this.mode = 'determinate';
+        this.value = 50;
         this.getPlaza();
     }
     EditarPlazaComponent.prototype.getPlaza = function () {

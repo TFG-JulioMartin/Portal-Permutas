@@ -20,6 +20,8 @@ public class UsuarioForm {
 	private String ciudad;
 	private String centro;
 	private String direccion;
+	private double latitud;
+	private double longitud;
 
 	public String getNombre() {
 		return nombre;
@@ -100,4 +102,21 @@ public class UsuarioForm {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+	public double getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(double latitud) {
+		this.latitud = latitud;
+	}
+
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
+	}
+
 }

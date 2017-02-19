@@ -76,6 +76,22 @@ export interface User {
     password: string;
     nombre: string;
     apellidos: string;
-    email: string
-    telefono: string
+    email: string;
+    telefono: string;
+}
+
+export interface UserForm {
+    id: number;
+    username: string;
+    password: string;
+    nombre: string;
+    apellidos: string;
+    email: string;
+    telefono: string;
+    titulo : string;
+    ciudad : string;
+    centro : string;
+    direccion : string;
+    latitud : number;
+    longitud : number;
 }

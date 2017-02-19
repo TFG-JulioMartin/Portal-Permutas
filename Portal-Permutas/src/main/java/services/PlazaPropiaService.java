@@ -106,12 +106,12 @@ public class PlazaPropiaService {
 
 		plazaActual = findByPrincipal();
 
-		// Falta modificar la lat y lng.
-
 		plazaActual.setCentro(plazaPropia.getCentro());
 		plazaActual.setCiudad(plazaPropia.getCiudad());
 		plazaActual.setDireccion(plazaPropia.getDireccion());
 		plazaActual.setTitulo(plazaPropia.getTitulo());
+		plazaActual.setLatitud(plazaPropia.getLatitud());
+		plazaActual.setLongitud(plazaPropia.getLongitud());
 
 		save(plazaActual);
 	}

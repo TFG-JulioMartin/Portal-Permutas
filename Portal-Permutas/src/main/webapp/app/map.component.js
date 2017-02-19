@@ -12,13 +12,11 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('./_services/index');
 var MapComponent = (function () {
-    function MapComponent(plazaService, geocodingService, router) {
+    function MapComponent(plazaService, router) {
         this.plazaService = plazaService;
-        this.geocodingService = geocodingService;
         this.router = router;
         // google maps zoom level  
         this.zoom = 13;
-        this.newArr = [];
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
@@ -36,9 +34,6 @@ var MapComponent = (function () {
                 draggable: true
             }
         ];
-        this.arr = [{ address: 'Calle Martinez de Medina, 2, Sevilla' }, { address: 'Calle Sta. Angela de la Cruz, 11, Sevilla' }];
-        // this.getLanLon();
-        this.getPlazas();
     }
     MapComponent.prototype.ngOnInit = function () {
         this.getPlazas();
@@ -46,21 +41,6 @@ var MapComponent = (function () {
     MapComponent.prototype.getPlazas = function () {
         var _this = this;
         this.plazaService.getPlazas().subscribe(function (plazas) { return _this.plazas = plazas; });
-    };
-    MapComponent.prototype.getLanLon = function () {
-        var _this = this;
-        this.arr.forEach(function (x) {
-            Observable < google.maps.GeocoderResult > observable;
-            _this.geocodingService.getLatLan(x.address);
-            observable.subscribe(function (data) {
-                console.log(" Procesando ");
-                var lati = data.geometry.location.lat;
-                var long = data.geometry.location.lng;
-                var newObj = Object.assign({}, { address: x.address, lat: lati, lon: long });
-                console.log(" POSICION: (" + lati + " | " + long + ") ");
-                _this.newArr.push(newObj);
-            });
-        });
     };
     MapComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
@@ -81,7 +61,7 @@ var MapComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'map.component.html'
         }), 
-        __metadata('design:paramtypes', [index_1.PlazaService, index_1.GeocodingService, router_1.Router])
+        __metadata('design:paramtypes', [index_1.PlazaService, router_1.Router])
     ], MapComponent);
     return MapComponent;
 }());

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
-import { PlazaService, GeocodingService } from './_services/index';
+import { PlazaService } from './_services/index';
 import { PlazaPropia } from './listadoPlazas/plazaPropia';
 
 
@@ -17,17 +17,18 @@ import { PlazaPropia } from './listadoPlazas/plazaPropia';
 })
 
 export class MapComponent implements OnInit {
+
     // google maps zoom level  
     zoom: number = 13;
+    
+    // initial center position for the map
+    lat: number = 37.362444;
+    lng: number = -5.9965;
 
     plazas: PlazaPropia[];
-    arr;
-    newArr = [];
 
-    constructor(private plazaService: PlazaService, private geocodingService: GeocodingService, private router: Router) {
-        this.arr = [{ address: 'Calle Martinez de Medina, 2, Sevilla' }, { address: 'Calle Sta. Angela de la Cruz, 11, Sevilla' }]
-        // this.getLanLon();
-        this.getPlazas();
+    constructor(private plazaService: PlazaService , private router: Router) {
+        
     }
     ngOnInit() {
         this.getPlazas();
@@ -36,26 +37,6 @@ export class MapComponent implements OnInit {
     getPlazas(): void {
         this.plazaService.getPlazas().subscribe(plazas => this.plazas = plazas);
     }
-
-    getLanLon() {
-        this.arr.forEach(x => {
-            Observable < google.maps.GeocoderResult > observable=this.geocodingService.getLatLan(x.address);
-            observable.subscribe(data => {
-                console.log(" Procesando ");
-                let lati = data.geometry.location.lat;
-                let long = data.geometry.location.lng;
-                let newObj = Object.assign({}, { address: x.address, lat: lati, lon: long })
-                console.log(" POSICION: (" + lati + " | " + long + ") ");
-                this.newArr.push(newObj);
-            });
-        })
-    }
-
-
-
-    // initial center position for the map
-    lat: number = 37.362444;
-    lng: number = -5.9965;
 
     clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`)

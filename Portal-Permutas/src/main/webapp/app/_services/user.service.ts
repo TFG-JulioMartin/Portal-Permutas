@@ -16,7 +16,7 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/Portal-Permutas/api/usuario', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('/Portal-Permutas/api/usuario', user).map(this.extractData).publish().refCount();
     }
 
     update(user: User) {
@@ -36,5 +36,9 @@ export class UserService {
             let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
             return new RequestOptions({ headers: headers });
         }
+    }
+     private extractData(res: Response) {
+        let body = res.json();
+        return body || {};
     }
 }

@@ -21,7 +21,7 @@ var UserService = (function () {
         return this.http.get('/Portal-Permutas/api/usuario', this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
-        return this.http.post('/Portal-Permutas/api/usuario', user, this.jwt()).map(function (response) { return response.json(); });
+        return this.http.post('/Portal-Permutas/api/usuario', user).map(this.extractData).publish().refCount();
     };
     UserService.prototype.update = function (user) {
         return this.http.put('/Portal-Permutas/api/usuario/modifica', user, this.jwt()).map(function (response) { return response.json(); });
@@ -37,6 +37,10 @@ var UserService = (function () {
             var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
             return new http_1.RequestOptions({ headers: headers });
         }
+    };
+    UserService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body || {};
     };
     UserService = __decorate([
         core_1.Injectable(), 

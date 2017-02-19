@@ -12,10 +12,11 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('../_services/index');
 var RegisterComponent = (function () {
-    function RegisterComponent(router, userService, alertService) {
+    function RegisterComponent(router, userService, alertService, geocodingService) {
         this.router = router;
         this.userService = userService;
         this.alertService = alertService;
+        this.geocodingService = geocodingService;
         this.model = {};
         this.loading = false;
         this.color = 'primary';
@@ -25,13 +26,19 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.register = function () {
         var _this = this;
         this.loading = true;
-        this.userService.create(this.model)
-            .subscribe(function (data) {
-            _this.alertService.success('Registration successful', true);
-            _this.router.navigate(['/login']);
+        this.geocodingService.getLatLon(this.model.direccion).subscribe(function (data) {
+            _this.model.latitud = data.lat();
+            _this.model.longitud = data.lng();
+            _this.userService.create(_this.model)
+                .subscribe(function (data) {
+                _this.alertService.success('Registration successful', true);
+                _this.router.navigate(['/login']);
+            }, function (error) {
+                _this.alertService.error(error);
+                _this.loading = false;
+            });
         }, function (error) {
-            _this.alertService.error(error);
-            _this.loading = false;
+            console.log(error);
         });
     };
     RegisterComponent = __decorate([
@@ -39,7 +46,7 @@ var RegisterComponent = (function () {
             moduleId: module.id,
             templateUrl: 'register.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, index_1.UserService, index_1.AlertService])
+        __metadata('design:paramtypes', [router_1.Router, index_1.UserService, index_1.AlertService, index_1.GeocodingService])
     ], RegisterComponent);
     return RegisterComponent;
 }());

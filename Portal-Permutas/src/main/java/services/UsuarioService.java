@@ -140,7 +140,8 @@ public class UsuarioService {
 		plazaPropia.setDireccion(usuarioForm.getDireccion());
 		plazaPropia.setTitulo(usuarioForm.getTitulo());
 		plazaPropia.setUsuarioId(userAccount.getId());
-		// Falta Crear las coordenadas;
+		plazaPropia.setLatitud(usuarioForm.getLatitud());
+		plazaPropia.setLongitud(usuarioForm.getLongitud());
 
 		plazaPropiaService.save(plazaPropia);
 

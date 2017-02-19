@@ -16,7 +16,7 @@ import security.UserAccount;
 
 //import org.springframework.context.support.GenericXmlApplicationContext;
 
-public class AppTest {
+public class PopulateMongo {
 
 	public static void main(String[] args) {
 

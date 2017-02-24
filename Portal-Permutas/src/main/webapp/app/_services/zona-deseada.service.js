@@ -10,33 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/publish');
-var PlazaService = (function () {
-    function PlazaService(http) {
+require('rxjs/add/operator/toPromise');
+var ZonaDeseadaService = (function () {
+    function ZonaDeseadaService(http) {
         this.http = http;
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    PlazaService.prototype.getPlaza = function (id) {
-        return this.http.get('/Portal-Permutas/api/plazaPropia/find/' + id).map(this.extractData).publish().refCount();
+    ZonaDeseadaService.prototype.getZonas = function () {
+        return this.http.get('/Portal-Permutas/api/zonaDeseada/all').map(function (res) { return res.json(); });
     };
-    PlazaService.prototype.getPlazas = function () {
-        return this.http.get('/Portal-Permutas/api/plazaPropia/all').map(this.extractData).publish().refCount();
+    ZonaDeseadaService.prototype.createZone = function (zona) {
+        console.log(zona);
+        return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).map(function (res) { return res.json(); });
     };
-    PlazaService.prototype.getPrincipal = function () {
-        return this.http.get('/Portal-Permutas/api/plazaPropia').map(this.extractData).publish().refCount();
+    ZonaDeseadaService.prototype.checkCoincidencias = function () {
+        return this.http.get('/Portal-Permutas/api/zonaDeseada/matchings').map(this.extractData).publish().refCount();
     };
-    PlazaService.prototype.update = function (plaza) {
-        return this.http.put('/Portal-Permutas/api/plazaPropia/modifica', plaza).map(this.extractData).publish().refCount();
-    };
-    PlazaService.prototype.extractData = function (res) {
+    ZonaDeseadaService.prototype.extractData = function (res) {
         var body = res.json();
         return body || {};
     };
-    PlazaService = __decorate([
+    ZonaDeseadaService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], PlazaService);
-    return PlazaService;
+    ], ZonaDeseadaService);
+    return ZonaDeseadaService;
 }());
-exports.PlazaService = PlazaService;
-//# sourceMappingURL=plaza.service.js.map
+exports.ZonaDeseadaService = ZonaDeseadaService;
+//# sourceMappingURL=zona-deseada.service.js.map

@@ -27,9 +27,8 @@ var editar_plaza_component_1 = require('./editarPlaza/editar-plaza.component');
 var listar_propuestas_enviadas_component_1 = require('./listarPropuestas/listar-propuestas-enviadas.component');
 var listar_propuestas_recibidas_component_1 = require('./listarPropuestas/listar-propuestas-recibidas.component');
 var index_1 = require('./_directives/index');
-var index_2 = require('./_services/index');
-var zona_deseada_service_1 = require('./zonasDeseadas/zona-deseada.service');
 var core_3 = require('angular2-google-maps/core');
+var index_2 = require('./_services/index');
 var app_routing_module_1 = require('./app-routing.module');
 var AppModule = (function () {
     function AppModule() {
@@ -52,13 +51,14 @@ var AppModule = (function () {
                 editar_usuario_component_1.EditarUsuarioComponent,
                 editar_plaza_component_1.EditarPlazaComponent,
                 listar_propuestas_enviadas_component_1.ListarPropuestasEnviadasComponent,
-                listar_propuestas_recibidas_component_1.ListarPropuestasRecibidasComponent
+                listar_propuestas_recibidas_component_1.ListarPropuestasRecibidasComponent,
+                index_1.EqualValidator
             ],
             providers: [
                 index_2.AlertService,
                 index_2.AuthenticationService,
                 index_2.PlazaService,
-                zona_deseada_service_1.ZonaDeseadaService,
+                index_2.ZonaDeseadaService,
                 index_2.GeocodingService,
                 core_3.GoogleMapsAPIWrapper,
                 index_2.PropuestaService,

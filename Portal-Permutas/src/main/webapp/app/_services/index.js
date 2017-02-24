@@ -8,4 +8,5 @@ __export(require('./user.service'));
 __export(require('./geocoding.service'));
 __export(require('./propuesta.service'));
 __export(require('./plaza.service'));
+__export(require('./zona-deseada.service'));
 //# sourceMappingURL=index.js.map

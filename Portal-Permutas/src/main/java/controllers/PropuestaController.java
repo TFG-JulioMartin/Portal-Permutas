@@ -38,7 +38,7 @@ public class PropuestaController {
 
 		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/enviadasN", method = RequestMethod.GET, produces = "application/json")
 	ResponseEntity<Integer> findAllEnviadasN() {
 
@@ -64,7 +64,7 @@ public class PropuestaController {
 
 		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/recibidasN", method = RequestMethod.GET, produces = "application/json")
 	ResponseEntity<Integer> findAllRecibidasN() {
 
@@ -116,24 +116,29 @@ public class PropuestaController {
 	void add(@RequestBody Propuesta propuesta) {
 
 		propuestaService.creaPropuesta(propuesta);
-
 	}
 
 	// Acepta una propuesta.
-
+	
 	@RequestMapping(value = "aceptar/{id}", method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	public void aceptaPropuesta(@PathVariable("id") String id) {
-		propuestaService.aceptaPropuesta(id);
+	public ResponseEntity<Propuesta> aceptaPropuesta(@PathVariable("id") String id) {
 
+		Propuesta res;
+
+		res = propuestaService.aceptaPropuesta(id);
+
+		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
 	}
 
 	// Rechaza una propuesta.
-
+	
 	@RequestMapping(value = "rechazar/{id}", method = RequestMethod.PUT)
-	@ResponseStatus(HttpStatus.OK)
-	public void rechazaPropuesta(@PathVariable("id") String id) {
-		propuestaService.rechazaPropuesta(id);
+	public ResponseEntity<Propuesta> rechazaPropuesta(@PathVariable("id") String id) {
 
+		Propuesta res;
+
+		res = propuestaService.rechazaPropuesta(id);
+
+		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
 	}
 }

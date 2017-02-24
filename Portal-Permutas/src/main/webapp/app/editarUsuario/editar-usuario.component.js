@@ -42,7 +42,8 @@ var EditarUsuarioComponent = (function () {
     EditarUsuarioComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'editar-usuario.component.html'
+            templateUrl: 'editar-usuario.component.html',
+            styleUrls: ['../login/login.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, index_1.UserService, index_1.AlertService])
     ], EditarUsuarioComponent);

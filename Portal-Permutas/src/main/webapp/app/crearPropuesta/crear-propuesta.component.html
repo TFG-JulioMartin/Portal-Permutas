@@ -1,24 +1,33 @@
+<md-sidenav-container>
 <div class="col-md-6 col-md-offset-3">
 <md-card>
 	<md-card-title>
-		Modificar Plaza
+		Enviar propuesta
 	</md-card-title>
     <form name="form" (ngSubmit)="f.form.valid && crearPropuesta()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="titulo">Titulo</label>
             <input type="text" class="form-control" name="titulo" [(ngModel)]="propuesta.titulo" #titulo="ngModel" required />
-            <div *ngIf="f.submitted && !titulo.valid" class="help-block">Titulo is required</div>
+            <div *ngIf="f.submitted && !titulo.valid" class="help-block">Debe introducir un titulo</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="texto">Texto</label>
             <input type="text" class="form-control" name="texto" [(ngModel)]="propuesta.texto" #texto="ngModel" required />
-            <div *ngIf="f.submitted && !texto.valid" class="help-block">Texto is required</div>
+            <div *ngIf="f.submitted && !texto.valid" class="help-block">Debe introducir un texto</div>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Confirmar</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a [routerLink]="['/']" class="btn btn-link">Cancelar</a>
+        	<button md-raised-button [disabled]="loading || !f.form.valid" color="primary">Enviar</button>
+            <ng-container *ngIf="loading">
+            <md-progress-circle
+        		class="example-margin"
+        		[color]="color"
+        		[mode]="mode"
+        		[value]="value">
+    		</md-progress-circle>
+    		</ng-container>
+            <a md-button routerLink="/">Cancelar</a>
         </div>
     </form>
 </md-card>
 </div>
+</md-sidenav-container>

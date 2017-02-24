@@ -3,8 +3,8 @@
 <h4>Lat de Rclick: {{elat}}</h4>
 <h4>Lng de Rclick: {{slng}}</h4>
 
+<md-sidenav-container>
 <md-card>
-<div class="container">
     <sebm-google-map 
       [latitude]="lat"
       [longitude]="lng"
@@ -16,14 +16,16 @@
     
       <sebm-google-map-marker 
           *ngFor="let p of plazas; let i = index"
-          (markerClick)="clickedMarker(m.label, i)"
+          (markerClick)="clickedMarker(p.titulo, i)"
           [latitude]="p.latitud"
           [longitude]="p.longitud"
-          [title]="p.titulo"
-          (dragEnd)="markerDragEnd(m, $event)">
+          [title]="p.titulo">
           
         <sebm-google-map-info-window>
-          <strong>InfoWindow content</strong>
+          <span>Titulo: {{p.titulo}}</span><br>
+          <span>Centro: {{p.centro}}</span><br>
+          <span>Direccion: {{p.direccion}}</span><br><br>
+          <button md-raised-button (click)='proponer(p.usuarioId)' color="accent">Enviar Propuesta</button>
         </sebm-google-map-info-window>
         
       </sebm-google-map-marker>
@@ -39,7 +41,6 @@
       </sebm-google-map-circle>
 
     </sebm-google-map>
-</div>
 </md-card>
 
 <md-card>
@@ -63,3 +64,4 @@
         </tbody>
 	</table>
 </md-card>
+</md-sidenav-container>

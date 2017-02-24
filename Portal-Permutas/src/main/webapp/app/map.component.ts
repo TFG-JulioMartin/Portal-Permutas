@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
-import { PlazaService } from './_services/index';
+import { PlazaService, AuthenticationService } from './_services/index';
 import { PlazaPropia } from './listadoPlazas/plazaPropia';
 
 
@@ -27,7 +27,7 @@ export class MapComponent implements OnInit {
 
     plazas: PlazaPropia[];
 
-    constructor(private plazaService: PlazaService , private router: Router) {
+    constructor(private plazaService: PlazaService , private router: Router, private authenticationService: AuthenticationService) {
         
     }
     ngOnInit() {
@@ -37,6 +37,10 @@ export class MapComponent implements OnInit {
     getPlazas(): void {
         this.plazaService.getPlazas().subscribe(plazas => this.plazas = plazas);
     }
+    
+    proponer(id : string) : void {
+  		this.router.navigate(['/crearPropuesta', id]);
+  	}
 
     clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`)

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Response} from '@angular/http';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
+import { Router} from '@angular/router';
 import * as Rx from 'rxjs/Rx';
 
 import 'rxjs/add/operator/switchMap';
@@ -24,6 +24,7 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
     propuestas: Propuesta[];
     msg: string;
     plazaRemitente: PlazaPropia;
+    textoPropuesta: string;
 
     // initial center position for the map
     lat: number = 37.362444;
@@ -38,10 +39,11 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
     }
 
     getPropuestasRecibidas(): void {
-        this.propuestaService.getPropuestasRecibidas().subscribe(propuestas => this.propuestas = propuestas);
+        this.propuestaService.getPropuestasRecibidas().subscribe(propuestas => { this.propuestas = propuestas });
     }
 
-    getPlazaRemitente(id: string) {
+    getPlazaRemitente(id: string, texto: string) {
+    	this.textoPropuesta = texto;
         this.plazaService.getPlaza(id).subscribe(plazaRemitente => this.plazaRemitente = plazaRemitente);
     }
     
@@ -52,20 +54,20 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
     aceptar(id: string) {
         this.propuestaService.aceptarPropuesta(id).subscribe(
             data => {
-                this.msg = 'Propuesta Aceptada';
+                this.getPropuestasRecibidas();
             },
             error => {
+            	console.log(error);
             });
     }
 
     rechazar(id: string) {
         this.propuestaService.rechazarPropuesta(id).subscribe(
             data => {
-                this.router.navigate(['/']);
-                this.router.navigate(['/propuestasRecibidas']);
-                this.msg = 'Propuesta Rechazada';
+                this.getPropuestasRecibidas();
             },
             error => {
+                console.log(error);
             });
     }
 

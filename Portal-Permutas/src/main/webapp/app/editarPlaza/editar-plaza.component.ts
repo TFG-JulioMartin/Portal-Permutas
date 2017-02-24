@@ -11,7 +11,8 @@ declare var google: any;
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'editar-plaza.component.html'
+    templateUrl: 'editar-plaza.component.html',
+    styleUrls: ['../login/login.component.css']
 })
 
 export class EditarPlazaComponent {
@@ -56,6 +57,7 @@ export class EditarPlazaComponent {
     }
 
     setLatLon(address: string) {
+        this.loading = true;
         this.getLatLon(address).subscribe(
             data => {
                 this.plaza.latitud = data.lat();

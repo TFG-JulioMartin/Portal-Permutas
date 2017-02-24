@@ -15,11 +15,8 @@ import { PropuestaService} from './_services/index';
 })
 
 export class AppComponent { 
-
-	currentUser: User;
-    loggedIn: any;
-    numPR : number;
-    numPE : number;
+ 
+    private isDarkTheme = false;
     
     
     NotLoggedNavItems = [
@@ -40,24 +37,16 @@ export class AppComponent {
   ];
     
     constructor(private authenticationService: AuthenticationService, private router: Router, private _element: ElementRef, private propuestaService: PropuestaService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedIn = this.authenticationService.isLoggedIn();
-        this.getNumeroPropuestasEnviadas();
-        this.getNumeroPropuestasRecibidas();
     }
     
-    getNumeroPropuestasEnviadas(){
-    	this.propuestaService.getPropuestasEnviadasN().subscribe(numPE => this.numPE = numPE);
-    }
-    
-    getNumeroPropuestasRecibidas(){
-    	this.propuestaService.getPropuestasRecibidasN().subscribe(numPR => this.numPR = numPR);
-    }
+    toggleTheme() {
+    	this.isDarkTheme = !this.isDarkTheme;
+  	}	
     
     logout() {
         this.router.navigate(['/j_spring_security_logout']);
         this.authenticationService.changeLoginStatus(false);
-        localStorage.removeItem('currentUser');
+        this.authenticationService.setCurrentUser(null);
     }
     
     goToLogin(){

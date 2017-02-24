@@ -26,7 +26,7 @@ export class PropuestaService {
     }
     
     getPropuestasRecibidas(): Rx.Observable<PropuestaDTO[]> {
-        return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(this.extractData).publish().refCount();
+        return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(res => res.json());
     }
     
     getPropuestasRecibidasN(){

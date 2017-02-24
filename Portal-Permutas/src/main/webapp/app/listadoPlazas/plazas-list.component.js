@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-require('rxjs/add/operator/switchMap');
 var index_1 = require('../_services/index');
 var PlazasListComponent = (function () {
     function PlazasListComponent(plazaService, router) {

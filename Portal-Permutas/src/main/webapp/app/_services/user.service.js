@@ -21,7 +21,7 @@ var UserService = (function () {
         return this.http.get('/Portal-Permutas/api/usuario', this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
-        return this.http.post('/Portal-Permutas/api/usuario', user).map(this.extractData).publish().refCount();
+        return this.http.post('/Portal-Permutas/api/usuario', user).map(function (res) { return res.json(); });
     };
     UserService.prototype.update = function (user) {
         return this.http.put('/Portal-Permutas/api/usuario/modifica', user, this.jwt()).map(function (response) { return response.json(); });

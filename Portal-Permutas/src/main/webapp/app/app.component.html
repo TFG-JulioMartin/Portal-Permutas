@@ -1,4 +1,4 @@
-<md-sidenav-container class="demo-root" fullscreen>
+<md-sidenav-container class="demo-root" fullscreen [class.dark-theme]="isDarkTheme">
   <md-sidenav #start>
     <md-nav-list>
       <ng-container *ngIf="!this.authenticationService.isLoggedIn()">
@@ -20,8 +20,14 @@
 	  </ng-container>
       <hr>
       
+      <a md-list-item
+         (click)="toggleTheme() && start.close()"
+         >
+        Toggle theme
+      </a>
+      
     </md-nav-list>
-    <button md-button (click)="start.close()">CLOSE</button>
+    <button md-button (click)="start.close()">CLOSE</button>    
   </md-sidenav>
   <div>
     <md-toolbar color="primary">
@@ -41,13 +47,13 @@
       	<button md-icon-button (click)='goToEditarUsuario()'>
       		<md-icon class="md-48">account_circle</md-icon>	
       	</button>
-      	<span style="font-size:14px;font-family:Roboto;">{{currentUser.username}}</span>
+      	<span style="font-size:14px;font-family:Roboto;">{{this.authenticationService.getCurrentUser().username}}</span>
       	&nbsp;
       	<button md-icon-button (click)='goToRecibidas()'>
       		<md-icon class="md-24">notifications</md-icon>
       	</button> 
-      	<span *ngIf="numPR>0" style="font-size:14px;font-family:Roboto;">({{numPR}})</span>   	
-      	<button md-button (click)='logout()'>Logout ({{currentUser.username}})</button>   
+      	<span *ngIf="this.authenticationService.getNumPR() > 0" style="font-size:14px;font-family:Roboto;">({{this.authenticationService.getNumPR()}})</span>   	
+      	<button md-button (click)='logout()'>Logout ({{this.authenticationService.getCurrentUser().username}})</button>   
       </ng-container>
       
       <span *ngIf="!this.authenticationService.isLoggedIn()">
@@ -62,4 +68,3 @@
     </div>
   </div>
 </md-sidenav-container>
-

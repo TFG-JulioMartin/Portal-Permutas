@@ -1,3 +1,4 @@
+<md-sidenav-container>
 <md-card>
     <sebm-google-map 
       [latitude]="lat"
@@ -8,18 +9,24 @@
       (mapClick)="mapClicked($event)">
     
       <sebm-google-map-marker 
-          *ngFor="let p of plazas let i = index"
-          (markerClick)="clickedMarker(m.label, i)"
+          *ngFor="let p of plazas; let i = index"
+          (markerClick)="clickedMarker(p.titulo, i)"
           [latitude]="p.latitud"
           [longitude]="p.longitud"
           [title]="p.titulo"      
           (dragEnd)="markerDragEnd(m, $event)">
           
         <sebm-google-map-info-window>
-          <strong>InfoWindow content</strong>
+          <span>Titulo: {{p.titulo}}</span><br>
+          <span>Centro: {{p.centro}}</span><br>
+          <span>Direccion: {{p.direccion}}</span><br><br>
+          <ng-container *ngIf="this.authenticationService.isLoggedIn()">
+          <button md-raised-button (click)='proponer(p.usuarioId)' color="accent">Enviar Propuesta</button>
+          </ng-container>
         </sebm-google-map-info-window>
         
       </sebm-google-map-marker>
  
     </sebm-google-map>
 </md-card>
+</md-sidenav-container>

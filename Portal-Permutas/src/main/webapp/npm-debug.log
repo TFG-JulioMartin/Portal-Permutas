@@ -3,13 +3,13 @@
 1 verbose cli   'C:\\Users\\Julio\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'start' ]
 2 info using npm@3.10.8
-3 info using node@v4.6.0
+3 info using node@v6.10.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle angular-quickstart@1.0.0~prestart: angular-quickstart@1.0.0
 6 silly lifecycle angular-quickstart@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle angular-quickstart@1.0.0~start: angular-quickstart@1.0.0
 8 verbose lifecycle angular-quickstart@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle angular-quickstart@1.0.0~start: PATH: C:\Users\Julio\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;C:\Users\Julio\Desktop\Workspace\Portal-Permutas\src\main\webapp\node_modules\.bin;C:\Users\Julio\AppData\Roaming\npm;C:\Program Files\nodejs\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk1.7.0_11\bin;C:\Program Files\Apache Software Foundation\apache-maven-3.1.0\bin;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\TortoiseSVN\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\MongoDB\Server\3.2\bin;C:\Users\Julio\AppData\Local\Microsoft\WindowsApps;C:\Users\Julio\AppData\Roaming\npm;C:\Program Files (x86)\Microsoft VS Code\bin
+9 verbose lifecycle angular-quickstart@1.0.0~start: PATH: C:\Users\Julio\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;C:\Users\Julio\Desktop\Workspace\Portal-Permutas\src\main\webapp\node_modules\.bin;C:\Users\Julio\AppData\Roaming\npm;C:\Program Files\nodejs\;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk1.7.0_11\bin;C:\Program Files\Apache Software Foundation\apache-maven-3.1.0\bin;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\TortoiseSVN\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\MongoDB\Server\3.2\bin;C:\Program Files\nodejs\;C:\Users\Julio\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Julio\AppData\Roaming\npm
 10 verbose lifecycle angular-quickstart@1.0.0~start: CWD: C:\Users\Julio\Desktop\Workspace\Portal-Permutas\src\main\webapp
 11 silly lifecycle angular-quickstart@1.0.0~start: Args: [ '/d /s /c', 'concurrently "npm run tsc:w" "npm run lite" ' ]
 12 silly lifecycle angular-quickstart@1.0.0~start: Returned: code: 3221225786  signal: null
@@ -17,18 +17,18 @@
 14 verbose stack Error: angular-quickstart@1.0.0 start: `concurrently "npm run tsc:w" "npm run lite" `
 14 verbose stack Exit status 3221225786
 14 verbose stack     at EventEmitter.<anonymous> (C:\Users\Julio\AppData\Roaming\npm\node_modules\npm\lib\utils\lifecycle.js:255:16)
-14 verbose stack     at emitTwo (events.js:87:13)
-14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
 14 verbose stack     at ChildProcess.<anonymous> (C:\Users\Julio\AppData\Roaming\npm\node_modules\npm\lib\utils\spawn.js:40:14)
-14 verbose stack     at emitTwo (events.js:87:13)
-14 verbose stack     at ChildProcess.emit (events.js:172:7)
-14 verbose stack     at maybeClose (internal/child_process.js:829:16)
-14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:877:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid angular-quickstart@1.0.0
 16 verbose cwd C:\Users\Julio\Desktop\Workspace\Portal-Permutas\src\main\webapp
 17 error Windows_NT 10.0.14393
 18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\Julio\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "start"
-19 error node v4.6.0
+19 error node v6.10.0
 20 error npm  v3.10.8
 21 error code ELIFECYCLE
 22 error angular-quickstart@1.0.0 start: `concurrently "npm run tsc:w" "npm run lite" `

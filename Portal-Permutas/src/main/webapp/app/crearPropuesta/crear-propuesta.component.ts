@@ -7,7 +7,8 @@ import { Propuesta } from '../_models/index';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'crear-propuesta.component.html'
+    templateUrl: 'crear-propuesta.component.html',
+    styleUrls: ['../login/login.component.css']
 })
 
 export class CrearPropuestaComponent implements OnInit {

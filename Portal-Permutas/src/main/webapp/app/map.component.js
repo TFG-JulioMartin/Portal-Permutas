@@ -12,9 +12,10 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('./_services/index');
 var MapComponent = (function () {
-    function MapComponent(plazaService, router) {
+    function MapComponent(plazaService, router, authenticationService) {
         this.plazaService = plazaService;
         this.router = router;
+        this.authenticationService = authenticationService;
         // google maps zoom level  
         this.zoom = 13;
         // initial center position for the map
@@ -42,6 +43,9 @@ var MapComponent = (function () {
         var _this = this;
         this.plazaService.getPlazas().subscribe(function (plazas) { return _this.plazas = plazas; });
     };
+    MapComponent.prototype.proponer = function (id) {
+        this.router.navigate(['/crearPropuesta', id]);
+    };
     MapComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
     };
@@ -61,7 +65,7 @@ var MapComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'map.component.html'
         }), 
-        __metadata('design:paramtypes', [index_1.PlazaService, router_1.Router])
+        __metadata('design:paramtypes', [index_1.PlazaService, router_1.Router, index_1.AuthenticationService])
     ], MapComponent);
     return MapComponent;
 }());

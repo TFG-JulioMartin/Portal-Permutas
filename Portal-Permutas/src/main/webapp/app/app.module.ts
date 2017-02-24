@@ -19,10 +19,10 @@ import { EditarPlazaComponent } from './editarPlaza/editar-plaza.component';
 import { ListarPropuestasEnviadasComponent } from './listarPropuestas/listar-propuestas-enviadas.component';
 import { ListarPropuestasRecibidasComponent } from './listarPropuestas/listar-propuestas-recibidas.component';
 
-import { AlertComponent } from './_directives/index';
-import { AlertService, AuthenticationService, UserService, GeocodingService, PropuestaService, PlazaService} from './_services/index';
-import { ZonaDeseadaService } from './zonasDeseadas/zona-deseada.service';
+import { AlertComponent, EqualValidator } from './_directives/index';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
+import { AlertService, AuthenticationService, UserService, GeocodingService, PropuestaService, PlazaService, ZonaDeseadaService } from './_services/index';
+
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -37,13 +37,14 @@ import { AppRoutingModule }     from './app-routing.module';
   		PlazasListComponent,
   		MapComponent,
   		LoginComponent,
-  		RegisterComponent, 
+  		RegisterComponent,
   		ZonaDeseadaComponent,
   		CrearPropuestaComponent,
   		EditarUsuarioComponent,
   		EditarPlazaComponent,
   		ListarPropuestasEnviadasComponent,
-  		ListarPropuestasRecibidasComponent
+  		ListarPropuestasRecibidasComponent,
+  		EqualValidator
   	],
   providers: [
         AlertService,

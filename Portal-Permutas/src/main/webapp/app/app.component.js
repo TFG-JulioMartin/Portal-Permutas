@@ -18,6 +18,7 @@ var AppComponent = (function () {
         this.router = router;
         this._element = _element;
         this.propuestaService = propuestaService;
+        this.isDarkTheme = false;
         this.NotLoggedNavItems = [
             { name: 'Home', route: '' },
             { name: 'List', route: 'list' },
@@ -33,23 +34,14 @@ var AppComponent = (function () {
             { name: 'Propuestas Enviadas', route: 'propuestasEnviadas' },
             { name: 'Propuestas Recibidas', route: 'propuestasRecibidas' }
         ];
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedIn = this.authenticationService.isLoggedIn();
-        this.getNumeroPropuestasEnviadas();
-        this.getNumeroPropuestasRecibidas();
     }
-    AppComponent.prototype.getNumeroPropuestasEnviadas = function () {
-        var _this = this;
-        this.propuestaService.getPropuestasEnviadasN().subscribe(function (numPE) { return _this.numPE = numPE; });
-    };
-    AppComponent.prototype.getNumeroPropuestasRecibidas = function () {
-        var _this = this;
-        this.propuestaService.getPropuestasRecibidasN().subscribe(function (numPR) { return _this.numPR = numPR; });
+    AppComponent.prototype.toggleTheme = function () {
+        this.isDarkTheme = !this.isDarkTheme;
     };
     AppComponent.prototype.logout = function () {
         this.router.navigate(['/j_spring_security_logout']);
         this.authenticationService.changeLoginStatus(false);
-        localStorage.removeItem('currentUser');
+        this.authenticationService.setCurrentUser(null);
     };
     AppComponent.prototype.goToLogin = function () {
         this.router.navigate(['/login']);

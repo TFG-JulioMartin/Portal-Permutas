@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import domain.ZonaDeseada;
 import forms.UsuarioForm;
 import security.UserAccount;
 import services.UsuarioService;
@@ -34,11 +35,13 @@ public class UsuarioController {
 	// Registra un nuevo usuario
 
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	void register(@RequestBody UsuarioForm user) {
+	public ResponseEntity<UserAccount> register(@RequestBody UsuarioForm user) {
 
-		usuarioService.reconstruct(user);
-
+		UserAccount res;
+		
+		res = usuarioService.reconstruct(user);
+		
+		return new ResponseEntity<UserAccount>(res, HttpStatus.CREATED);
 	}
 
 	// Busca el usuario logeado

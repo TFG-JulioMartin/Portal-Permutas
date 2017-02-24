@@ -182,6 +182,7 @@ public class PropuestaService {
 			dto.setId(p.getId());
 			dto.setNombreRemitente(nombreRemitente);
 			dto.setTitulo(p.getTitulo());
+			dto.setTexto(p.getTexto());
 			dto.setLatitudRemitente(plaza.getLatitud());
 			dto.setLongitudRemitente(plaza.getLongitud());
 			dto.setIdRemitente(p.getRemitenteId());
@@ -191,7 +192,7 @@ public class PropuestaService {
 		return res;
 	}
 
-	public void aceptaPropuesta(String id) {
+	public Propuesta aceptaPropuesta(String id) {
 		Propuesta propuesta;
 
 		propuesta = findOne(id);
@@ -201,10 +202,12 @@ public class PropuestaService {
 		propuesta.setFechaAcepRech(new Date());
 
 		save(propuesta);
+		
+		return propuesta;
 
 	}
 
-	public void rechazaPropuesta(String id) {
+	public Propuesta rechazaPropuesta(String id) {
 		Propuesta propuesta;
 
 		propuesta = findOne(id);
@@ -214,5 +217,7 @@ public class PropuestaService {
 		propuesta.setFechaAcepRech(new Date());
 
 		save(propuesta);
+		
+		return propuesta;
 	}
 }

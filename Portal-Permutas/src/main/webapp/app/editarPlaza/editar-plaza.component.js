@@ -56,6 +56,7 @@ var EditarPlazaComponent = (function () {
     };
     EditarPlazaComponent.prototype.setLatLon = function (address) {
         var _this = this;
+        this.loading = true;
         this.getLatLon(address).subscribe(function (data) {
             _this.plaza.latitud = data.lat();
             _this.plaza.longitud = data.lng();
@@ -74,7 +75,8 @@ var EditarPlazaComponent = (function () {
     EditarPlazaComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'editar-plaza.component.html'
+            templateUrl: 'editar-plaza.component.html',
+            styleUrls: ['../login/login.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, index_1.PlazaService, index_1.AlertService, core_2.GoogleMapsAPIWrapper, core_2.MapsAPILoader])
     ], EditarPlazaComponent);

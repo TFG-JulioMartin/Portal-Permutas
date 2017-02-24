@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Directive } from '@angular/core';
 import { Router } from '@angular/router';
+
 
 import { AlertService, UserService, GeocodingService } from '../_services/index';
 
+
+
+
+
 @Component({
     moduleId: module.id,
-    templateUrl: 'register.component.html'
+    templateUrl: 'register.component.html',
 })
 
 export class RegisterComponent {

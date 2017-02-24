@@ -16,7 +16,7 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post('/Portal-Permutas/api/usuario', user).map(this.extractData).publish().refCount();
+        return this.http.post('/Portal-Permutas/api/usuario', user).map(res => res.json());
     }
 
     update(user: User) {

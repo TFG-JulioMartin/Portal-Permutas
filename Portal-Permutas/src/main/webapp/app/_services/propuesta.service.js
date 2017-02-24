@@ -26,7 +26,7 @@ var PropuestaService = (function () {
         return this.http.get('/Portal-Permutas/api/propuesta/enviadasN').map(this.extractData).publish().refCount();
     };
     PropuestaService.prototype.getPropuestasRecibidas = function () {
-        return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(this.extractData).publish().refCount();
+        return this.http.get('/Portal-Permutas/api/propuesta/recibidas').map(function (res) { return res.json(); });
     };
     PropuestaService.prototype.getPropuestasRecibidasN = function () {
         return this.http.get('/Portal-Permutas/api/propuesta/recibidasN').map(this.extractData).publish().refCount();

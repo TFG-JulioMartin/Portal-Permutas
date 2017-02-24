@@ -46,15 +46,19 @@ public class UsuarioService {
 
 	// Simple CRUD methods----------------------------------------------------
 
-	public void create(UserAccount userAccount) {
+	public UserAccount create() {
+		
+		UserAccount res;
+		
+		res = new UserAccount();
+		
+		res.setAccountNonExpired(true);
+		res.setAccountNonLocked(true);
+		res.setCredentialsNonExpired(true);
+		res.setEnabled(true);
+		res.addRole("ROLE_USER");
 
-		userAccount.setAccountNonExpired(true);
-		userAccount.setAccountNonLocked(true);
-		userAccount.setCredentialsNonExpired(true);
-		userAccount.setEnabled(true);
-		userAccount.addRole("ROLE_USER");
-
-		save(userAccount);
+		return res;
 	}
 
 	public UserAccount findOne(String usuarioId) {
@@ -119,11 +123,11 @@ public class UsuarioService {
 		return res;
 	}
 
-	public void reconstruct(UsuarioForm usuarioForm) {
+	public UserAccount reconstruct(UsuarioForm usuarioForm) {
 		UserAccount userAccount;
 		PlazaPropia plazaPropia;
 
-		userAccount = new UserAccount();
+		userAccount = create();
 		plazaPropia = new PlazaPropia();
 
 		userAccount.setApellidos(usuarioForm.getApellidos());
@@ -133,7 +137,7 @@ public class UsuarioService {
 		userAccount.setUsername(usuarioForm.getUsername());
 		userAccount.setPassword(usuarioForm.getPassword());
 
-		create(userAccount);
+		save(userAccount);
 
 		plazaPropia.setCentro(usuarioForm.getCentro());
 		plazaPropia.setCiudad(usuarioForm.getCiudad());
@@ -144,6 +148,8 @@ public class UsuarioService {
 		plazaPropia.setLongitud(usuarioForm.getLongitud());
 
 		plazaPropiaService.save(plazaPropia);
+		
+		return userAccount;
 
 	}
 

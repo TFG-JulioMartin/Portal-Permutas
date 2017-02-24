@@ -74,6 +74,7 @@ export interface User {
     id: number;
     username: string;
     password: string;
+    confirm: string;
     nombre: string;
     apellidos: string;
     email: string;

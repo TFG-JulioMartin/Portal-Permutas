@@ -6,7 +6,8 @@ import { User } from '../_models/index';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'editar-usuario.component.html'
+    templateUrl: 'editar-usuario.component.html',
+    styleUrls: ['../login/login.component.css']
 })
 
 export class EditarUsuarioComponent {

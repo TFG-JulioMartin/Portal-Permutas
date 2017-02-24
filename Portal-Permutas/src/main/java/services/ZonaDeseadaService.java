@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import javax.transaction.Transactional;
 
@@ -109,14 +110,14 @@ public class ZonaDeseadaService {
 		return new ArrayList<ZonaDeseada>();
 	}
 
-	public void reconstruct(ZonaDeseadaDTO zona) {
+	public ZonaDeseada reconstruct(ZonaDeseadaDTO zona) {
 
 		ZonaDeseada zonaDeseada = new ZonaDeseada();
 		Double radio;
 		double lat = midPoint(zona.getSlat(), zona.getSlng(), zona.getElat(), zona.getElng())[0];
 		double lng = midPoint(zona.getSlat(), zona.getSlng(), zona.getElat(), zona.getElng())[1];
 
-		radio = distance(zona.getSlat(), zona.getElat(), zona.getSlng(), zona.getElng());
+		radio = distance(zona.getSlat(), zona.getElat(), zona.getSlng(), zona.getElng()) / 2;
 
 		zonaDeseada.setLatitud(lat);
 		zonaDeseada.setLongitud(lng);
@@ -124,6 +125,8 @@ public class ZonaDeseadaService {
 		zonaDeseada.setUsuarioId(usuarioService.findPrincipal().getId());
 
 		save(zonaDeseada);
+
+		return zonaDeseada;
 	}
 
 	public static double distance(double lat1, double lat2, double lon1, double lon2) {
@@ -141,7 +144,7 @@ public class ZonaDeseadaService {
 
 		distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
-		return Math.sqrt(distance) / 2;
+		return Math.sqrt(distance);
 	}
 
 	public static double[] midPoint(double lat1, double lon1, double lat2, double lon2) {
@@ -171,14 +174,18 @@ public class ZonaDeseadaService {
 		Collection<ZonaDeseada> principalZonas;
 		PlazaPropia plazaPropia;
 		Collection<PlazaPropia> allPlazas;
-		int contador = 0;
 
 		res = new ArrayList<Coincidencia>();
 		principalZonas = findAllByPrincipal();
 		allPlazas = plazaPropiaService.findAll();
 		plazaPropia = plazaPropiaService.findByPrincipal();
-		
-		allPlazas.remove(plazaPropia);
+
+		for (Iterator<PlazaPropia> iterator = allPlazas.iterator(); iterator.hasNext();) {
+			PlazaPropia currentPlaza = iterator.next();
+			if (currentPlaza.getId().equals(plazaPropia.getId())) {
+				iterator.remove();
+			}
+		}
 
 		for (PlazaPropia p : allPlazas) {
 			for (ZonaDeseada z : principalZonas) {
@@ -188,18 +195,30 @@ public class ZonaDeseadaService {
 					// menos que el radio, se considera que la plaza esta dentro
 					// de la zona deseada y se
 					// crea una coincidencia.
-					Coincidencia c = new Coincidencia();
-					UserAccount userAccount = usuarioService.findOne(p.getUsuarioId());
 
-					c.setId(String.valueOf(contador));
-					c.setIdUsuarioDestino(p.getUsuarioId());
-					c.setNombreUsuarioDestino(userAccount.getNombre() + " " + userAccount.getApellidos());
-					c.setTitulo(p.getTitulo());
+					if (compruebaNoContiene(res, p)) {
+						Coincidencia c = new Coincidencia();
+						UserAccount userAccount = usuarioService.findOne(p.getUsuarioId());
 
-					contador++;
+						c.setId(p.getId());
+						c.setIdUsuarioDestino(p.getUsuarioId());
+						c.setNombreUsuarioDestino(userAccount.getNombre() + " " + userAccount.getApellidos());
+						c.setTitulo(p.getTitulo());
 
-					res.add(c);
+						res.add(c);
+					}
 				}
+			}
+		}
+		return res;
+	}
+
+	public static boolean compruebaNoContiene(Collection<Coincidencia> c, PlazaPropia p) {
+		boolean res = true;
+
+		for (Coincidencia coincidencia : c) {
+			if (coincidencia.getId().equals(p.getId())) {
+				res = false;
 			}
 		}
 		return res;

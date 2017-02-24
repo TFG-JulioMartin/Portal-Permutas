@@ -27,10 +27,11 @@ var ListarPropuestasRecibidasComponent = (function () {
     };
     ListarPropuestasRecibidasComponent.prototype.getPropuestasRecibidas = function () {
         var _this = this;
-        this.propuestaService.getPropuestasRecibidas().subscribe(function (propuestas) { return _this.propuestas = propuestas; });
+        this.propuestaService.getPropuestasRecibidas().subscribe(function (propuestas) { _this.propuestas = propuestas; });
     };
-    ListarPropuestasRecibidasComponent.prototype.getPlazaRemitente = function (id) {
+    ListarPropuestasRecibidasComponent.prototype.getPlazaRemitente = function (id, texto) {
         var _this = this;
+        this.textoPropuesta = texto;
         this.plazaService.getPlaza(id).subscribe(function (plazaRemitente) { return _this.plazaRemitente = plazaRemitente; });
     };
     ListarPropuestasRecibidasComponent.prototype.cerrar = function () {
@@ -39,17 +40,17 @@ var ListarPropuestasRecibidasComponent = (function () {
     ListarPropuestasRecibidasComponent.prototype.aceptar = function (id) {
         var _this = this;
         this.propuestaService.aceptarPropuesta(id).subscribe(function (data) {
-            _this.msg = 'Propuesta Aceptada';
+            _this.getPropuestasRecibidas();
         }, function (error) {
+            console.log(error);
         });
     };
     ListarPropuestasRecibidasComponent.prototype.rechazar = function (id) {
         var _this = this;
         this.propuestaService.rechazarPropuesta(id).subscribe(function (data) {
-            _this.router.navigate(['/']);
-            _this.router.navigate(['/propuestasRecibidas']);
-            _this.msg = 'Propuesta Rechazada';
+            _this.getPropuestasRecibidas();
         }, function (error) {
+            console.log(error);
         });
     };
     ListarPropuestasRecibidasComponent.prototype.clickedMarker = function (label, index) {

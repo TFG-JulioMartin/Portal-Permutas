@@ -1,8 +1,7 @@
-<md-card>
-	<md-card-title>
-		Propuestas Recibidas
-	</md-card-title>
-
+<md-sidenav-container>
+	<md-card>
+		<md-card-title>Propuestas Recibidas</md-card-title>
+		
 	<table class="table">
   	<thead class="thead-default">
         	<tr>
@@ -30,7 +29,7 @@
                 	<button md-raised-button (click)='rechazar(propuesta.id)' color="warn">Rechazar</button>
                 </td>
                 <td *ngIf="!propuesta.estado == 0"></td>
-                <td><button md-raised-button (click)='getPlazaRemitente(propuesta.idRemitente)' color="primary">Detalles</button></td>     
+                <td><button md-raised-button (click)='getPlazaRemitente(propuesta.idRemitente, propuesta.texto)' color="primary">Detalles</button></td>     
         	</tr>
 		</tbody>
 	</table>
@@ -43,9 +42,11 @@
 	</md-card-title>
 	<span>Titulo: {{plazaRemitente.titulo}}</span><br>
 	<span>Centro: {{plazaRemitente.centro}}</span><br>
-	<span>Direccion: {{plazaRemitente.direccion}}</span>
+	<span>Direccion: {{plazaRemitente.direccion}}</span><br>
+	<span>Texto: {{textoPropuesta}}</span>
 	<br>
 	<br>
 	<span><button md-raised-button (click)='cerrar()' color="primary">Cerrar</button></span>
 </md-card>
 </ng-container>
+</md-sidenav-container>

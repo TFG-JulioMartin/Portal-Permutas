@@ -35,7 +35,8 @@ var CrearPropuestaComponent = (function () {
     CrearPropuestaComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'crear-propuesta.component.html'
+            templateUrl: 'crear-propuesta.component.html',
+            styleUrls: ['../login/login.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, index_1.PropuestaService, index_1.AlertService])
     ], CrearPropuestaComponent);

@@ -4,30 +4,44 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../domain';
 import 'rxjs/add/operator/map'
 
+import { PropuestaService } from './propuesta.service';
+
 @Injectable()
 export class AuthenticationService {
 
-    private loggedIn: boolean = false;
+    loggedIn: boolean = false;
+    currentUser : User;
+    numPR : number;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private propuestaService: PropuestaService) {
     }
 
     login(username: string, password: string) {
         return this.http.post('/Portal-Permutas/j_spring_security_check?username=' + username + '&password=' + password)
             .map((response: Response) => {
-                // login successful if there's a jwt token in the response
                 let user = response.json();
                 if (user.nombre) {
                     this.changeLoginStatus(true);
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.setCurrentUser(user);
+                    this.propuestaService.getPropuestasRecibidasN().subscribe(numPR => this.numPR = numPR);
                 }
-
             });
 
     }
     changeLoginStatus(status: boolean) {
         this.loggedIn = status;
+    }
+    
+    setCurrentUser(user : User){
+    	this.currentUser= user;
+    }
+    
+    getCurrentUser(){
+    	return this.currentUser;
+    }
+    
+    getNumPR(){
+        return this.numPR;
     }
 
     isLoggedIn() {

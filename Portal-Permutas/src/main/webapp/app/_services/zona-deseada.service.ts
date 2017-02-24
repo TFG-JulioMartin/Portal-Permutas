@@ -14,12 +14,12 @@ export class ZonaDeseadaService {
 	}
 		
 	getZonas(): Rx.Observable<PlazaPropia[]> {
-        return this.http.get('/Portal-Permutas/api/zonaDeseada/all').map(this.extractData).publish().refCount();
+        return this.http.get('/Portal-Permutas/api/zonaDeseada/all').map(res => res.json());
     }
     
     createZone(zona: ZonaDeseadaDTO) {
     	console.log(zona);
-    	return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).subscribe((response) => {});
+    	return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).map(res => res.json());
     }
     
     checkCoincidencias(): Rx.Observable<Coincidencia[]> {

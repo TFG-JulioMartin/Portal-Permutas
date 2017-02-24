@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import domain.Coincidencia;
@@ -59,11 +58,16 @@ public class ZonaDeseadaController {
 		return new ResponseEntity<Collection<Coincidencia>>(res, HttpStatus.OK);
 	}
 
+	// Crea una nueva zona deseada.
+	
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	void create(@RequestBody ZonaDeseadaDTO zona) {
+	public ResponseEntity<ZonaDeseada> create(@RequestBody ZonaDeseadaDTO zona) {
 
-		zonaDeseadaService.reconstruct(zona);
+		ZonaDeseada res;
+
+		res = zonaDeseadaService.reconstruct(zona);
+
+		return new ResponseEntity<ZonaDeseada>(res, HttpStatus.CREATED);
 
 	}
 

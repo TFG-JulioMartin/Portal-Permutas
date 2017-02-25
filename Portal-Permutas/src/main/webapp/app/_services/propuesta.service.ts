@@ -34,7 +34,7 @@ export class PropuestaService {
     }
     
     create(propuesta: Propuesta){
-    	return this.http.post('/Portal-Permutas/api/propuesta', propuesta).subscribe((response) => {});
+    	return this.http.post('/Portal-Permutas/api/propuesta', propuesta).map(res => res.json());
     }
     
     aceptarPropuesta(id : string){

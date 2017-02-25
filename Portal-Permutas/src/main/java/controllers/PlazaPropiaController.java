@@ -51,7 +51,7 @@ public class PlazaPropiaController {
 
 	// Busca la plaza cuyo usuario se pasa por id
 	
-	@RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET, produces = "application/json")
 	ResponseEntity<PlazaPropia> findByUserId(@PathVariable("id") String id) {
 
 		PlazaPropia res;
@@ -64,6 +64,22 @@ public class PlazaPropiaController {
 
 		return new ResponseEntity<PlazaPropia>(res, HttpStatus.OK);
 	}
+	
+	// Busca la plaza cuyo usuario se pasa por id
+	
+		@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+		ResponseEntity<PlazaPropia> findByPlazaId(@PathVariable("id") String id) {
+
+			PlazaPropia res;
+
+			res = plazaPropiaService.findOne(id);
+
+			if (id == null) {
+				return new ResponseEntity<PlazaPropia>(HttpStatus.NOT_FOUND);
+			}
+
+			return new ResponseEntity<PlazaPropia>(res, HttpStatus.OK);
+		}
 
 	// Modifica la plaza actual del usuario logeado
 

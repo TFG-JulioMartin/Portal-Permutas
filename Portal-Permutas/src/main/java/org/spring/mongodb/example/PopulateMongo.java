@@ -7,6 +7,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
+import domain.Permuta;
 import domain.PlazaPropia;
 import domain.Propuesta;
 import domain.ZonaDeseada;
@@ -29,6 +30,7 @@ public class PopulateMongo {
 		mongoOperation.dropCollection("plazaPropia");
 		mongoOperation.dropCollection("zonaDeseada");
 		mongoOperation.dropCollection("propuesta");
+		mongoOperation.dropCollection("permuta");
 
 		// --------------------USER ACCOUNTS--------------------------
 
@@ -82,6 +84,22 @@ public class PopulateMongo {
 		userAccount3.addRole("ROLE_USER");
 
 		mongoOperation.save(userAccount3);
+		
+		UserAccount userAccount4 = new UserAccount();
+
+		userAccount4.setUsername("usuario4");
+		userAccount4.setPassword(encoder.encodePassword("usuario4", null));
+		userAccount4.setNombre("Alvaro");
+		userAccount4.setApellidos("Navarro");
+		userAccount4.setEmail("alvaron@hotmail.com");
+		userAccount4.setTelefono("634565752");
+		userAccount4.setEnabled(true);
+		userAccount4.setAccountNonExpired(true);
+		userAccount4.setAccountNonLocked(true);
+		userAccount4.setCredentialsNonExpired(true);
+		userAccount4.addRole("ROLE_USER");
+
+		mongoOperation.save(userAccount4);
 
 		// --------------------Plazas Propias--------------------------
 
@@ -120,6 +138,18 @@ public class PopulateMongo {
 		plazaPropia3.setUsuarioId(userAccount3.getId());
 
 		mongoOperation.save(plazaPropia3);
+		
+		PlazaPropia plazaPropia4 = new PlazaPropia();
+
+		plazaPropia4.setCentro("Colegio San Antonio María Claret");
+		plazaPropia4.setCiudad("Sevilla");
+		plazaPropia4.setDireccion("Av. Padre García Tejero, 8, 41012 Sevilla");
+		plazaPropia4.setTitulo("Plaza de 1 año como profesor de historia");
+		plazaPropia4.setLatitud(37.3567267);
+		plazaPropia4.setLongitud(-5.9841592999999875);
+		plazaPropia4.setUsuarioId(userAccount4.getId());
+
+		mongoOperation.save(plazaPropia4);
 		
 		
 		// -------------------- Zonas Deseadas --------------------------
@@ -191,6 +221,7 @@ public class PopulateMongo {
 		propuesta1.setEstado(0);
 		propuesta1.setFecha(new Date());
 		propuesta1.setRemitenteId(userAccount1.getId());
+		propuesta1.setPlazaRemitenteId(plazaPropia1.getId());
 		propuesta1.setTitulo("tituloPropuesta1");
 		propuesta1.setTexto("Este es el texto de la propuesta 1");
 
@@ -202,18 +233,48 @@ public class PopulateMongo {
 		propuesta2.setEstado(0);
 		propuesta2.setFecha(new Date());
 		propuesta2.setRemitenteId(userAccount3.getId());
+		propuesta2.setPlazaRemitenteId(plazaPropia3.getId());
 		propuesta2.setTitulo("tituloPropuesta2");
 		propuesta2.setTexto("Este es el texto de la propuesta 2");
 
 		mongoOperation.save(propuesta2);
 		
+		Propuesta propuesta3 = new Propuesta();
+
+		propuesta3.setDestinatarioId(userAccount2.getId());
+		propuesta3.setEstado(0);
+		propuesta3.setFecha(new Date());
+		propuesta3.setRemitenteId(userAccount4.getId());
+		propuesta3.setPlazaRemitenteId(plazaPropia4.getId());
+		propuesta3.setTitulo("tituloPropuesta3");
+		propuesta3.setTexto("Este es el texto de la propuesta 3");
+
+		mongoOperation.save(propuesta3);
+		
+		
+		// -------------------- Permutas --------------------------
+		
+		
+		Permuta permuta1 = new Permuta();
+
+		permuta1.setFecha(new Date());
+		permuta1.setPlazaPropiaId(plazaPropia4.getId());
+		permuta1.setPlazaRecibidaId(plazaPropia1.getId());
+		permuta1.setUsuarioId(userAccount1.getId());;
+
+		mongoOperation.save(permuta1);
+		
+		Permuta permuta2 = new Permuta();
+
+		permuta2.setFecha(new Date());
+		permuta2.setPlazaPropiaId(plazaPropia1.getId());
+		permuta2.setPlazaRecibidaId(plazaPropia4.getId());
+		permuta2.setUsuarioId(userAccount4.getId());;
+
+		mongoOperation.save(permuta2);
 		
 		
 		
-		
-		
-		
-	
 
 		// -----------------------------------------FIN-------------------------------------------------
 

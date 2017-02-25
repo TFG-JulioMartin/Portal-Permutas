@@ -49,8 +49,8 @@ export interface Propuesta {
     estado: number;
     remitenteId : string;
     destinatarioId : string;
-    fecha : string
-    fechaAcepRech : string;   
+    fecha : date;
+    fechaAcepRech : date;   
     
 }
 
@@ -62,8 +62,8 @@ export interface PropuestaDTO {
     estado: number;
     nombreRemitente : string;
     nombreDestinatario : string;
-    fecha : string
-    fechaAcepRech : string;   
+    fecha : date;
+    fechaAcepRech : date;   
     idRemitente : string;
 	latitudRemitente : number;
 	longitudRemitente : number;
@@ -95,4 +95,14 @@ export interface UserForm {
     direccion : string;
     latitud : number;
     longitud : number;
+}
+
+export interface Permuta {
+
+    id : string;
+    plazaPropiaId : string;
+    plazaRecibidaId : string;
+    usuarioId : string;
+    fecha : date 
+    
 }

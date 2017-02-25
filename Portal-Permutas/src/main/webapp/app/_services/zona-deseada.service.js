@@ -23,6 +23,11 @@ var ZonaDeseadaService = (function () {
         console.log(zona);
         return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).map(function (res) { return res.json(); });
     };
+    ZonaDeseadaService.prototype.deleteZone = function (id) {
+        return this.http.delete('/Portal-Permutas/api/zonaDeseada/' + id)
+            .toPromise()
+            .then(function () { return null; }).catch(this.handleError);
+    };
     ZonaDeseadaService.prototype.checkCoincidencias = function () {
         return this.http.get('/Portal-Permutas/api/zonaDeseada/matchings').map(this.extractData).publish().refCount();
     };

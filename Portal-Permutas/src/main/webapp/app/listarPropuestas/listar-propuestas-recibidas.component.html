@@ -29,10 +29,18 @@
                 	<button md-raised-button (click)='rechazar(propuesta.id)' color="warn">Rechazar</button>
                 </td>
                 <td *ngIf="!propuesta.estado == 0"></td>
-                <td><button md-raised-button (click)='getPlazaRemitente(propuesta.idRemitente, propuesta.texto)' color="primary">Detalles</button></td>     
+                <td><button md-raised-button (click)='getPlazaRemitente(propuesta.idPlazaRemitente, propuesta.texto)' color="primary">Detalles</button></td>     
         	</tr>
 		</tbody>
 	</table>
+	<ng-container *ngIf="loading">
+            <md-progress-circle
+        		class="example-margin"
+        		[color]="color"
+        		[mode]="mode"
+        		[value]="value">
+    		</md-progress-circle>
+    </ng-container>
 </md-card>
 
 <ng-container *ngIf="plazaRemitente">

@@ -17,7 +17,10 @@ var PlazaService = (function () {
         this.http = http;
     }
     PlazaService.prototype.getPlaza = function (id) {
-        return this.http.get('/Portal-Permutas/api/plazaPropia/find/' + id).map(this.extractData).publish().refCount();
+        return this.http.get('/Portal-Permutas/api/plazaPropia/usuario/' + id).map(this.extractData).publish().refCount();
+    };
+    PlazaService.prototype.getPlazaById = function (id) {
+        return this.http.get('/Portal-Permutas/api/plazaPropia/' + id).map(this.extractData).publish().refCount();
     };
     PlazaService.prototype.getPlazas = function () {
         return this.http.get('/Portal-Permutas/api/plazaPropia/all').map(this.extractData).publish().refCount();

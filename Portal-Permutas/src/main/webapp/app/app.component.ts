@@ -33,7 +33,8 @@ export class AppComponent {
     {name: 'Editar Perfil', route: 'editaUsuario'},
     {name: 'Editar Plaza', route: 'editaPlaza'},
     {name: 'Propuestas Enviadas', route: 'propuestasEnviadas'},
-    {name: 'Propuestas Recibidas', route: 'propuestasRecibidas'}
+    {name: 'Propuestas Recibidas', route: 'propuestasRecibidas'},
+    {name: 'Historial de Permutas', route: 'historialPermutas'}
   ];
     
     constructor(private authenticationService: AuthenticationService, private router: Router, private _element: ElementRef, private propuestaService: PropuestaService) {

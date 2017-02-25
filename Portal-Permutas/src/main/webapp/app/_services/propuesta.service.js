@@ -32,7 +32,7 @@ var PropuestaService = (function () {
         return this.http.get('/Portal-Permutas/api/propuesta/recibidasN').map(this.extractData).publish().refCount();
     };
     PropuestaService.prototype.create = function (propuesta) {
-        return this.http.post('/Portal-Permutas/api/propuesta', propuesta).subscribe(function (response) { });
+        return this.http.post('/Portal-Permutas/api/propuesta', propuesta).map(function (res) { return res.json(); });
     };
     PropuestaService.prototype.aceptarPropuesta = function (id) {
         return this.http.put('/Portal-Permutas/api/propuesta/aceptar/' + id).map(function (res) { return res.json(); });

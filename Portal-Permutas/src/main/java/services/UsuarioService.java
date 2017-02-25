@@ -165,22 +165,4 @@ public class UsuarioService {
 		userAccountRepository.save(userAccount);
 	}
 
-	public void validateUser(String userId) {
-	}
-
-	public void addPlazaDeseada(ZonaDeseada plazaDeseada) {
-
-		// check principal
-		// save plaza
-
-	}
-
-	public void deletePlazaDeseada(ZonaDeseada plazaDeseada) {
-
-		// check principal
-		// delete plaza del usuario
-		// delete plaza
-
-	}
-
 }

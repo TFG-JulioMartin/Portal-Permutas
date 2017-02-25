@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,7 @@ public class ZonaDeseadaController {
 	}
 
 	// Crea una nueva zona deseada.
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ZonaDeseada> create(@RequestBody ZonaDeseadaDTO zona) {
 
@@ -98,15 +99,20 @@ public class ZonaDeseadaController {
 	//
 	// }
 
-	@RequestMapping(value = "/zona/{id}", method = RequestMethod.DELETE)
-	void delete(@PathVariable String userId, @PathVariable("id") String id) {
-		usuarioService.validateUser(userId);
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<ZonaDeseada> delete(@PathVariable("id") String id) {
 
 		ZonaDeseada zonaDeseada;
 
 		zonaDeseada = zonaDeseadaService.findOne(id);
+		
+		if (zonaDeseada == null) {
+            System.out.println("Unable to delete. ZonaDeseada with id " + id + " not found");
+            return new ResponseEntity<ZonaDeseada>(HttpStatus.NOT_FOUND);
+        }
 
-		usuarioService.deletePlazaDeseada(zonaDeseada);
+		zonaDeseadaService.delete(zonaDeseada);
 
+		return new ResponseEntity<ZonaDeseada>(HttpStatus.NO_CONTENT);
 	}
 }

@@ -110,17 +110,22 @@ public class PropuestaService {
 		return res;
 	}
 
-	public void creaPropuesta(Propuesta propuesta) {
+	public Propuesta creaPropuesta(Propuesta propuesta) {
 		Propuesta res;
+		PlazaPropia plazaPropia;
 
 		res = create();
+		plazaPropia = plazaPropiaService.findByUserId(usuarioService.findPrincipal().getId());
 
 		res.setDestinatarioId(propuesta.getDestinatarioId());
 		res.setRemitenteId(usuarioService.findPrincipal().getId());
+		res.setPlazaRemitenteId(plazaPropia.getId());
 		res.setTitulo(propuesta.getTitulo());
 		res.setTexto(propuesta.getTexto());
 
 		save(res);
+
+		return res;
 	}
 
 	public Collection<Propuesta> findAllPropuestasEnviadas() {
@@ -174,7 +179,7 @@ public class PropuestaService {
 			PropuestaDTO dto = new PropuestaDTO();
 			UserAccount remitente = usuarioService.findByUserId(p.getRemitenteId());
 			String nombreRemitente = remitente.getNombre() + " " + remitente.getApellidos();
-			PlazaPropia plaza = plazaPropiaService.findByUserId(p.getRemitenteId());
+			PlazaPropia plaza = plazaPropiaService.findOne(p.getPlazaRemitenteId());
 
 			dto.setEstado(p.getEstado());
 			dto.setFecha(p.getFecha());
@@ -186,6 +191,7 @@ public class PropuestaService {
 			dto.setLatitudRemitente(plaza.getLatitud());
 			dto.setLongitudRemitente(plaza.getLongitud());
 			dto.setIdRemitente(p.getRemitenteId());
+			dto.setIdPlazaRemitente(plaza.getId());
 
 			res.add(dto);
 		}
@@ -201,8 +207,8 @@ public class PropuestaService {
 
 		propuesta.setFechaAcepRech(new Date());
 
-		save(propuesta);
-		
+		propuestaRepository.save(propuesta);
+
 		return propuesta;
 
 	}
@@ -216,8 +222,24 @@ public class PropuestaService {
 
 		propuesta.setFechaAcepRech(new Date());
 
-		save(propuesta);
-		
+		propuestaRepository.save(propuesta);
+
 		return propuesta;
+	}
+
+	public void rechazaResto(Propuesta propuesta) {
+		UserAccount principal;
+		Collection<Propuesta> todas;
+
+		principal = usuarioService.findPrincipal();
+		todas = findAllByUserId(principal.getId());
+
+		// Rechaza todas las propuestas excepto la que se pasa como
+		// parámetro que es la que se supone se está aceptando.
+		for (Propuesta p : todas) {
+			if (!p.getId().equals(propuesta.getId())) {
+				rechazaPropuesta(p.getId());
+			}
+		}
 	}
 }

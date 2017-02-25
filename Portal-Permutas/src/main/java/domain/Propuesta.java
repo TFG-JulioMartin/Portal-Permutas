@@ -23,6 +23,7 @@ public class Propuesta {
 	private int estado;
 	private String remitenteId;
 	private String destinatarioId;
+	private String plazaRemitenteId;
 	private Date fecha;
 	private Date fechaAcepRech;
 
@@ -73,6 +74,15 @@ public class Propuesta {
 	public void setDestinatarioId(String destinatarioId) {
 		this.destinatarioId = destinatarioId;
 	}
+
+	public String getPlazaRemitenteId() {
+		return plazaRemitenteId;
+	}
+
+	public void setPlazaRemitenteId(String plazaRemitenteId) {
+		this.plazaRemitenteId = plazaRemitenteId;
+	}
+
 
 	public Date getFecha() {
 		return fecha;

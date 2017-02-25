@@ -19,6 +19,9 @@ var CrearPropuestaComponent = (function () {
         this.alertService = alertService;
         this.propuesta = {};
         this.loading = false;
+        this.color = 'primary';
+        this.mode = 'determinate';
+        this.value = 50;
     }
     CrearPropuestaComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -27,10 +30,17 @@ var CrearPropuestaComponent = (function () {
         });
     };
     CrearPropuestaComponent.prototype.crearPropuesta = function () {
+        var _this = this;
         this.loading = true;
         this.propuesta.destinatarioId = this.id;
-        this.propuestaService.create(this.propuesta);
-        this.router.navigate(['/']);
+        this.propuestaService.create(this.propuesta).subscribe(function (data) {
+            console.log('BIEN');
+            _this.router.navigate(['/propuestasEnviadas']);
+        }, function (error) {
+            _this.loading = false;
+            console.log('MAL');
+            console.log(error);
+        });
     };
     CrearPropuestaComponent = __decorate([
         core_1.Component({

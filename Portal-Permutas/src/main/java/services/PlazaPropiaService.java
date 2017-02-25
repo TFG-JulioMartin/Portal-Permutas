@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Permuta;
 import domain.PlazaPropia;
+import domain.Propuesta;
 import repositories.PlazaPropiaRepository;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -24,6 +27,9 @@ public class PlazaPropiaService {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private PermutaService permutaService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -114,6 +120,41 @@ public class PlazaPropiaService {
 		plazaActual.setLongitud(plazaPropia.getLongitud());
 
 		save(plazaActual);
+	}
+	
+	public void intercambiaPlazasYCreaPermutas(Propuesta propuesta){
+		UserAccount remitente;
+		UserAccount destinatario;
+		PlazaPropia plazaRemitente;
+		PlazaPropia plazaDestinatario;
+		Permuta permuta1;
+		Permuta permuta2;
+		
+		remitente = usuarioService.findByUserId(propuesta.getRemitenteId());
+		destinatario = usuarioService.findByUserId(propuesta.getDestinatarioId());
+		plazaRemitente = findByUserId(remitente.getId());
+		plazaDestinatario = findByUserId(destinatario.getId());
+		permuta1 = permutaService.create();
+		permuta2 = permutaService.create();
+		
+		// Primero se crean las permutas para los dos usuarios implicados.
+		permuta1.setPlazaPropiaId(plazaDestinatario.getId());
+		permuta1.setPlazaRecibidaId(plazaRemitente.getId());
+		permuta1.setUsuarioId(destinatario.getId());
+		permutaService.save(permuta1);
+		
+		permuta2.setPlazaPropiaId(plazaRemitente.getId());
+		permuta2.setPlazaRecibidaId(plazaDestinatario.getId());
+		permuta2.setUsuarioId(remitente.getId());
+		permutaService.save(permuta2);
+		
+		// Por último se intecambian las plazas.
+		plazaRemitente.setUsuarioId(destinatario.getId());
+		plazaDestinatario.setUsuarioId(remitente.getId());
+		
+		save(plazaDestinatario);
+		save(plazaRemitente);
+		
 	}
 
 }

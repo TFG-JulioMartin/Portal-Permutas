@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import domain.Propuesta;
 import forms.PropuestaDTO;
+import services.PlazaPropiaService;
 import services.PropuestaService;
 
 @RestController
@@ -22,6 +23,9 @@ public class PropuestaController {
 
 	@Autowired
 	private PropuestaService propuestaService;
+
+	@Autowired
+	private PlazaPropiaService plazaPropiaService;
 
 	// Busca todas las propuestas enviadas del usuario logeado.
 
@@ -113,13 +117,16 @@ public class PropuestaController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	void add(@RequestBody Propuesta propuesta) {
+	ResponseEntity<Propuesta> crearPropuesta(@RequestBody Propuesta propuesta) {
+		Propuesta res;
 
-		propuestaService.creaPropuesta(propuesta);
+		res = propuestaService.creaPropuesta(propuesta);
+		
+		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
 	}
 
 	// Acepta una propuesta.
-	
+
 	@RequestMapping(value = "aceptar/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Propuesta> aceptaPropuesta(@PathVariable("id") String id) {
 
@@ -127,11 +134,14 @@ public class PropuestaController {
 
 		res = propuestaService.aceptaPropuesta(id);
 
+		propuestaService.rechazaResto(res);
+		plazaPropiaService.intercambiaPlazasYCreaPermutas(res);
+
 		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
 	}
 
 	// Rechaza una propuesta.
-	
+
 	@RequestMapping(value = "rechazar/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Propuesta> rechazaPropuesta(@PathVariable("id") String id) {
 

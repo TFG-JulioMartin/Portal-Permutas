@@ -37,7 +37,8 @@
           [radius]="z.radio"
           [fillColor]="'red'"
           [circleDraggable]="false"
-          [editable]="false">
+          [editable]="false"
+          (rightClick)="deleteZone(z.id)">
       </sebm-google-map-circle>
 
     </sebm-google-map>

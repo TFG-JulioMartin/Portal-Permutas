@@ -66,8 +66,12 @@ var ZonaDeseadaComponent = (function () {
             console.log(error);
         });
     };
-    ZonaDeseadaComponent.prototype.markerDragEnd = function (m, $event) {
-        console.log('dragEnd', m, $event);
+    ZonaDeseadaComponent.prototype.deleteZone = function (id) {
+        var _this = this;
+        this.zonaDeseadaService.deleteZone(id).then(function () {
+            _this.getZonas();
+            _this.getCoincidencias();
+        });
     };
     ZonaDeseadaComponent = __decorate([
         core_1.Component({

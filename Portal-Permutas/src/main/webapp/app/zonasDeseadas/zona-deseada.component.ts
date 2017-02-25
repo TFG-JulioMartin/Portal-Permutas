@@ -17,7 +17,7 @@ import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 })
 
 export class ZonaDeseadaComponent implements Table<PlazaPropia>{
-        
+
     // google maps zoom level
     zoom: number = 13;
 
@@ -28,7 +28,7 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
     zonas: ZonaDeseada[];
     plazas: PlazaPropia[];
     coincidencias: Coincidencia[];
-    
+
     model: any = {};
     slat: number;
     slng: number;
@@ -75,7 +75,7 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
         this.model.elng = this.elng;
         this.createZone();
     }
-    
+
     createZone() {
         this.zonaDeseadaService.createZone(this.model).subscribe(
             data => {
@@ -87,8 +87,12 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
             });
     }
 
-    markerDragEnd(m: marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
+    deleteZone(id: string) {
+        this.zonaDeseadaService.deleteZone(id).then(() => {
+            this.getZonas();
+            this.getCoincidencias();
+
+        });
     }
 
 }

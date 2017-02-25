@@ -20,6 +20,7 @@ var crear_propuesta_component_1 = require('./crearPropuesta/crear-propuesta.comp
 var editar_plaza_component_1 = require('./editarPlaza/editar-plaza.component');
 var listar_propuestas_enviadas_component_1 = require('./listarPropuestas/listar-propuestas-enviadas.component');
 var listar_propuestas_recibidas_component_1 = require('./listarPropuestas/listar-propuestas-recibidas.component');
+var listar_permutas_component_1 = require('./listarPermutas/listar-permutas.component');
 var routes = [
     { path: '', component: map_component_1.MapComponent },
     { path: 'login', component: login_component_1.LoginComponent },
@@ -31,6 +32,7 @@ var routes = [
     { path: 'crearPropuesta/:id', component: crear_propuesta_component_1.CrearPropuestaComponent },
     { path: 'propuestasEnviadas', component: listar_propuestas_enviadas_component_1.ListarPropuestasEnviadasComponent },
     { path: 'propuestasRecibidas', component: listar_propuestas_recibidas_component_1.ListarPropuestasRecibidasComponent },
+    { path: 'historialPermutas', component: listar_permutas_component_1.ListarPermutasComponent },
     { path: '**', redirectTo: '' }
 ];
 var AppRoutingModule = (function () {

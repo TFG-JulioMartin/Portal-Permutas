@@ -12,6 +12,7 @@ import { CrearPropuestaComponent } from './crearPropuesta/crear-propuesta.compon
 import { EditarPlazaComponent } from './editarPlaza/editar-plaza.component';
 import { ListarPropuestasEnviadasComponent } from './listarPropuestas/listar-propuestas-enviadas.component';
 import { ListarPropuestasRecibidasComponent } from './listarPropuestas/listar-propuestas-recibidas.component';
+import { ListarPermutasComponent } from './listarPermutas/listar-permutas.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'crearPropuesta/:id', component: CrearPropuestaComponent },
   { path: 'propuestasEnviadas', component: ListarPropuestasEnviadasComponent },
   { path: 'propuestasRecibidas', component: ListarPropuestasRecibidasComponent },
+  { path: 'historialPermutas', component: ListarPermutasComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -17,6 +17,10 @@ var ListarPropuestasRecibidasComponent = (function () {
         this.propuestaService = propuestaService;
         this.router = router;
         this.plazaService = plazaService;
+        this.loading = false;
+        this.color = 'primary';
+        this.mode = 'indeterminate';
+        this.value = 100;
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
@@ -32,24 +36,30 @@ var ListarPropuestasRecibidasComponent = (function () {
     ListarPropuestasRecibidasComponent.prototype.getPlazaRemitente = function (id, texto) {
         var _this = this;
         this.textoPropuesta = texto;
-        this.plazaService.getPlaza(id).subscribe(function (plazaRemitente) { return _this.plazaRemitente = plazaRemitente; });
+        this.plazaService.getPlazaById(id).subscribe(function (plazaRemitente) { return _this.plazaRemitente = plazaRemitente; });
     };
     ListarPropuestasRecibidasComponent.prototype.cerrar = function () {
         this.plazaRemitente = null;
     };
     ListarPropuestasRecibidasComponent.prototype.aceptar = function (id) {
         var _this = this;
+        this.loading = true;
         this.propuestaService.aceptarPropuesta(id).subscribe(function (data) {
+            _this.loading = false;
             _this.getPropuestasRecibidas();
         }, function (error) {
+            _this.loading = false;
             console.log(error);
         });
     };
     ListarPropuestasRecibidasComponent.prototype.rechazar = function (id) {
         var _this = this;
+        this.loading = true;
         this.propuestaService.rechazarPropuesta(id).subscribe(function (data) {
+            _this.loading = false;
             _this.getPropuestasRecibidas();
         }, function (error) {
+            _this.loading = false;
             console.log(error);
         });
     };

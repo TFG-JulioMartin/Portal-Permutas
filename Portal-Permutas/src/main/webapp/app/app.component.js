@@ -32,7 +32,8 @@ var AppComponent = (function () {
             { name: 'Editar Perfil', route: 'editaUsuario' },
             { name: 'Editar Plaza', route: 'editaPlaza' },
             { name: 'Propuestas Enviadas', route: 'propuestasEnviadas' },
-            { name: 'Propuestas Recibidas', route: 'propuestasRecibidas' }
+            { name: 'Propuestas Recibidas', route: 'propuestasRecibidas' },
+            { name: 'Historial de Permutas', route: 'historialPermutas' }
         ];
     }
     AppComponent.prototype.toggleTheme = function () {

@@ -13,13 +13,19 @@ export class ZonaDeseadaService {
 	constructor(private http: Http) {
 	}
 		
-	getZonas(): Rx.Observable<PlazaPropia[]> {
+	getZonas(): Rx.Observable<ZonaDeseada[]> {
         return this.http.get('/Portal-Permutas/api/zonaDeseada/all').map(res => res.json());
     }
     
     createZone(zona: ZonaDeseadaDTO) {
     	console.log(zona);
     	return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).map(res => res.json());
+    }
+    
+    deleteZone(id: string): Promise<void> {
+    	return this.http.delete('/Portal-Permutas/api/zonaDeseada/' +id)
+    	.toPromise()
+    	.then(() => null).catch(this.handleError);  	
     }
     
     checkCoincidencias(): Rx.Observable<Coincidencia[]> {

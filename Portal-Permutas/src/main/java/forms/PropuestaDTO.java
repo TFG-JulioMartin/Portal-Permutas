@@ -13,6 +13,7 @@ public class PropuestaDTO {
 	private Date fecha;
 	private Date fechaAcepRech;
 	private String idRemitente;
+	private String idPlazaRemitente;
 	private double latitudRemitente;
 	private double longitudRemitente;
 
@@ -86,6 +87,14 @@ public class PropuestaDTO {
 
 	public void setIdRemitente(String idRemitente) {
 		this.idRemitente = idRemitente;
+	}
+
+	public String getIdPlazaRemitente() {
+		return idPlazaRemitente;
+	}
+
+	public void setIdPlazaRemitente(String idPlazaRemitente) {
+		this.idPlazaRemitente = idPlazaRemitente;
 	}
 
 	public double getLatitudRemitente() {

@@ -21,10 +21,14 @@ import { Propuesta, PlazaPropia } from '../domain';
 })
 export class ListarPropuestasRecibidasComponent implements OnInit {
 
+    loading = false;
     propuestas: Propuesta[];
     msg: string;
     plazaRemitente: PlazaPropia;
     textoPropuesta: string;
+    color = 'primary';
+    mode = 'indeterminate';
+    value = 100;
 
     // initial center position for the map
     lat: number = 37.362444;
@@ -44,7 +48,7 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
 
     getPlazaRemitente(id: string, texto: string) {
     	this.textoPropuesta = texto;
-        this.plazaService.getPlaza(id).subscribe(plazaRemitente => this.plazaRemitente = plazaRemitente);
+        this.plazaService.getPlazaById(id).subscribe(plazaRemitente => this.plazaRemitente = plazaRemitente);
     }
     
     cerrar(){
@@ -52,21 +56,27 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
     }
 
     aceptar(id: string) {
+        this.loading = true;
         this.propuestaService.aceptarPropuesta(id).subscribe(
             data => {
+                this.loading = false;
                 this.getPropuestasRecibidas();
             },
             error => {
+                this.loading = false;
             	console.log(error);
             });
     }
 
     rechazar(id: string) {
+        this.loading = true;
         this.propuestaService.rechazarPropuesta(id).subscribe(
             data => {
+                this.loading = false;
                 this.getPropuestasRecibidas();
             },
             error => {
+                this.loading = false;
                 console.log(error);
             });
     }

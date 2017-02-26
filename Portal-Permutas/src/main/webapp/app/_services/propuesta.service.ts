@@ -12,10 +12,6 @@ export class PropuestaService {
 	
 	constructor(private http: Http) {
 	}
-		
-	getPropuesta(id : string): Rx.Observable<Propuesta> {
-        return this.http.get('/Portal-Permutas/api/propuesta/findOne/' +id).map(this.extractData).publish().refCount();
-    }
     
     getPropuestasEnviadas(): Rx.Observable<PropuestaDTO[]> {
         return this.http.get('/Portal-Permutas/api/propuesta/enviadas').map(this.extractData).publish().refCount();

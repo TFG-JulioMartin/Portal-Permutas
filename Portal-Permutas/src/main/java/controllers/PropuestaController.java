@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import domain.Propuesta;
@@ -30,7 +29,7 @@ public class PropuestaController {
 	// Busca todas las propuestas enviadas del usuario logeado.
 
 	@RequestMapping(value = "/enviadas", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<PropuestaDTO>> findAllEnviadas() {
+	public ResponseEntity<Collection<PropuestaDTO>> findAllEnviadas() {
 
 		Collection<PropuestaDTO> res;
 
@@ -43,8 +42,10 @@ public class PropuestaController {
 		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
 	}
 
+	// Devuelve el número de propuestas enviadas por el usuario logeado.
+
 	@RequestMapping(value = "/enviadasN", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Integer> findAllEnviadasN() {
+	public ResponseEntity<Integer> findAllEnviadasN() {
 
 		Integer res;
 
@@ -56,7 +57,7 @@ public class PropuestaController {
 	// Busca todas las propuestas recibidas del usuario logeado.
 
 	@RequestMapping(value = "/recibidas", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<PropuestaDTO>> findAllRecibidas() {
+	public ResponseEntity<Collection<PropuestaDTO>> findAllRecibidas() {
 
 		Collection<PropuestaDTO> res;
 
@@ -69,8 +70,11 @@ public class PropuestaController {
 		return new ResponseEntity<Collection<PropuestaDTO>>(res, HttpStatus.OK);
 	}
 
+	// Devuelve el número de todas las propuestas recibidas por el usuario
+	// logeado.
+
 	@RequestMapping(value = "/recibidasN", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Integer> findAllRecibidasN() {
+	public ResponseEntity<Integer> findAllRecibidasN() {
 
 		Integer res;
 
@@ -81,30 +85,18 @@ public class PropuestaController {
 
 	// Busca una propuesta por su id.
 
-	@RequestMapping(value = "/find/{id}", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Propuesta> findByPropuestaId(@PathVariable String id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Propuesta> findByPropuestaId(@PathVariable String id) {
 
-		Propuesta res;
-
-		// checkprincipal
-		res = propuestaService.findOne(id);
-
-		if (res == null) {
-			return new ResponseEntity<Propuesta>(HttpStatus.NOT_FOUND);
+		// Comprueba que el usuario logeado es el destinatario o remitente de la
+		// propuesta que se quiere obtener.
+		if (propuestaService.checkPrincipalDestRem(id) == false) {
+			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
 		}
 
-		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
-	}
-
-	// Para testeo solo
-
-	@RequestMapping(value = "/findOne", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Propuesta> findOne() {
-
 		Propuesta res;
 
-		// checkprincipal
-		res = propuestaService.findOne("5899fe5f61e6264d5bebf163");
+		res = propuestaService.findOne(id);
 
 		if (res == null) {
 			return new ResponseEntity<Propuesta>(HttpStatus.NOT_FOUND);
@@ -116,13 +108,12 @@ public class PropuestaController {
 	// Crea una nueva propuesta.
 
 	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	ResponseEntity<Propuesta> crearPropuesta(@RequestBody Propuesta propuesta) {
+	public ResponseEntity<Propuesta> crearPropuesta(@RequestBody Propuesta propuesta) {
 		Propuesta res;
 
 		res = propuestaService.creaPropuesta(propuesta);
-		
-		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
+
+		return new ResponseEntity<Propuesta>(res, HttpStatus.CREATED);
 	}
 
 	// Acepta una propuesta.
@@ -130,6 +121,10 @@ public class PropuestaController {
 	@RequestMapping(value = "aceptar/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Propuesta> aceptaPropuesta(@PathVariable("id") String id) {
 
+		// Comprueba que el usuario logeado sea el destinatario.
+		if (propuestaService.checkPrincipalDest(id) == false) {
+			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
+		}
 		Propuesta res;
 
 		res = propuestaService.aceptaPropuesta(id);
@@ -145,6 +140,10 @@ public class PropuestaController {
 	@RequestMapping(value = "rechazar/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Propuesta> rechazaPropuesta(@PathVariable("id") String id) {
 
+		// Comprueba que el usuario logeado sea el destinatario.
+		if (propuestaService.checkPrincipalDest(id) == false) {
+			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
+		}
 		Propuesta res;
 
 		res = propuestaService.rechazaPropuesta(id);

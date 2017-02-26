@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Permuta;
-import domain.Propuesta;
 import repositories.PermutaRepository;
 import security.UserAccount;
 
@@ -104,5 +103,5 @@ public class PermutaService {
 
 		return res;
 	}
-	
+
 }

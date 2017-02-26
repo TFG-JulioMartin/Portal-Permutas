@@ -21,8 +21,10 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 
+	// Devuelve todos los usuarios registrados.
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<UserAccount>> get() {
+	public ResponseEntity<Collection<UserAccount>> findAll() {
 
 		Collection<UserAccount> userAccount = usuarioService.findAll();
 
@@ -45,7 +47,7 @@ public class UsuarioController {
 	// Busca el usuario logeado
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<UserAccount> findPrincipal() {
+	public ResponseEntity<UserAccount> findPrincipal() {
 
 		UserAccount res;
 

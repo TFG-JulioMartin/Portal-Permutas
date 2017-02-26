@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.PlazaPropia;
-import domain.ZonaDeseada;
 import forms.UsuarioForm;
 import repositories.UsuarioRepository;
 import security.LoginService;
@@ -47,11 +46,11 @@ public class UsuarioService {
 	// Simple CRUD methods----------------------------------------------------
 
 	public UserAccount create() {
-		
+
 		UserAccount res;
-		
+
 		res = new UserAccount();
-		
+
 		res.setAccountNonExpired(true);
 		res.setAccountNonLocked(true);
 		res.setCredentialsNonExpired(true);
@@ -148,7 +147,7 @@ public class UsuarioService {
 		plazaPropia.setLongitud(usuarioForm.getLongitud());
 
 		plazaPropiaService.save(plazaPropia);
-		
+
 		return userAccount;
 
 	}

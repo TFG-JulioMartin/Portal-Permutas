@@ -24,7 +24,7 @@ public class PlazaPropiaController {
 	// Busca todas las plazas
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<PlazaPropia>> findAll() {
+	public ResponseEntity<Collection<PlazaPropia>> findAll() {
 
 		Collection<PlazaPropia> res;
 
@@ -36,7 +36,7 @@ public class PlazaPropiaController {
 	// Busca la plaza del usuario logeado
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<PlazaPropia> findByPrincipal() {
+	public ResponseEntity<PlazaPropia> findByPrincipal() {
 
 		PlazaPropia res;
 
@@ -50,9 +50,9 @@ public class PlazaPropiaController {
 	}
 
 	// Busca la plaza cuyo usuario se pasa por id
-	
+
 	@RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<PlazaPropia> findByUserId(@PathVariable("id") String id) {
+	public ResponseEntity<PlazaPropia> findByUserId(@PathVariable("id") String id) {
 
 		PlazaPropia res;
 
@@ -64,22 +64,22 @@ public class PlazaPropiaController {
 
 		return new ResponseEntity<PlazaPropia>(res, HttpStatus.OK);
 	}
-	
+
 	// Busca la plaza cuyo usuario se pasa por id
-	
-		@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-		ResponseEntity<PlazaPropia> findByPlazaId(@PathVariable("id") String id) {
 
-			PlazaPropia res;
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<PlazaPropia> findByPlazaId(@PathVariable("id") String id) {
 
-			res = plazaPropiaService.findOne(id);
+		PlazaPropia res;
 
-			if (id == null) {
-				return new ResponseEntity<PlazaPropia>(HttpStatus.NOT_FOUND);
-			}
+		res = plazaPropiaService.findOne(id);
 
-			return new ResponseEntity<PlazaPropia>(res, HttpStatus.OK);
+		if (id == null) {
+			return new ResponseEntity<PlazaPropia>(HttpStatus.NOT_FOUND);
 		}
+
+		return new ResponseEntity<PlazaPropia>(res, HttpStatus.OK);
+	}
 
 	// Modifica la plaza actual del usuario logeado
 

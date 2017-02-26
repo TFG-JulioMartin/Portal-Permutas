@@ -25,7 +25,7 @@ export class CrearPropuestaComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-        this.id = params['id'];
+            this.id = params['id'];
         });
     }
 
@@ -34,12 +34,11 @@ export class CrearPropuestaComponent implements OnInit {
         this.propuesta.destinatarioId = this.id;
         this.propuestaService.create(this.propuesta).subscribe(
             data => {
-                console.log('BIEN');
+                
                 this.router.navigate(['/propuestasEnviadas']);
             },
             error => {
                 this.loading = false;
-                console.log('MAL');
                 console.log(error);
             });
     }

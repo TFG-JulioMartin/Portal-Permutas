@@ -14,5 +14,5 @@ export class PermutaService {
     }
 
     getPermutas(): Rx.Observable<Permuta[]> {
-        return this.http.get('/Portal-Permutas/api/permuta/all').map(res => res.json());
+        return this.http.get('/Portal-Permutas/api/permuta/principal').map(res => res.json());
     }

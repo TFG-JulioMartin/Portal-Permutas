@@ -1,4 +1,4 @@
-package org.spring.mongodb.example;
+package utilities;
 
 import java.util.Date;
 

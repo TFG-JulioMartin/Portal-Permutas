@@ -34,11 +34,9 @@ var CrearPropuestaComponent = (function () {
         this.loading = true;
         this.propuesta.destinatarioId = this.id;
         this.propuestaService.create(this.propuesta).subscribe(function (data) {
-            console.log('BIEN');
             _this.router.navigate(['/propuestasEnviadas']);
         }, function (error) {
             _this.loading = false;
-            console.log('MAL');
             console.log(error);
         });
     };

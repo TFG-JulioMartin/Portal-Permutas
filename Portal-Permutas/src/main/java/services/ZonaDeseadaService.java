@@ -223,4 +223,14 @@ public class ZonaDeseadaService {
 		}
 		return res;
 	}
+	
+	public boolean checkPrincipal(ZonaDeseada zonaDeseada){
+		boolean res;
+		UserAccount principal;
+		
+		principal = usuarioService.findPrincipal();
+		res = zonaDeseada.getUsuarioId().equals(principal.getId());
+		
+		return res;	
+	}
 }

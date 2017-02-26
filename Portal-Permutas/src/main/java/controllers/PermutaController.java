@@ -20,13 +20,29 @@ public class PermutaController {
 	private PermutaService permutaService;
 
 	// Devuelve todas las permutas del usuario logeado.
-	
-	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<Permuta>> findAllByPrincipal() {
+
+	@RequestMapping(value = "/principal", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Collection<Permuta>> findAllByPrincipal() {
 
 		Collection<Permuta> res;
 
 		res = permutaService.findAllByPrincipal();
+
+		if (res == null) {
+			return new ResponseEntity<Collection<Permuta>>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<Collection<Permuta>>(res, HttpStatus.OK);
+	}
+
+	// Devuelve todas las permutas.
+
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Collection<Permuta>> findAll() {
+
+		Collection<Permuta> res;
+
+		res = permutaService.findAll();
 
 		if (res == null) {
 			return new ResponseEntity<Collection<Permuta>>(HttpStatus.NOT_FOUND);

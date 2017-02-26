@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import domain.Coincidencia;
 import domain.ZonaDeseada;
 import forms.ZonaDeseadaDTO;
-import services.UsuarioService;
 import services.ZonaDeseadaService;
 
 @RestController
@@ -25,11 +23,10 @@ public class ZonaDeseadaController {
 	@Autowired
 	private ZonaDeseadaService zonaDeseadaService;
 
-	@Autowired
-	private UsuarioService usuarioService;
+	// Devuelve todas las zonas deseadas del usuario logeado.
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<ZonaDeseada>> findAll() {
+	public ResponseEntity<Collection<ZonaDeseada>> findAll() {
 
 		Collection<ZonaDeseada> res;
 
@@ -42,14 +39,13 @@ public class ZonaDeseadaController {
 		return new ResponseEntity<Collection<ZonaDeseada>>(res, HttpStatus.OK);
 	}
 
-	// Comprueba si hay alguna coincidencia.
+	// Devuelve las coincidencias que se encuentren.
 
 	@RequestMapping(value = "/matchings", method = RequestMethod.GET, produces = "application/json")
-	ResponseEntity<Collection<Coincidencia>> compruebaCoincidencias() {
+	public ResponseEntity<Collection<Coincidencia>> compruebaCoincidencias() {
 
 		Collection<Coincidencia> res;
 
-		// checkprincipal
 		res = zonaDeseadaService.compruebaCoincidencias();
 
 		if (res == null) {
@@ -72,32 +68,7 @@ public class ZonaDeseadaController {
 
 	}
 
-	// @RequestMapping(value = "/user/{id}", method = RequestMethod.GET,
-	// produces = "application/json")
-	// ResponseEntity<Collection<ZonaDeseada>> findAllByUserId(@PathVariable
-	// String id) {
-	//
-	// Collection<ZonaDeseada> res;
-	//
-	// // checkprincipal
-	// res = zonaDeseadaService.findAllByUserId(id);
-	//
-	// if (res == null) {
-	// return new ResponseEntity<Collection<ZonaDeseada>>(HttpStatus.NOT_FOUND);
-	// }
-	//
-	// return new ResponseEntity<Collection<ZonaDeseada>>(res, HttpStatus.OK);
-	// }
-
-	// @RequestMapping(method = RequestMethod.POST)
-	// @ResponseStatus(HttpStatus.CREATED)
-	// void add(@PathVariable String userId, @RequestBody @Valid ZonaDeseada
-	// zonaDeseada) {
-	// usuarioService.validateUser(userId);
-	//
-	// usuarioService.addPlazaDeseada(zonaDeseada);
-	//
-	// }
+	// Elimina la zona deseada que cuya id se pasa por parámetro.
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<ZonaDeseada> delete(@PathVariable("id") String id) {
@@ -106,10 +77,16 @@ public class ZonaDeseadaController {
 
 		zonaDeseada = zonaDeseadaService.findOne(id);
 		
+		// Comprueba que la zona que se quiere eliminar pertenece al usuario
+		// logeado.
+		if (zonaDeseadaService.checkPrincipal(zonaDeseada) == false) {
+			return new ResponseEntity<ZonaDeseada>(HttpStatus.FORBIDDEN);
+		}
+
 		if (zonaDeseada == null) {
-            System.out.println("Unable to delete. ZonaDeseada with id " + id + " not found");
-            return new ResponseEntity<ZonaDeseada>(HttpStatus.NOT_FOUND);
-        }
+			System.out.println("Unable to delete. ZonaDeseada with id " + id + " not found");
+			return new ResponseEntity<ZonaDeseada>(HttpStatus.NOT_FOUND);
+		}
 
 		zonaDeseadaService.delete(zonaDeseada);
 

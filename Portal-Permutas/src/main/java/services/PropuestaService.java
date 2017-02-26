@@ -228,18 +228,60 @@ public class PropuestaService {
 	}
 
 	public void rechazaResto(Propuesta propuesta) {
-		UserAccount principal;
-		Collection<Propuesta> todas;
+		UserAccount destinatario;
+		UserAccount remitente;
+		Collection<Propuesta> todasDestinatario;
+		Collection<Propuesta> todasRemitente;
 
-		principal = usuarioService.findPrincipal();
-		todas = findAllByUserId(principal.getId());
+		destinatario = usuarioService.findOne(propuesta.getDestinatarioId());
+		remitente = usuarioService.findOne(propuesta.getRemitenteId());
+		todasDestinatario = findAllByUserId(destinatario.getId());
+		todasRemitente = findAllByUserId(remitente.getId());
 
 		// Rechaza todas las propuestas excepto la que se pasa como
 		// parámetro que es la que se supone se está aceptando.
-		for (Propuesta p : todas) {
-			if (!p.getId().equals(propuesta.getId())) {
-				rechazaPropuesta(p.getId());
+		for (Propuesta pd : todasDestinatario) {
+			if (!pd.getId().equals(propuesta.getId())) {
+				rechazaPropuesta(pd.getId());
 			}
 		}
+
+		for (Propuesta pr : todasRemitente) {
+			if (!pr.getId().equals(propuesta.getId())) {
+				rechazaPropuesta(pr.getId());
+			}
+		}
+
+	}
+
+	// Comprueba que el usuario logeado es el destinatario o remitente de la
+	// propuesta cuya id que se pasa.
+
+	public boolean checkPrincipalDestRem(String propuestaId) {
+		boolean res;
+		Propuesta propuesta;
+		UserAccount principal;
+
+		principal = usuarioService.findPrincipal();
+		propuesta = findOne(propuestaId);
+		res = propuesta.getRemitenteId().equals(principal.getId())
+				|| propuesta.getDestinatarioId().equals(principal.getId());
+
+		return res;
+	}
+
+	// Comprueba que el usuario logeado es el destinatario de la
+	// propuesta cuya id que se pasa.
+
+	public boolean checkPrincipalDest(String propuestaId) {
+		boolean res;
+		Propuesta propuesta;
+		UserAccount principal;
+
+		principal = usuarioService.findPrincipal();
+		propuesta = findOne(propuestaId);
+		res = propuesta.getDestinatarioId().equals(principal.getId());
+
+		return res;
 	}
 }

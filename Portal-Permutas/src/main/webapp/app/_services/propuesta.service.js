@@ -16,9 +16,6 @@ var PropuestaService = (function () {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    PropuestaService.prototype.getPropuesta = function (id) {
-        return this.http.get('/Portal-Permutas/api/propuesta/findOne/' + id).map(this.extractData).publish().refCount();
-    };
     PropuestaService.prototype.getPropuestasEnviadas = function () {
         return this.http.get('/Portal-Permutas/api/propuesta/enviadas').map(this.extractData).publish().refCount();
     };

@@ -17,7 +17,7 @@ var PermutaService = (function () {
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     PermutaService.prototype.getPermutas = function () {
-        return this.http.get('/Portal-Permutas/api/permuta/all').map(function (res) { return res.json(); });
+        return this.http.get('/Portal-Permutas/api/permuta/principal').map(function (res) { return res.json(); });
     };
     PermutaService = __decorate([
         core_1.Injectable(), 

@@ -12,15 +12,18 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('../_services/index');
 var ZonaDeseadaComponent = (function () {
-    function ZonaDeseadaComponent(zonaDeseadaService, plazaService, router) {
+    function ZonaDeseadaComponent(zonaDeseadaService, plazaService, router, geocodingService, zone) {
         this.zonaDeseadaService = zonaDeseadaService;
         this.plazaService = plazaService;
         this.router = router;
+        this.geocodingService = geocodingService;
+        this.zone = zone;
         // google maps zoom level
         this.zoom = 13;
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
+        this.desarrollo = false;
         this.model = {};
         this.getCoincidencias();
         this.getPlazas();
@@ -68,10 +71,43 @@ var ZonaDeseadaComponent = (function () {
     };
     ZonaDeseadaComponent.prototype.deleteZone = function (id) {
         var _this = this;
-        this.zonaDeseadaService.deleteZone(id).then(function () {
-            _this.getZonas();
-            _this.getCoincidencias();
+        var r = confirm('¿Borrar esta zona?');
+        if (r == true) {
+            this.zonaDeseadaService.deleteZone(id).then(function () {
+                _this.getZonas();
+                _this.getCoincidencias();
+            });
+        }
+    };
+    ZonaDeseadaComponent.prototype.goToZone = function (lat, lng) {
+        this.lat = lat;
+        this.lng = lng;
+    };
+    ZonaDeseadaComponent.prototype.search = function () {
+        var _this = this;
+        this.geocodingService.getLatLon(this.address).subscribe(function (data) {
+            _this.zone.run(function () {
+                _this.lat = data.lat();
+                _this.lng = data.lng();
+                _this.zoom = 18;
+            });
+        }, function (error) {
+            console.log(error);
         });
+    };
+    ZonaDeseadaComponent.prototype.keyDownFunction = function ($event) {
+        var _this = this;
+        if (event.keyCode == 13) {
+            this.geocodingService.getLatLon(this.address).subscribe(function (data) {
+                _this.zone.run(function () {
+                    _this.lat = data.lat();
+                    _this.lng = data.lng();
+                    _this.zoom = 18;
+                });
+            }, function (error) {
+                console.log(error);
+            });
+        }
     };
     ZonaDeseadaComponent = __decorate([
         core_1.Component({
@@ -79,7 +115,7 @@ var ZonaDeseadaComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'zona-deseada.component.html'
         }), 
-        __metadata('design:paramtypes', [index_1.ZonaDeseadaService, index_1.PlazaService, router_1.Router])
+        __metadata('design:paramtypes', [index_1.ZonaDeseadaService, index_1.PlazaService, router_1.Router, index_1.GeocodingService, core_1.NgZone])
     ], ZonaDeseadaComponent);
     return ZonaDeseadaComponent;
 }());

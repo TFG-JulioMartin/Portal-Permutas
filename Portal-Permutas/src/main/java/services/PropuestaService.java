@@ -254,26 +254,10 @@ public class PropuestaService {
 
 	}
 
-	// Comprueba que el usuario logeado es el destinatario o remitente de la
-	// propuesta cuya id que se pasa.
-
-	public boolean checkPrincipalDestRem(String propuestaId) {
-		boolean res;
-		Propuesta propuesta;
-		UserAccount principal;
-
-		principal = usuarioService.findPrincipal();
-		propuesta = findOne(propuestaId);
-		res = propuesta.getRemitenteId().equals(principal.getId())
-				|| propuesta.getDestinatarioId().equals(principal.getId());
-
-		return res;
-	}
-
 	// Comprueba que el usuario logeado es el destinatario de la
 	// propuesta cuya id que se pasa.
 
-	public boolean checkPrincipalDest(String propuestaId) {
+	public boolean checkPrincipal(String propuestaId) {
 		boolean res;
 		Propuesta propuesta;
 		UserAccount principal;

@@ -51,14 +51,14 @@ public class PlazaPropiaController {
 
 	// Busca la plaza cuyo usuario se pasa por id
 
-	@RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<PlazaPropia> findByUserId(@PathVariable("id") String id) {
+	@RequestMapping(value = "/usuario/{usuarioId}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<PlazaPropia> findByUserId(@PathVariable("usuarioId") String usuarioId) {
 
 		PlazaPropia res;
 
-		res = plazaPropiaService.findByUserId(id);
+		res = plazaPropiaService.findByUserId(usuarioId);
 
-		if (id == null) {
+		if (res == null) {
 			return new ResponseEntity<PlazaPropia>(HttpStatus.NOT_FOUND);
 		}
 
@@ -67,14 +67,14 @@ public class PlazaPropiaController {
 
 	// Busca la plaza cuyo usuario se pasa por id
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<PlazaPropia> findByPlazaId(@PathVariable("id") String id) {
+	@RequestMapping(value = "/{plazaId}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<PlazaPropia> findByPlazaId(@PathVariable("plazaId") String plazaId) {
 
 		PlazaPropia res;
 
-		res = plazaPropiaService.findOne(id);
+		res = plazaPropiaService.findOne(plazaId);
 
-		if (id == null) {
+		if (res == null) {
 			return new ResponseEntity<PlazaPropia>(HttpStatus.NOT_FOUND);
 		}
 
@@ -85,10 +85,6 @@ public class PlazaPropiaController {
 
 	@RequestMapping(value = "/modifica", method = RequestMethod.PUT)
 	public ResponseEntity<PlazaPropia> modificaPlaza(@RequestBody PlazaPropia plazaPropia) {
-
-		if (plazaPropia == null) {
-			return new ResponseEntity<PlazaPropia>(HttpStatus.NOT_FOUND);
-		}
 
 		plazaPropiaService.modificaPlaza(plazaPropia);
 		return new ResponseEntity<PlazaPropia>(plazaPropia, HttpStatus.OK);

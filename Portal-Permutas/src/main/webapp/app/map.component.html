@@ -1,5 +1,12 @@
 <md-sidenav-container>
 <md-card>
+
+		<input type="text" id="your-search-bar" class="form-control" placeholder="Buscar direccion" 
+		[(ngModel)]="address" style="width:300px;display: inline-block;" (keydown)="keyDownFunction($event)">
+		<button md-icon-button (click)='search()' color="primary" style="display: inline-block;">
+      		<md-icon class="md-24">search</md-icon>
+      	</button>
+	
     <sebm-google-map 
       [latitude]="lat"
       [longitude]="lng"

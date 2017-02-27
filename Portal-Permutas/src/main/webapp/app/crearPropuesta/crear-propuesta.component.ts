@@ -2,7 +2,7 @@ import { Component, OnInit }      from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { AlertService, PropuestaService } from '../_services/index';
+import { AlertService, PropuestaService, PlazaService } from '../_services/index';
 import { Propuesta } from '../_models/index';
 
 @Component({
@@ -19,15 +19,28 @@ export class CrearPropuestaComponent implements OnInit {
     color = 'primary';
     mode = 'determinate';
     value = 50;
+    plaza: PlazaPropia = {};
+    prohibido = false;
 
-    constructor(private router: Router, private route: ActivatedRoute, private propuestaService: PropuestaService, private alertService: AlertService) {
-    }
+    constructor(
+        private router: Router, 
+        private route: ActivatedRoute, 
+        private propuestaService: PropuestaService, 
+        private plazaService: PlazaService, 
+        private alertService: AlertService) {}
 
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
+        
+        this.getPlaza();
     }
+    
+    getPlaza() {
+        this.plazaService.getPlaza(this.id).subscribe(plaza => this.plaza = plaza);
+    }
+        
 
     crearPropuesta() {
         this.loading = true;
@@ -38,6 +51,7 @@ export class CrearPropuestaComponent implements OnInit {
                 this.router.navigate(['/propuestasEnviadas']);
             },
             error => {
+                this.prohibido = true;
                 this.loading = false;
                 console.log(error);
             });

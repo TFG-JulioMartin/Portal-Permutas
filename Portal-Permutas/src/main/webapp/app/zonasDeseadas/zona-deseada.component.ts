@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PlazaService, ZonaDeseadaService } from '../_services/index';
+import { PlazaService, ZonaDeseadaService, GeocodingService } from '../_services/index';
 import { ZonaDeseada, Coincidencia, PlazaPropia } from '../domain';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 
@@ -28,6 +28,8 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
     zonas: ZonaDeseada[];
     plazas: PlazaPropia[];
     coincidencias: Coincidencia[];
+    address : string;
+    desarrollo: boolean = false;
 
     model: any = {};
     slat: number;
@@ -35,7 +37,12 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
     elat: number;
     elng: number;
 
-    constructor(private zonaDeseadaService: ZonaDeseadaService, private plazaService: PlazaService, private router: Router) {
+    constructor(
+    private zonaDeseadaService: ZonaDeseadaService, 
+    private plazaService: PlazaService, 
+    private router: Router,
+    private geocodingService: GeocodingService,
+    private zone: NgZone) {
         this.getCoincidencias();
         this.getPlazas();
         this.getZonas();
@@ -88,11 +95,48 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
     }
 
     deleteZone(id: string) {
-        this.zonaDeseadaService.deleteZone(id).then(() => {
-            this.getZonas();
-            this.getCoincidencias();
-
-        });
+        let r = confirm('¿Borrar esta zona?');
+        if (r == true) {
+            this.zonaDeseadaService.deleteZone(id).then(() => {
+                this.getZonas();
+                this.getCoincidencias();
+            });
+        }
+    }
+    
+    goToZone(lat: number, lng: number){
+        this.lat= lat;
+        this.lng = lng;
+    }
+    
+    search(){
+        this.geocodingService.getLatLon(this.address).subscribe(
+            data => {
+                this.zone.run(() => {
+                    this.lat = data.lat();
+                    this.lng = data.lng();
+                    this.zoom = 18;
+                }
+            },
+            error => {
+                console.log(error);
+            });
+    }
+    
+    keyDownFunction($event) {
+        if(event.keyCode == 13) {
+        this.geocodingService.getLatLon(this.address).subscribe(
+            data => {
+                this.zone.run(() => {
+                    this.lat = data.lat();
+                    this.lng = data.lng();
+                    this.zoom = 18;
+                }
+            },
+            error => {
+                console.log(error);
+            });
+         }
     }
 
 }

@@ -38,6 +38,12 @@ var ListarPropuestasRecibidasComponent = (function () {
         this.textoPropuesta = texto;
         this.plazaService.getPlazaById(id).subscribe(function (plazaRemitente) { return _this.plazaRemitente = plazaRemitente; });
     };
+    ListarPropuestasRecibidasComponent.prototype.goToZone = function (lat, lng) {
+        this.lat = lat;
+        this.lng = lng;
+        this.zoom = 15;
+        this.cerrar();
+    };
     ListarPropuestasRecibidasComponent.prototype.cerrar = function () {
         this.plazaRemitente = null;
     };

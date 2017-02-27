@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router} from '@angular/router';
 
-import { PlazaService, AuthenticationService } from './_services/index';
+import { PlazaService, AuthenticationService, GeocodingService } from './_services/index';
 import { PlazaPropia } from './listadoPlazas/plazaPropia';
 
 
@@ -26,10 +26,15 @@ export class MapComponent implements OnInit {
     lng: number = -5.9965;
 
     plazas: PlazaPropia[];
+	address : string;
 
-    constructor(private plazaService: PlazaService , private router: Router, private authenticationService: AuthenticationService) {
-        
-    }
+    constructor(
+    private plazaService: PlazaService, 
+    private router: Router, 
+    private authenticationService: AuthenticationService,
+    private geocodingService: GeocodingService,
+    private zone: NgZone) { }
+    
     ngOnInit() {
         this.getPlazas();
     }
@@ -40,6 +45,36 @@ export class MapComponent implements OnInit {
     
     proponer(id : string) : void {
   		this.router.navigate(['/crearPropuesta', id]);
+  	}
+  	
+  	search(){
+  		this.geocodingService.getLatLon(this.address).subscribe(
+    		data => {
+    			this.zone.run(() => {
+    				this.lat = data.lat();
+                	this.lng = data.lng();
+                	this.zoom = 18;
+                }
+            },
+       		error => {
+                console.log(error);
+            });
+  	}
+  	
+  	keyDownFunction($event) {
+  		if(event.keyCode == 13) {
+  		this.geocodingService.getLatLon(this.address).subscribe(
+    		data => {
+    			this.zone.run(() => {
+    				this.lat = data.lat();
+                	this.lng = data.lng();
+                	this.zoom = 18;
+                }
+            },
+       		error => {
+                console.log(error);
+            });
+         }
   	}
 
     clickedMarker(label: string, index: number) {

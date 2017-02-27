@@ -10,12 +10,12 @@ export class PlazaService {
 
 	constructor(private http: Http) {}
 	
-	getPlaza(id : string): Rx.Observable<PlazaPropia> {
-        return this.http.get('/Portal-Permutas/api/plazaPropia/usuario/' +id).map(this.extractData).publish().refCount();
+	getPlaza(usuarioId : string): Rx.Observable<PlazaPropia> {
+        return this.http.get('/Portal-Permutas/api/plazaPropia/usuario/' +usuarioId).map(this.extractData).publish().refCount();
     }
     
-    getPlazaById(id : string): Rx.Observable<PlazaPropia> {
-        return this.http.get('/Portal-Permutas/api/plazaPropia/' +id).map(this.extractData).publish().refCount();
+    getPlazaById(plazaId : string): Rx.Observable<PlazaPropia> {
+        return this.http.get('/Portal-Permutas/api/plazaPropia/' +plazaId).map(this.extractData).publish().refCount();
     }
 	
 	getPlazas(): Rx.Observable<PlazaPropia[]> {

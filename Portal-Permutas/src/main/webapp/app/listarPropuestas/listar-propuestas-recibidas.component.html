@@ -1,4 +1,5 @@
 <md-sidenav-container>
+
 	<md-card>
 		<md-card-title>Propuestas Recibidas</md-card-title>
 		
@@ -11,6 +12,7 @@
                 <th>Estado</th>
                 <th>Fecha Acept/Rechaz</th>
                 <th>Aceptar/Rechazar</th>
+                <th>Ir</th>
                 <th>Detalles</th>
             </tr>
         </thead>
@@ -28,6 +30,7 @@
                 	<button md-raised-button (click)='aceptar(propuesta.id)' color="primary">Aceptar</button>
                 	<button md-raised-button (click)='rechazar(propuesta.id)' color="warn">Rechazar</button>
                 </td>
+                <td><button md-raised-button (click)='goToZone(propuesta.latitudRemitente, propuesta.longitudRemitente)' color="primary">Ir</button></td>
                 <td *ngIf="!propuesta.estado == 0"></td>
                 <td><button md-raised-button (click)='getPlazaRemitente(propuesta.idPlazaRemitente, propuesta.texto)' color="primary">Detalles</button></td>     
         	</tr>
@@ -57,4 +60,22 @@
 	<span><button md-raised-button (click)='cerrar()' color="primary">Cerrar</button></span>
 </md-card>
 </ng-container>
+
+<ng-container *ngIf="!plazaRemitente">
+	<sebm-google-map 
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="false"
+      [zoomControl]="false">
+    
+      <sebm-google-map-marker 
+          *ngFor="let p of propuestas; let i = index"
+          [latitude]="p.latitudRemitente"
+          [longitude]="p.longitudRemitente"
+          [title]="p.nombreRemitente" >         
+      </sebm-google-map-marker> 
+    </sebm-google-map>
+</ng-container>
+
 </md-sidenav-container>

@@ -4,6 +4,12 @@
 	<md-card-title>
 		Enviar propuesta
 	</md-card-title>
+	
+	<strong><u>Datos de la plaza</u></strong><br>
+	<span>Titulo: {{plaza.titulo}}</span><br>
+	<span>Centro: {{plaza.centro}}</span><br>
+	<span>Direccion: {{plaza.direccion}}</span><br><br>
+	
     <form name="form" (ngSubmit)="f.form.valid && crearPropuesta()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="titulo">Titulo</label>
@@ -29,5 +35,10 @@
         </div>
     </form>
 </md-card>
+	<ng-container *ngIf="prohibido">
+	<md-card>
+		<div class="alert alert-danger">No puedes enviarte una propuesta a ti mismo</div>
+	</md-card>
+	</ng-container>
 </div>
 </md-sidenav-container>

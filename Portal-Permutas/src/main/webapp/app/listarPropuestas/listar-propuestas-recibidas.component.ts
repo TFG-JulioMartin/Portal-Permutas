@@ -51,6 +51,13 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
         this.plazaService.getPlazaById(id).subscribe(plazaRemitente => this.plazaRemitente = plazaRemitente);
     }
     
+    goToZone(lat: number, lng: number){
+        this.lat = lat;
+        this.lng = lng;
+        this.zoom = 15;
+        this.cerrar();
+    }
+    
     cerrar(){
         this.plazaRemitente = null;
     }

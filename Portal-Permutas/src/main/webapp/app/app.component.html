@@ -21,8 +21,7 @@
       <hr>
       
       <a md-list-item
-         (click)="toggleTheme() && start.close()"
-         >
+         (click)="start.close() && toggleTheme()">
         Toggle theme
       </a>
       
@@ -53,12 +52,12 @@
       		<md-icon class="md-24">notifications</md-icon>
       	</button> 
       	<span *ngIf="this.authenticationService.getNumPR() > 0" style="font-size:14px;font-family:Roboto;">({{this.authenticationService.getNumPR()}})</span>   	
-      	<button md-button (click)='logout()'>Logout ({{this.authenticationService.getCurrentUser().username}})</button>   
+      	<button md-button (click)='logout()'>Cerrar sesion</button>   
       </ng-container>
       
       <span *ngIf="!this.authenticationService.isLoggedIn()">
-      	<button md-button (click)='goToLogin()'>Login</button>
-      	<button md-button (click)='goToRegister()'>Register</button>
+      	<button md-button (click)='goToLogin()'>Iniciar sesion</button>
+      	<button md-button (click)='goToRegister()'>Registro</button>
       </span>
 
     </md-toolbar>

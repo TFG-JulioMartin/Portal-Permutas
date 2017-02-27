@@ -4,6 +4,7 @@
 	<md-card-title>
 		Modificar Plaza
 	</md-card-title>
+	
     <form name="form" (ngSubmit)="f.form.valid && editar()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted }">
             <label for="titulo">Titulo</label>

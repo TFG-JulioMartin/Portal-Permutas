@@ -22,8 +22,8 @@ var AppComponent = (function () {
         this.NotLoggedNavItems = [
             { name: 'Home', route: '' },
             { name: 'List', route: 'list' },
-            { name: 'Login', route: 'login' },
-            { name: 'Register', route: 'register' }
+            { name: 'Iniciar sesion', route: 'login' },
+            { name: 'Registro', route: 'register' }
         ];
         this.LoggedNavItems = [
             { name: 'Home', route: '' },

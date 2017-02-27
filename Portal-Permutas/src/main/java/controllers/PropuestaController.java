@@ -15,6 +15,7 @@ import domain.Propuesta;
 import forms.PropuestaDTO;
 import services.PlazaPropiaService;
 import services.PropuestaService;
+import services.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/api/propuesta")
@@ -25,6 +26,9 @@ public class PropuestaController {
 
 	@Autowired
 	private PlazaPropiaService plazaPropiaService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	// Busca todas las propuestas enviadas del usuario logeado.
 
@@ -83,33 +87,15 @@ public class PropuestaController {
 		return new ResponseEntity<Integer>(res, HttpStatus.OK);
 	}
 
-	// Busca una propuesta por su id.
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<Propuesta> findByPropuestaId(@PathVariable String id) {
-
-		// Comprueba que el usuario logeado es el destinatario o remitente de la
-		// propuesta que se quiere obtener.
-		if (propuestaService.checkPrincipalDestRem(id) == false) {
-			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
-		}
-
-		Propuesta res;
-
-		res = propuestaService.findOne(id);
-
-		if (res == null) {
-			return new ResponseEntity<Propuesta>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<Propuesta>(res, HttpStatus.OK);
-	}
-
 	// Crea una nueva propuesta.
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Propuesta> crearPropuesta(@RequestBody Propuesta propuesta) {
 		Propuesta res;
+		
+		if(propuesta.getDestinatarioId().equals(usuarioService.findPrincipal().getId())){
+			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
+		}
 
 		res = propuestaService.creaPropuesta(propuesta);
 
@@ -122,7 +108,7 @@ public class PropuestaController {
 	public ResponseEntity<Propuesta> aceptaPropuesta(@PathVariable("id") String id) {
 
 		// Comprueba que el usuario logeado sea el destinatario.
-		if (propuestaService.checkPrincipalDest(id) == false) {
+		if (propuestaService.checkPrincipal(id) == false) {
 			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
 		}
 		Propuesta res;
@@ -141,7 +127,7 @@ public class PropuestaController {
 	public ResponseEntity<Propuesta> rechazaPropuesta(@PathVariable("id") String id) {
 
 		// Comprueba que el usuario logeado sea el destinatario.
-		if (propuestaService.checkPrincipalDest(id) == false) {
+		if (propuestaService.checkPrincipal(id) == false) {
 			return new ResponseEntity<Propuesta>(HttpStatus.FORBIDDEN);
 		}
 		Propuesta res;

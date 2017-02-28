@@ -19,9 +19,9 @@ var ZonaDeseadaService = (function () {
     ZonaDeseadaService.prototype.getZonas = function () {
         return this.http.get('/Portal-Permutas/api/zonaDeseada/all').map(function (res) { return res.json(); });
     };
-    ZonaDeseadaService.prototype.createZone = function (zona) {
-        console.log(zona);
-        return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).map(function (res) { return res.json(); });
+    ZonaDeseadaService.prototype.createZone = function (circles) {
+        console.log(circles);
+        return this.http.post('/Portal-Permutas/api/zonaDeseada', circles).map(function (res) { return res.json(); });
     };
     ZonaDeseadaService.prototype.deleteZone = function (id) {
         return this.http.delete('/Portal-Permutas/api/zonaDeseada/' + id)

@@ -1,10 +1,3 @@
-<ng-container *ngIf="desarrollo">
-<h4>Lat de click: {{slat}}</h4>
-<h4>Lng de click: {{slng}}</h4>
-<h4>Lat de Rclick: {{elat}}</h4>
-<h4>Lng de Rclick: {{slng}}</h4>
-</ng-container>
-
 <md-sidenav-container>
 
 <md-card>
@@ -14,11 +7,25 @@
  		<button md-raised-button (click)='goToZone(z.latitud,z.longitud)' color="primary">Zona {{i+1}}</button>
  	</ng-container><br><br>
 
+	<md-toolbar>
+	 
 	<input type="text" id="your-search-bar" class="form-control" placeholder="Buscar direccion" 
 	[(ngModel)]="address" style="width:300px;display: inline-block;" (keydown)="keyDownFunction($event)">
 	<button md-icon-button (click)='search()' color="primary" style="display: inline-block;">
     	<md-icon class="md-24">search</md-icon>
     </button>
+    
+    <span class="example-fill-remaining-space" style="flex: 1 1 auto;"></span>
+    
+    <button md-icon-button (click)="addCircle()" color="primary" style="margin-right: 10px;">
+        <md-icon class="md-48" style="font-size: 48px;margin-right: 10px;">add_circle</md-icon>
+    </button>
+    
+    <button md-icon-button (click)="save()" color="primary" style="margin-right: 10px;">
+        <md-icon class="md-48" style="font-size: 48px;margin-right: 10px;">save</md-icon>
+    </button>
+    
+    </md-toolbar>
 	
     <sebm-google-map 
       [latitude]="lat"
@@ -26,8 +33,7 @@
       [zoom]="zoom"
       [disableDefaultUI]="false"
       [zoomControl]="false"
-      (mapClick)="mapClicked($event)"
-      (mapRightClick)="mapRightCliked($event)">
+      (centerChange)="changedCenter($event)">
     
       <sebm-google-map-marker 
           *ngFor="let p of plazas; let i = index"
@@ -54,6 +60,19 @@
           [circleDraggable]="false"
           [editable]="false"
           (rightClick)="deleteZone(z.id)">
+      </sebm-google-map-circle>
+      
+      <sebm-google-map-circle 
+      	  *ngFor="let c of circles"
+      	  [latitude]="c.latitude" 
+      	  [longitude]="c.longitude" 
+          [radius]="c.radius"
+          [fillColor]="'blue'"
+          [circleDraggable]="c.circleDraggable"
+          [editable]="c.editable"
+          (radiusChange)="changedRadius($event, c)"
+          (centerChange)="changedCircleCenter($event, c)"
+          (dragEnd)="changedPosition($event, c)">
       </sebm-google-map-circle>
 
     </sebm-google-map>

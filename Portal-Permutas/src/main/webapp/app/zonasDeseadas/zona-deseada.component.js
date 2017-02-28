@@ -23,8 +23,7 @@ var ZonaDeseadaComponent = (function () {
         // initial center position for the map
         this.lat = 37.362444;
         this.lng = -5.9965;
-        this.desarrollo = false;
-        this.model = {};
+        this.circles = [];
         this.getCoincidencias();
         this.getPlazas();
         this.getZonas();
@@ -46,28 +45,6 @@ var ZonaDeseadaComponent = (function () {
     };
     ZonaDeseadaComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
-    };
-    ZonaDeseadaComponent.prototype.mapClicked = function ($event) {
-        this.slat = $event.coords.lat;
-        this.slng = $event.coords.lng;
-    };
-    ZonaDeseadaComponent.prototype.mapRightCliked = function ($event) {
-        this.elat = $event.coords.lat;
-        this.elng = $event.coords.lng;
-        this.model.slat = this.slat;
-        this.model.slng = this.slng;
-        this.model.elat = this.elat;
-        this.model.elng = this.elng;
-        this.createZone();
-    };
-    ZonaDeseadaComponent.prototype.createZone = function () {
-        var _this = this;
-        this.zonaDeseadaService.createZone(this.model).subscribe(function (data) {
-            _this.getZonas();
-            _this.getCoincidencias();
-        }, function (error) {
-            console.log(error);
-        });
     };
     ZonaDeseadaComponent.prototype.deleteZone = function (id) {
         var _this = this;
@@ -108,6 +85,43 @@ var ZonaDeseadaComponent = (function () {
                 console.log(error);
             });
         }
+    };
+    ZonaDeseadaComponent.prototype.addCircle = function () {
+        var circle = {};
+        circle.latitude = this.lat;
+        circle.longitude = this.lng;
+        circle.radius = 300;
+        circle.circleDraggable = true;
+        circle.editable = true;
+        this.circles.push(circle);
+    };
+    ZonaDeseadaComponent.prototype.changedRadius = function ($event, circle) {
+        console.log($event);
+        circle.radius = $event;
+    };
+    ZonaDeseadaComponent.prototype.changedPosition = function ($event, circle) {
+        console.log($event.coords.lat);
+        console.log($event.coords.lng);
+        circle.latitude = $event.coords.lat;
+        circle.longitude = $event.coords.lng;
+    };
+    ZonaDeseadaComponent.prototype.save = function () {
+        var _this = this;
+        this.zonaDeseadaService.createZone(this.circles).subscribe(function (data) {
+            _this.getZonas();
+            _this.getCoincidencias();
+            _this.circles = [];
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    ZonaDeseadaComponent.prototype.changedCircleCenter = function ($event, circle) {
+        circle.latitude = $event.lat;
+        circle.longitude = $event.lng;
+    };
+    ZonaDeseadaComponent.prototype.changedCenter = function ($event) {
+        this.lat = $event.lat;
+        this.lng = $event.lng;
     };
     ZonaDeseadaComponent = __decorate([
         core_1.Component({

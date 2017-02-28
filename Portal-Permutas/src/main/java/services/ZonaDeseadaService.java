@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 import domain.Coincidencia;
 import domain.PlazaPropia;
 import domain.ZonaDeseada;
-import forms.ZonaDeseadaDTO;
+import forms.GoogleMapCircle;
 import repositories.ZonaDeseadaRepository;
 import security.UserAccount;
 
@@ -104,29 +104,22 @@ public class ZonaDeseadaService {
 		return res;
 	}
 
-	public Collection<ZonaDeseada> findByZona(String zona) {
+	public Collection<ZonaDeseada> reconstruct(GoogleMapCircle[] circles) {
+		Collection<ZonaDeseada> res;
 
-		// Busca plazas cercanas a la zona dada.
-		return new ArrayList<ZonaDeseada>();
-	}
+		res = new ArrayList<ZonaDeseada>();
 
-	public ZonaDeseada reconstruct(ZonaDeseadaDTO zona) {
+		for (int i = 0; i < circles.length; i++) {
+			ZonaDeseada z = create();
+			z.setLatitud(circles[i].getLatitude());
+			z.setLongitud(circles[i].getLongitude());
+			z.setRadio(circles[i].getRadius());
+			z.setUsuarioId(usuarioService.findPrincipal().getId());
 
-		ZonaDeseada zonaDeseada = new ZonaDeseada();
-		Double radio;
-		double lat = midPoint(zona.getSlat(), zona.getSlng(), zona.getElat(), zona.getElng())[0];
-		double lng = midPoint(zona.getSlat(), zona.getSlng(), zona.getElat(), zona.getElng())[1];
-
-		radio = distance(zona.getSlat(), zona.getElat(), zona.getSlng(), zona.getElng()) / 2;
-
-		zonaDeseada.setLatitud(lat);
-		zonaDeseada.setLongitud(lng);
-		zonaDeseada.setRadio(radio);
-		zonaDeseada.setUsuarioId(usuarioService.findPrincipal().getId());
-
-		save(zonaDeseada);
-
-		return zonaDeseada;
+			save(z);
+			res.add(z);
+		}
+		return res;
 	}
 
 	public static double distance(double lat1, double lat2, double lon1, double lon2) {
@@ -145,28 +138,6 @@ public class ZonaDeseadaService {
 		distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
 		return Math.sqrt(distance);
-	}
-
-	public static double[] midPoint(double lat1, double lon1, double lat2, double lon2) {
-
-		double[] coords = new double[2];
-		double dLon = Math.toRadians(lon2 - lon1);
-
-		// convert to radians
-		lat1 = Math.toRadians(lat1);
-		lat2 = Math.toRadians(lat2);
-		lon1 = Math.toRadians(lon1);
-
-		double Bx = Math.cos(lat2) * Math.cos(dLon);
-		double By = Math.cos(lat2) * Math.sin(dLon);
-		double lat3 = Math.atan2(Math.sin(lat1) + Math.sin(lat2),
-				Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
-		double lon3 = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
-
-		coords[0] = Math.toDegrees(lat3);
-		coords[1] = Math.toDegrees(lon3);
-
-		return coords;
 	}
 
 	public Collection<Coincidencia> compruebaCoincidencias() {
@@ -223,14 +194,15 @@ public class ZonaDeseadaService {
 		}
 		return res;
 	}
-	
-	public boolean checkPrincipal(ZonaDeseada zonaDeseada){
+
+	public boolean checkPrincipal(ZonaDeseada zonaDeseada) {
 		boolean res;
 		UserAccount principal;
-		
+
 		principal = usuarioService.findPrincipal();
 		res = zonaDeseada.getUsuarioId().equals(principal.getId());
-		
-		return res;	
+
+		return res;
 	}
+
 }

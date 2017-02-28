@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { ZonaDeseadaDTO } from '../domain';
+import { GoogleMapCircle } from '../domain';
 
 @Injectable()
 export class ZonaDeseadaService { 
@@ -17,9 +17,9 @@ export class ZonaDeseadaService {
         return this.http.get('/Portal-Permutas/api/zonaDeseada/all').map(res => res.json());
     }
     
-    createZone(zona: ZonaDeseadaDTO) {
-    	console.log(zona);
-    	return this.http.post('/Portal-Permutas/api/zonaDeseada', zona).map(res => res.json());
+    createZone(circles : GoogleMapCircle[]) {
+    	console.log(circles);
+    	return this.http.post('/Portal-Permutas/api/zonaDeseada', circles).map(res => res.json());
     }
     
     deleteZone(id: string): Promise<void> {

@@ -21,16 +21,6 @@ export interface ZonaDeseada {
     
 }
 
-export interface ZonaDeseadaDTO {
-
-    slat : number;
-    slng : number;
-    elat : number;
-    elng : number;   
-    usuarioId : string;
-    
-}
-
 export interface Coincidencia {
 
     id : string;
@@ -106,3 +96,12 @@ export interface Permuta {
     fecha : date 
     
 }
+
+export interface GoogleMapCircle {
+        latitude: number;
+        longitude: number;
+        radius: number;
+        fillColor: string;
+        circleDraggable: boolean;
+        editable: boolean;
+    }

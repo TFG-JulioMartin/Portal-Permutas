@@ -21,7 +21,7 @@ var AppComponent = (function () {
         this.isDarkTheme = false;
         this.NotLoggedNavItems = [
             { name: 'Home', route: '' },
-            { name: 'List', route: 'list' },
+            { name: 'Lista de plazas', route: 'list' },
             { name: 'Iniciar sesion', route: 'login' },
             { name: 'Registro', route: 'register' }
         ];

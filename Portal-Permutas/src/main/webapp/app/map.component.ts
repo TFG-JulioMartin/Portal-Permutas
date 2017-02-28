@@ -80,6 +80,11 @@ export class MapComponent implements OnInit {
     clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`)
     }
+    
+    changedCenter($event: MouseEvent){
+        this.lat = $event.lat;
+        this.lng = $event.lng;
+    }
 
     mapClicked($event: MouseEvent) {
         this.markers.push({

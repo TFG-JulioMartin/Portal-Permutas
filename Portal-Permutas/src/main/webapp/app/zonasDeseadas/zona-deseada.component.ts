@@ -2,7 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PlazaService, ZonaDeseadaService, GeocodingService } from '../_services/index';
-import { ZonaDeseada, Coincidencia, PlazaPropia } from '../domain';
+import { ZonaDeseada, Coincidencia, PlazaPropia, GoogleMapCircle } from '../domain';
 import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 
 
@@ -28,21 +28,16 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
     zonas: ZonaDeseada[];
     plazas: PlazaPropia[];
     coincidencias: Coincidencia[];
-    address : string;
-    desarrollo: boolean = false;
-
-    model: any = {};
-    slat: number;
-    slng: number;
-    elat: number;
-    elng: number;
+    address: string;
+    
+    circles: GoogleMapCircle[] = [];
 
     constructor(
-    private zonaDeseadaService: ZonaDeseadaService, 
-    private plazaService: PlazaService, 
-    private router: Router,
-    private geocodingService: GeocodingService,
-    private zone: NgZone) {
+        private zonaDeseadaService: ZonaDeseadaService,
+        private plazaService: PlazaService,
+        private router: Router,
+        private geocodingService: GeocodingService,
+        private zone: NgZone) {
         this.getCoincidencias();
         this.getPlazas();
         this.getZonas();
@@ -68,32 +63,6 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
         console.log(`clicked the marker: ${label || index}`)
     }
 
-    mapClicked($event: MouseEvent) {
-        this.slat = $event.coords.lat;
-        this.slng = $event.coords.lng;
-    }
-
-    mapRightCliked($event: MouseEvent) {
-        this.elat = $event.coords.lat;
-        this.elng = $event.coords.lng;
-        this.model.slat = this.slat;
-        this.model.slng = this.slng;
-        this.model.elat = this.elat;
-        this.model.elng = this.elng;
-        this.createZone();
-    }
-
-    createZone() {
-        this.zonaDeseadaService.createZone(this.model).subscribe(
-            data => {
-                this.getZonas();
-                this.getCoincidencias();
-            },
-            error => {
-                console.log(error);
-            });
-    }
-
     deleteZone(id: string) {
         let r = confirm('¿Borrar esta zona?');
         if (r == true) {
@@ -103,13 +72,13 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
             });
         }
     }
-    
-    goToZone(lat: number, lng: number){
-        this.lat= lat;
+
+    goToZone(lat: number, lng: number) {
+        this.lat = lat;
         this.lng = lng;
     }
-    
-    search(){
+
+    search() {
         this.geocodingService.getLatLon(this.address).subscribe(
             data => {
                 this.zone.run(() => {
@@ -122,21 +91,66 @@ export class ZonaDeseadaComponent implements Table<PlazaPropia>{
                 console.log(error);
             });
     }
-    
+
     keyDownFunction($event) {
-        if(event.keyCode == 13) {
-        this.geocodingService.getLatLon(this.address).subscribe(
+        if (event.keyCode == 13) {
+            this.geocodingService.getLatLon(this.address).subscribe(
+                data => {
+                    this.zone.run(() => {
+                        this.lat = data.lat();
+                        this.lng = data.lng();
+                        this.zoom = 18;
+                    }
+            },
+                error => {
+                    console.log(error);
+                });
+        }
+    }
+    
+    addCircle(){
+        let circle : GoogleMapCircle = {};
+        circle.latitude = this.lat;
+        circle.longitude = this.lng;
+        circle.radius = 300;
+        circle.circleDraggable = true;
+        circle.editable = true;
+        this.circles.push(circle);
+    }
+    
+    changedRadius($event: MouseEvent, circle: GoogleMapCircle){
+        console.log($event);
+        circle.radius= $event;
+    }
+    
+    changedPosition($event: MouseEvent, circle: GoogleMapCircle){
+        console.log($event.coords.lat);
+        console.log($event.coords.lng);
+        circle.latitude = $event.coords.lat;
+        circle.longitude= $event.coords.lng;    
+    }
+    
+    save(){
+        this.zonaDeseadaService.createZone(this.circles).subscribe(
             data => {
-                this.zone.run(() => {
-                    this.lat = data.lat();
-                    this.lng = data.lng();
-                    this.zoom = 18;
-                }
+                this.getZonas();
+                this.getCoincidencias();
+                this.circles = [];
             },
             error => {
                 console.log(error);
             });
-         }
+    }
+    
+    changedCircleCenter($event: MouseEvent, circle: GoogleMapCircle){
+        circle.latitude = $event.lat;
+        circle.longitude= $event.lng;
+    }
+    
+    
+    changedCenter($event: MouseEvent){
+        this.lat = $event.lat;
+        this.lng = $event.lng;
     }
 
 }

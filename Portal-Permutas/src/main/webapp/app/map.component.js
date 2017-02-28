@@ -77,6 +77,10 @@ var MapComponent = (function () {
     MapComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
     };
+    MapComponent.prototype.changedCenter = function ($event) {
+        this.lat = $event.lat;
+        this.lng = $event.lng;
+    };
     MapComponent.prototype.mapClicked = function ($event) {
         this.markers.push({
             lat: $event.coords.lat,

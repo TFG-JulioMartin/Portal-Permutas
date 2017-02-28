@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import domain.Coincidencia;
 import domain.ZonaDeseada;
-import forms.ZonaDeseadaDTO;
+import forms.GoogleMapCircle;
 import services.ZonaDeseadaService;
 
 @RestController
@@ -58,13 +58,13 @@ public class ZonaDeseadaController {
 	// Crea una nueva zona deseada.
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ZonaDeseada> create(@RequestBody ZonaDeseadaDTO zona) {
+	public ResponseEntity<Collection<ZonaDeseada>> create(@RequestBody GoogleMapCircle[] circles) {
 
-		ZonaDeseada res;
+		Collection<ZonaDeseada> res;
 
-		res = zonaDeseadaService.reconstruct(zona);
+		res = zonaDeseadaService.reconstruct(circles);
 
-		return new ResponseEntity<ZonaDeseada>(res, HttpStatus.CREATED);
+		return new ResponseEntity<Collection<ZonaDeseada>>(res, HttpStatus.CREATED);
 
 	}
 
@@ -76,7 +76,7 @@ public class ZonaDeseadaController {
 		ZonaDeseada zonaDeseada;
 
 		zonaDeseada = zonaDeseadaService.findOne(id);
-		
+
 		// Comprueba que la zona que se quiere eliminar pertenece al usuario
 		// logeado.
 		if (zonaDeseadaService.checkPrincipal(zonaDeseada) == false) {

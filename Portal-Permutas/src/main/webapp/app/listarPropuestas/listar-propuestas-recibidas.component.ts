@@ -87,17 +87,14 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
                 console.log(error);
             });
     }
+    
+    changedCenter($event: MouseEvent){
+        this.lat = $event.lat;
+        this.lng = $event.lng;
+    }
 
     clickedMarker(label: string, index: number) {
         console.log(`clicked the marker: ${label || index}`)
-    }
-
-    mapClicked($event: MouseEvent) {
-        
-    }
-
-    markerDragEnd(m: marker, $event: MouseEvent) {
-        console.log('dragEnd', m, $event);
     }
 
 }

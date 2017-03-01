@@ -69,13 +69,12 @@ var ListarPropuestasRecibidasComponent = (function () {
             console.log(error);
         });
     };
+    ListarPropuestasRecibidasComponent.prototype.changedCenter = function ($event) {
+        this.lat = $event.lat;
+        this.lng = $event.lng;
+    };
     ListarPropuestasRecibidasComponent.prototype.clickedMarker = function (label, index) {
         console.log("clicked the marker: " + (label || index));
-    };
-    ListarPropuestasRecibidasComponent.prototype.mapClicked = function ($event) {
-    };
-    ListarPropuestasRecibidasComponent.prototype.markerDragEnd = function (m, $event) {
-        console.log('dragEnd', m, $event);
     };
     ListarPropuestasRecibidasComponent = __decorate([
         core_1.Component({

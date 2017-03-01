@@ -85,21 +85,22 @@ public class ZonaDeseadaService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<ZonaDeseada> findAllByUsuarioId(String usuarioId) {
+		Collection<ZonaDeseada> res;
+
+		res = zonaDeseadaRepository.findAllByUsuarioId(usuarioId);
+
+		return res;
+	}
+
 	public Collection<ZonaDeseada> findAllByPrincipal() {
 		Collection<ZonaDeseada> res;
-		Collection<ZonaDeseada> todas;
-		UserAccount userAccount;
+		UserAccount principal;
 		String id;
 
-		res = new ArrayList<ZonaDeseada>();
-		todas = findAll();
-		userAccount = usuarioService.findPrincipal();
-		id = userAccount.getId();
-		for (ZonaDeseada z : todas) {
-			if (z.getUsuarioId().equals(id)) {
-				res.add(z);
-			}
-		}
+		principal = usuarioService.findPrincipal();
+		id = principal.getId();
+		res = findAllByUsuarioId(id);
 
 		return res;
 	}
@@ -143,12 +144,14 @@ public class ZonaDeseadaService {
 	public Collection<Coincidencia> compruebaCoincidencias() {
 		Collection<Coincidencia> res;
 		Collection<ZonaDeseada> principalZonas;
-		PlazaPropia plazaPropia;
 		Collection<PlazaPropia> allPlazas;
+		Collection<PlazaPropia> candidatos;
+		PlazaPropia plazaPropia;
 
 		res = new ArrayList<Coincidencia>();
 		principalZonas = findAllByPrincipal();
 		allPlazas = plazaPropiaService.findAll();
+		candidatos = new ArrayList<PlazaPropia>();
 		plazaPropia = plazaPropiaService.findByPrincipal();
 
 		for (Iterator<PlazaPropia> iterator = allPlazas.iterator(); iterator.hasNext();) {
@@ -161,20 +164,34 @@ public class ZonaDeseadaService {
 		for (PlazaPropia p : allPlazas) {
 			for (ZonaDeseada z : principalZonas) {
 				if (distance(p.getLatitud(), z.getLatitud(), p.getLongitud(), z.getLongitud()) < z.getRadio()) {
+
 					// Si la distancia entre las coordenadas de la plaza y las
-					// coordenadas de la zona es
-					// menos que el radio, se considera que la plaza esta dentro
-					// de la zona deseada y se
-					// crea una coincidencia.
+					// coordenadas de la zona es menos que el radio, se
+					// considera que la plaza esta dentro de la zona deseada y
+					// se considera como candidato.
 
-					if (compruebaNoContiene(res, p)) {
+					candidatos.add(p);
+				}
+			}
+		}
+		for (PlazaPropia pc : candidatos) {
+
+			// Por cada plaza candidata se obtienen todas las zonas deseadas del
+			// dueño y se comprueba si la plaza del usuario logeado estan en su
+			// rango. Si es asi es que ha habido una coincidencia y se crea.
+
+			Collection<ZonaDeseada> zonasDelCandidato = zonaDeseadaRepository.findAllByUsuarioId(pc.getUsuarioId());
+			for (ZonaDeseada zc : zonasDelCandidato) {
+				if (distance(plazaPropia.getLatitud(), zc.getLatitud(), plazaPropia.getLongitud(),
+						zc.getLongitud()) < zc.getRadio()) {
+					if (compruebaNoContiene(res, pc)) {
 						Coincidencia c = new Coincidencia();
-						UserAccount userAccount = usuarioService.findOne(p.getUsuarioId());
+						UserAccount userAccount = usuarioService.findOne(pc.getUsuarioId());
 
-						c.setId(p.getId());
-						c.setIdUsuarioDestino(p.getUsuarioId());
+						c.setId(pc.getId());
+						c.setIdUsuarioDestino(pc.getUsuarioId());
 						c.setNombreUsuarioDestino(userAccount.getNombre() + " " + userAccount.getApellidos());
-						c.setTitulo(p.getTitulo());
+						c.setTitulo(pc.getTitulo());
 
 						res.add(c);
 					}
@@ -183,6 +200,9 @@ public class ZonaDeseadaService {
 		}
 		return res;
 	}
+
+	// Este método comprueba si ya hay una coincidencia relacionada con una
+	// plaza para que no haya coincidencias duplicadas.
 
 	public static boolean compruebaNoContiene(Collection<Coincidencia> c, PlazaPropia p) {
 		boolean res = true;

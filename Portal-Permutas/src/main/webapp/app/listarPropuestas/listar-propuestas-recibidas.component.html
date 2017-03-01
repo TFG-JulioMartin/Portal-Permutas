@@ -67,6 +67,7 @@
       [longitude]="lng"
       [zoom]="zoom"
       [disableDefaultUI]="false"
+      (centerChange)="changedCenter($event)"
       [zoomControl]="false">
     
       <sebm-google-map-marker 

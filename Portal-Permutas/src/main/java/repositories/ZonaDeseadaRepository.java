@@ -10,6 +10,6 @@ import domain.ZonaDeseada;
 @Repository
 public interface ZonaDeseadaRepository extends MongoRepository<ZonaDeseada, String> {
 
-	public Collection<ZonaDeseada> findByUsuarioId(String id);
+	public Collection<ZonaDeseada> findAllByUsuarioId(String usuarioId);
 
 }

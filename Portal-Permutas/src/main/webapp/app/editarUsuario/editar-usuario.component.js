@@ -21,6 +21,7 @@ var EditarUsuarioComponent = (function () {
         this.color = 'primary';
         this.mode = 'determinate';
         this.value = 50;
+        this.cambios = false;
         this.getUser();
     }
     EditarUsuarioComponent.prototype.getUser = function () {
@@ -32,8 +33,8 @@ var EditarUsuarioComponent = (function () {
         this.loading = true;
         this.userService.update(this.principal)
             .subscribe(function (data) {
-            _this.alertService.success('Registration successful', true);
-            _this.router.navigate(['/home']);
+            _this.loading = false;
+            _this.cambios = true;
         }, function (error) {
             _this.alertService.error(error);
             _this.loading = false;

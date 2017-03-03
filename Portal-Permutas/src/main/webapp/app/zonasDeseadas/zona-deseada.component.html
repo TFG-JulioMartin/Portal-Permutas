@@ -10,19 +10,19 @@
 	<md-toolbar>
 	 
 	<input type="text" id="your-search-bar" class="form-control" placeholder="Buscar direccion" 
-	[(ngModel)]="address" style="width:300px;display: inline-block;" (keydown)="keyDownFunction($event)">
-	<button md-icon-button (click)='search()' color="primary" style="display: inline-block;">
+	[(ngModel)]="address" (keydown)="keyDownFunction($event)">
+	<button md-icon-button (click)='search()' color="primary">
     	<md-icon class="md-24">search</md-icon>
     </button>
     
-    <span class="example-fill-remaining-space" style="flex: 1 1 auto;"></span>
+    <span class="example-fill-remaining-space"></span>
     
-    <button md-icon-button (click)="addCircle()" color="primary" style="margin-right: 10px;">
-        <md-icon class="md-48" style="font-size: 48px;margin-right: 10px;">add_circle</md-icon>
+    <button md-icon-button (click)="addCircle()" color="warn" style="margin-right: 10px;">
+        <md-icon class="md-48">add_circle</md-icon>
     </button>
     
-    <button md-icon-button (click)="save()" color="primary" style="margin-right: 10px;">
-        <md-icon class="md-48" style="font-size: 48px;margin-right: 10px;">save</md-icon>
+    <button md-icon-button [disabled]="circles.length == 0" (click)="save()" color="primary" style="margin-right: 10px;">
+        <md-icon class="md-48">save</md-icon>
     </button>
     
     </md-toolbar>

@@ -1,7 +1,7 @@
 <md-sidenav-container>
 
 	<md-card>
-		<md-card-title>Propuestas Recibidas</md-card-title>
+		<md-card-title>Propuestas Recibidass</md-card-title>
 		
 	<table class="table">
   	<thead class="thead-default">
@@ -30,8 +30,8 @@
                 	<button md-raised-button (click)='aceptar(propuesta.id)' color="primary">Aceptar</button>
                 	<button md-raised-button (click)='rechazar(propuesta.id)' color="warn">Rechazar</button>
                 </td>
-                <td><button md-raised-button (click)='goToZone(propuesta.latitudRemitente, propuesta.longitudRemitente)' color="primary">Ir</button></td>
                 <td *ngIf="!propuesta.estado == 0"></td>
+                <td><button md-raised-button (click)='goToZone(propuesta.latitudRemitente, propuesta.longitudRemitente)' color="primary">Ir</button></td>
                 <td><button md-raised-button (click)='getPlazaRemitente(propuesta.idPlazaRemitente, propuesta.texto)' color="primary">Detalles</button></td>     
         	</tr>
 		</tbody>

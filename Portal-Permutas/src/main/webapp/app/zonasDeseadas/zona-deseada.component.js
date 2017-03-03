@@ -126,7 +126,7 @@ var ZonaDeseadaComponent = (function () {
     ZonaDeseadaComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
+            styleUrls: ['zona-deseada.component.css'],
             templateUrl: 'zona-deseada.component.html'
         }), 
         __metadata('design:paramtypes', [index_1.ZonaDeseadaService, index_1.PlazaService, router_1.Router, index_1.GeocodingService, core_1.NgZone])

@@ -40,18 +40,24 @@
       	</button>
       </span>
       <span>Portal-Permutas</span> 
-   	  <span class="example-fill-remaining-space" style="flex: 1 1 auto;"></span>
+   	  <span class="example-fill-remaining-space"></span>
    	  
       <ng-container *ngIf="this.authenticationService.isLoggedIn()">   
       	<button md-icon-button (click)='goToEditarUsuario()'>
-      		<md-icon class="md-48">account_circle</md-icon>	
+      		<md-icon class="md-48">account_circle</md-icon>
       	</button>
-      	<span style="font-size:14px;font-family:Roboto;">{{this.authenticationService.getCurrentUser().username}}</span>
+      	<span class="username">{{this.authenticationService.getCurrentUser().username}}</span>
       	&nbsp;
+      	<ng-container *ngIf="this.authenticationService.getNumPR() > 0">
       	<button md-icon-button (click)='goToRecibidas()'>
-      		<md-icon class="md-24">notifications</md-icon>
+      		<md-icon class="md-24">notifications</md-icon><span class="badge">{{this.authenticationService.getNumPR()}}</span>
       	</button> 
-      	<span *ngIf="this.authenticationService.getNumPR() > 0" style="font-size:14px;font-family:Roboto;">({{this.authenticationService.getNumPR()}})</span>   	
+      	</ng-container>
+      	<ng-container *ngIf="this.authenticationService.getNumPR() == 0">
+      		<button md-icon-button (click)='goToRecibidas()'>
+      			<md-icon class="md-24">notifications_none</md-icon>
+      		</button>
+      	</ng-container>	
       	<button md-button (click)='logout()'>Cerrar sesion</button>   
       </ng-container>
       

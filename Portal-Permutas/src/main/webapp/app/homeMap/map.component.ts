@@ -1,18 +1,14 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router} from '@angular/router';
 
-import { PlazaService, AuthenticationService, GeocodingService } from './_services/index';
-import { PlazaPropia } from './listadoPlazas/plazaPropia';
+import { PlazaService, AuthenticationService, GeocodingService } from '../_services/index';
+import { PlazaPropia } from '../listadoPlazas/plazaPropia';
 
 
 @Component({
     moduleId: module.id,
     selector: 'g-map',
-    styles: [`
-    .sebm-google-map-container {
-       height: 600px;
-     }
-  `],
+    styleUrls: ['map.component.css'],
     templateUrl: 'map.component.html'
 })
 

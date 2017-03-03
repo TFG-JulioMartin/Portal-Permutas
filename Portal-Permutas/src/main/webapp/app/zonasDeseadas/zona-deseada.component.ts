@@ -8,11 +8,7 @@ import { GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
 
 @Component({
     moduleId: module.id,
-    styles: [`
-    .sebm-google-map-container {
-       height: 600px;
-     }
-  `],
+    styleUrls: ['zona-deseada.component.css'],
     templateUrl: 'zona-deseada.component.html'
 })
 

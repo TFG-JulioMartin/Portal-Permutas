@@ -20,8 +20,9 @@ export class EditarPlazaComponent {
     loading = false;
     plaza: PlazaPropia;
     color = 'primary';
-    mode = 'determinate';
-    value = 50;
+    mode = 'indeterminate';
+    value = 100;
+    cambios = false;
 
 
     constructor(private router: Router, private plazaService: PlazaService, private alertService: AlertService, private _wrapper: GoogleMapsAPIWrapper, private __loader: MapsAPILoader) {
@@ -65,8 +66,8 @@ export class EditarPlazaComponent {
                 this.plazaService.update(this.plaza)
                     .subscribe(
                     data => {
-                        this.alertService.success('Cambios realizados', true);
-                        this.router.navigate(['/']);
+                        this.loading = false;
+                        this.cambios = true;
                     },
                     error => {
                         this.alertService.error(error);

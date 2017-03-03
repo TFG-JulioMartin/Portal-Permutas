@@ -4,8 +4,8 @@
 	<md-toolbar>
 	
 	<input type="text" id="your-search-bar" class="form-control" placeholder="Buscar direccion" 
-	[(ngModel)]="address" style="width:300px;display: inline-block;" (keydown)="keyDownFunction($event)">
-	<button md-icon-button (click)='search()' color="primary" style="display: inline-block;">
+	[(ngModel)]="address" (keydown)="keyDownFunction($event)">
+	<button md-icon-button (click)='search()' color="primary">
       	<md-icon class="md-24">search</md-icon>
     </button>
     

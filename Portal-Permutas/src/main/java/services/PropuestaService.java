@@ -268,4 +268,16 @@ public class PropuestaService {
 
 		return res;
 	}
+
+	public int countRecibidas(Collection<PropuestaDTO> recibidas) {
+		int res = 0;
+
+		for (PropuestaDTO p : recibidas) {
+			if (p.getEstado() == 0) {
+				res++;
+			}
+		}
+		return res;
+	}
+
 }

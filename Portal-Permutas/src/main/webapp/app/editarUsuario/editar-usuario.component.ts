@@ -17,6 +17,7 @@ export class EditarUsuarioComponent {
     color = 'primary';
   	mode = 'determinate';
   	value = 50;
+  	cambios = false;
     
 
     constructor(private router: Router, private userService: UserService, private alertService: AlertService) { 
@@ -32,8 +33,8 @@ export class EditarUsuarioComponent {
         this.userService.update(this.principal)
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/home']);
+                	this.loading = false;
+                    this.cambios = true;
                 },
                 error => {
                     this.alertService.error(error);

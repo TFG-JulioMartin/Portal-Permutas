@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AppComponent } from './app.component';
-import { MapComponent } from './map.component';
+import { MapComponent } from './homeMap/map.component';
 import { PlazasListComponent } from './listadoPlazas/plazas-list.component';
 import { ZonaDeseadaComponent } from './zonasDeseadas/zona-deseada.component';
 import { EditarUsuarioComponent } from './editarUsuario/editar-usuario.component';

@@ -23,8 +23,9 @@ var EditarPlazaComponent = (function () {
         this.model = {};
         this.loading = false;
         this.color = 'primary';
-        this.mode = 'determinate';
-        this.value = 50;
+        this.mode = 'indeterminate';
+        this.value = 100;
+        this.cambios = false;
         __loader.load().then(function () {
             console.log('google script loaded');
         });
@@ -62,8 +63,8 @@ var EditarPlazaComponent = (function () {
             _this.plaza.longitud = data.lng();
             _this.plazaService.update(_this.plaza)
                 .subscribe(function (data) {
-                _this.alertService.success('Cambios realizados', true);
-                _this.router.navigate(['/']);
+                _this.loading = false;
+                _this.cambios = true;
             }, function (error) {
                 _this.alertService.error(error);
                 _this.loading = false;

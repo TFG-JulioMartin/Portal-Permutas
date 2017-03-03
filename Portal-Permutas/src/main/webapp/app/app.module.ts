@@ -6,8 +6,8 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { HelloUserComponent } from './hello-user.component';
-import { MapComponent } from './map.component';
+import { HelloUserComponent } from './helloUser/hello-user.component';
+import { MapComponent } from './homeMap/map.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';

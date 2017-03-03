@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var index_1 = require('./_services/index');
+var index_1 = require('../_services/index');
 var MapComponent = (function () {
     function MapComponent(plazaService, router, authenticationService, geocodingService, zone) {
         this.plazaService = plazaService;
@@ -94,7 +94,7 @@ var MapComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'g-map',
-            styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
+            styleUrls: ['map.component.css'],
             templateUrl: 'map.component.html'
         }), 
         __metadata('design:paramtypes', [index_1.PlazaService, router_1.Router, index_1.AuthenticationService, index_1.GeocodingService, core_1.NgZone])

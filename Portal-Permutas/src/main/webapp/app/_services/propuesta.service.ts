@@ -26,7 +26,7 @@ export class PropuestaService {
     }
     
     getPropuestasRecibidasN(){
-        return this.http.get('/Portal-Permutas/api/propuesta/recibidasN').map(this.extractData).publish().refCount();
+        return this.http.get('/Portal-Permutas/api/propuesta/recibidasN').map(res => res.json());
     }
     
     create(propuesta: Propuesta){

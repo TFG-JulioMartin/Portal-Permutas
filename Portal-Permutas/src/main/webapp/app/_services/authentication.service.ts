@@ -11,7 +11,7 @@ export class AuthenticationService {
 
     loggedIn: boolean = false;
     currentUser : User;
-    numPR : number;
+    numPR : number = 0;
 
     constructor(private http: Http, private propuestaService: PropuestaService) {
     }
@@ -42,6 +42,14 @@ export class AuthenticationService {
     
     getNumPR(){
         return this.numPR;
+    }
+    
+    reseteaContador(){
+        this.numPR= 0;
+    }
+
+    notificacionVista(){
+        this.numPR--;
     }
 
     isLoggedIn() {

@@ -17,6 +17,7 @@ var AuthenticationService = (function () {
         this.http = http;
         this.propuestaService = propuestaService;
         this.loggedIn = false;
+        this.numPR = 0;
     }
     AuthenticationService.prototype.login = function (username, password) {
         var _this = this;
@@ -41,6 +42,12 @@ var AuthenticationService = (function () {
     };
     AuthenticationService.prototype.getNumPR = function () {
         return this.numPR;
+    };
+    AuthenticationService.prototype.reseteaContador = function () {
+        this.numPR = 0;
+    };
+    AuthenticationService.prototype.notificacionVista = function () {
+        this.numPR--;
     };
     AuthenticationService.prototype.isLoggedIn = function () {
         return this.loggedIn;

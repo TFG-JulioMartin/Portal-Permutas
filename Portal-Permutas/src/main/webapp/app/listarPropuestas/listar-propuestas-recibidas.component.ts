@@ -5,7 +5,7 @@ import * as Rx from 'rxjs/Rx';
 
 import 'rxjs/add/operator/switchMap';
 
-import { PropuestaService, PlazaService } from '../_services/index';
+import { PropuestaService, PlazaService, AuthenticationService } from '../_services/index';
 import { Propuesta, PlazaPropia } from '../domain';
 
 
@@ -35,7 +35,7 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
     lng: number = -5.9965;   
     zoom: number = 13;
 
-    constructor(private propuestaService: PropuestaService, private router: Router, private plazaService: PlazaService) {
+    constructor(private propuestaService: PropuestaService, private router: Router, private plazaService: PlazaService, private authenticationService: AuthenticationService) {
     }
 
     ngOnInit() {
@@ -68,6 +68,7 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
             data => {
                 this.loading = false;
                 this.getPropuestasRecibidas();
+                this.authenticationService.reseteaContador();
             },
             error => {
                 this.loading = false;
@@ -81,6 +82,7 @@ export class ListarPropuestasRecibidasComponent implements OnInit {
             data => {
                 this.loading = false;
                 this.getPropuestasRecibidas();
+                this.authenticationService.notificacionVista();
             },
             error => {
                 this.loading = false;

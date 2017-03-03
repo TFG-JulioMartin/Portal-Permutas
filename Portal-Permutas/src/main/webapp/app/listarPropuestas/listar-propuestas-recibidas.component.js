@@ -13,10 +13,11 @@ var router_1 = require('@angular/router');
 require('rxjs/add/operator/switchMap');
 var index_1 = require('../_services/index');
 var ListarPropuestasRecibidasComponent = (function () {
-    function ListarPropuestasRecibidasComponent(propuestaService, router, plazaService) {
+    function ListarPropuestasRecibidasComponent(propuestaService, router, plazaService, authenticationService) {
         this.propuestaService = propuestaService;
         this.router = router;
         this.plazaService = plazaService;
+        this.authenticationService = authenticationService;
         this.loading = false;
         this.color = 'primary';
         this.mode = 'indeterminate';
@@ -53,6 +54,7 @@ var ListarPropuestasRecibidasComponent = (function () {
         this.propuestaService.aceptarPropuesta(id).subscribe(function (data) {
             _this.loading = false;
             _this.getPropuestasRecibidas();
+            _this.authenticationService.reseteaContador();
         }, function (error) {
             _this.loading = false;
             console.log(error);
@@ -64,6 +66,7 @@ var ListarPropuestasRecibidasComponent = (function () {
         this.propuestaService.rechazarPropuesta(id).subscribe(function (data) {
             _this.loading = false;
             _this.getPropuestasRecibidas();
+            _this.authenticationService.notificacionVista();
         }, function (error) {
             _this.loading = false;
             console.log(error);
@@ -82,7 +85,7 @@ var ListarPropuestasRecibidasComponent = (function () {
             styles: ["\n    .sebm-google-map-container {\n       height: 600px;\n     }\n  "],
             templateUrl: 'listar-propuestas-recibidas.component.html'
         }), 
-        __metadata('design:paramtypes', [index_1.PropuestaService, router_1.Router, index_1.PlazaService])
+        __metadata('design:paramtypes', [index_1.PropuestaService, router_1.Router, index_1.PlazaService, index_1.AuthenticationService])
     ], ListarPropuestasRecibidasComponent);
     return ListarPropuestasRecibidasComponent;
 }());

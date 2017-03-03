@@ -27,7 +27,7 @@ var AppComponent = (function () {
         ];
         this.LoggedNavItems = [
             { name: 'Home', route: '' },
-            { name: 'List', route: 'list' },
+            { name: 'Lista de plazas', route: 'list' },
             { name: 'Zonas Deseadas', route: 'zonas' },
             { name: 'Editar Perfil', route: 'editaUsuario' },
             { name: 'Editar Plaza', route: 'editaPlaza' },
@@ -58,6 +58,21 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.goToRecibidas = function () {
         this.router.navigate(['/propuestasRecibidas']);
+    };
+    AppComponent.prototype.toggleFullscreen = function () {
+        var elem = this._element.nativeElement.querySelector('.demo-content');
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        }
+        else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen();
+        }
+        else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        }
+        else if (elem.msRequestFullScreen) {
+            elem.msRequestFullScreen();
+        }
     };
     AppComponent = __decorate([
         core_1.Component({

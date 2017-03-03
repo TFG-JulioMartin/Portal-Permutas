@@ -82,7 +82,7 @@ public class PropuestaController {
 
 		Integer res;
 
-		res = propuestaService.findAllPropuestasRecibidasDTO().size();
+		res = propuestaService.countRecibidas(propuestaService.findAllPropuestasRecibidasDTO());
 
 		return new ResponseEntity<Integer>(res, HttpStatus.OK);
 	}
